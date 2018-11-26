@@ -1,6 +1,6 @@
 {
   "name": "calypso",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Calypso (WatsonC JavaScript frontend)",
   "main": "index.js",
   "scripts": {},
@@ -18,7 +18,7 @@
     "odeumcode"
   ],
   "author": "WebHouse ApS",
-  "license": "",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/odeum/calypso/issues"
   },
