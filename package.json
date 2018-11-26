@@ -1,12 +1,12 @@
 {
-  "name": "calyspo",
-  "version": "0.0.3",
+  "name": "calypso",
+  "version": "0.0.4",
   "description": "Calypso (WatsonC JavaScript frontend)",
   "main": "index.js",
   "scripts": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/odeum/calyspo.git"
+    "url": "git+https://github.com/odeum/calypso.git"
   },
   "keywords": [
     "Calypso",
@@ -20,7 +20,7 @@
   "author": "WebHouse ApS",
   "license": "",
   "bugs": {
-    "url": "https://github.com/odeum/calyspo/issues"
+    "url": "https://github.com/odeum/calypso/issues"
   },
-  "homepage": "https://github.com/odeum/calyspo#readme"
+  "homepage": "https://github.com/odeum/calypso#readme"
 }
