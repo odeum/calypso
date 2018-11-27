@@ -1,4 +1,4 @@
-import { AppBar, Button, Hidden, IconButton, Toolbar, withStyles } from '@material-ui/core';
+import { AppBar, Button, Hidden, IconButton, Toolbar, withStyles, Fab } from '@material-ui/core';
 import { KeyboardArrowLeft, Menu } from '@material-ui/icons';
 import headerStyle from 'assets/jss/material-dashboard-react/headerStyle.js';
 import cx from 'classnames';
@@ -18,9 +18,9 @@ function Header({ ...props }) {
 		<AppBar color={'inherit'} className={classes.appBar + appBarClasses}>
 			<Toolbar className={classes.container}>
 				<div className={classes.flex}>
-					{goBackButton && <Button onClick={gbbFunc} variant={'fab'} className={classes.goBackButton}>
+					{goBackButton && <Fab onClick={gbbFunc} variant={'fab'} className={classes.goBackButton}>
 						<KeyboardArrowLeft width={40} height={40} />
-					</Button>}
+					</Fab>}
 					<Button className={classes.title}>
 						{props.headerTitle ? t(props.headerTitle.id, props.headerTitle.options) ? t(props.headerTitle.id, props.headerTitle.options) : props.headerTitle.id : ''}
 					</Button>

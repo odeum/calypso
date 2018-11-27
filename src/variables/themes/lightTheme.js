@@ -8,6 +8,11 @@ const theme = createMuiTheme({
 		suppressDeprecationWarnings: true,
 	},
 	overrides: {
+		MuiTabs: {
+			indicator: {
+				backgroundColor: "#6FCEBA"
+			}
+		},
 		MuiAppBar: {
 			root: {
 				backgroundColor: "#f5f5f5",

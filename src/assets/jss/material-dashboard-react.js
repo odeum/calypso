@@ -63,8 +63,8 @@ const defaultFont = {
 	lineHeight: "1.5em"
 };
 
-const primaryColor = "#278881";
-const hoverColor = "#37a891";
+const primaryColor = "#10ae8c";
+const hoverColor = "#6FCEBA";
 const secondaryColor = "#4db6ac";
 const headerColor = "#fff"
 const warningColor = "#ff9800";
@@ -99,7 +99,7 @@ const dangerBoxShadow = {
 };
 const sentiCardHeader = {
 	// background: "linear-gradient(60deg, #ffa726, #fb8c00)",
-	background: "linear-gradient(60deg, #37a891, #278881)",
+	background: "linear-gradient(60deg, #66bb6a, #43a047)",
 	...primaryBoxShadow
 };
 const orangeCardHeader = {

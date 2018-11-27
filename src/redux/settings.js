@@ -29,16 +29,8 @@ export const saveSettingsOnServ = () => {
 		let user = getState().settings.user
 		let s = getState().settings
 		let settings = {
-			calibration: s.calibration,
-			calNotifications: s.calNotifications,
-			count: s.count,
-			chartType: s.chartType,
-			discSentiVal: s.discSentiVal,
-			sideBar: s.sideBar,
 			theme: s.theme,
 			trp: s.trp,
-			alerts: s.alerts,
-			didKnow: s.didKnow,
 		}
 		user.aux = user.aux ? user.aux : {}
 		user.aux.senti = user.aux.senti ? user.aux.senti : {}
@@ -246,23 +238,21 @@ export const settings = (state = initialState, action) => {
 
 		case SAVED:
 			return Object.assign({}, state, { saved: action.saved })
-		case DISCSENT:
-			return Object.assign({}, state, { discSentiVal: action.val })
 		case NOSETTINGS:
-			{
-				return Object.assign({}, state, { ...action.settings, loading: false, user: action.user })
-			}
+		{
+			return Object.assign({}, state, { ...action.settings, loading: false, user: action.user })
+		}
 		case GETSETTINGS:
-			{
-				return Object.assign({}, state, { ...action.settings, user: action.user, loading: false })
-			}
+		{
+			return Object.assign({}, state, { ...action.settings, user: action.user, loading: false })
+		}
 		case changeLangAction:
-			{
-				moment.locale(action.code)
-				return Object.assign({}, state, {
-					language: action.code,
-				})
-			}
+		{
+			moment.locale(action.code)
+			return Object.assign({}, state, {
+				language: action.code,
+			})
+		}
 		case SAVESETTINGS:
 			return Object.assign({}, state, {
 				saved: action.saved
@@ -278,30 +268,6 @@ export const settings = (state = initialState, action) => {
 		case MENULOC:
 			return Object.assign({}, state, {
 				sideBar: action.loc
-			})
-		case CALTYPE:
-			return Object.assign({}, state, {
-				calibration: action.t
-			})
-		case COUNT:
-			return Object.assign({}, state, {
-				count: action.count
-			})
-		case CALNOTIF:
-			return Object.assign({}, state, {
-				calNotifications: action.t
-			})
-		case ALERTS:
-			return Object.assign({}, state, {
-				alerts: action.t
-			})
-		case DIDKNOW:
-			return Object.assign({}, state, {
-				didKnow: action.t
-			})
-		case CHARTTYPE:
-			return Object.assign({}, state, {
-				chartType: action.t
 			})
 		default:
 			return state

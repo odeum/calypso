@@ -13,14 +13,19 @@ import {
 } from "assets/jss/material-dashboard-react.js";
 
 const sidebarStyle = theme => ({
+	bar: {
+		minHeight: 48,
+		background: primaryColor,
+	},
 	drawerPaper: {
+		backgroundColor: theme.palette.type === 'dark' ? '' : "#f5f5f5",
 		border: "none",
 		position: "fixed",
 		top: "0",
 		bottom: "0",
 		left: "0",
 		zIndex: "1",
-		...boxShadow,
+		// ...boxShadow,
 		width: drawerWidth,
 		[theme.breakpoints.up("lg")]: {
 			width: drawerWidth,
@@ -48,12 +53,12 @@ const sidebarStyle = theme => ({
 		}
 	},
 	logo: {
-		backgroundColor: '#eee',
 		position: "relative",
 		padding: "15px 15px",
 		minHeight: "40px",
 		zIndex: "4",
 		display: 'flex',
+		justifyContent: 'center',
 		"&:after": {
 			content: '""',
 			position: "absolute",
@@ -66,10 +71,12 @@ const sidebarStyle = theme => ({
 		}
 	},
 	logoLink: {
+		display: "flex",
+		justifyContent: "center",
 		...defaultFont,
 		textTransform: "uppercase",
 		padding: "5px 0",
-		display: "block",
+		// display: "block",
 		fontSize: "18px",
 		textAlign: "left",
 		fontWeight: "400",
@@ -77,12 +84,12 @@ const sidebarStyle = theme => ({
 		textDecoration: "none",
 		backgroundColor: "transparent",
 		"&,&:hover": {
-			color: "#FFFFFF"
+			color: hoverColor
 		}
 	},
 	logoImage: {
 		// width: "50px",
-		display: "inline-block",
+		// display: "inline-block",
 		maxHeight: "50px",
 		marginLeft: "50px",
 		[theme.breakpoints.down("md")]: {
@@ -150,27 +157,25 @@ const sidebarStyle = theme => ({
 		marginRight: "15px",
 		textAlign: "center",
 		verticalAlign: "middle",
-		color: "rgba(255, 255, 255, 0.8)"
+		color: primaryColor
 	},
 	itemText: {
 		...defaultFont,
 		margin: "0",
 		lineHeight: "30px",
 		fontSize: "14px",
-		color: "#FFFFFF"
 	},
 	whiteFont: {
-		color: "#FFFFFF"
+		color: "#fff"
 	},
-
 	senti: {
 		backgroundColor: primaryColor,
 		boxShadow:
-			"0 12px 20px -10px rgba(55, 168, 145, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(55, 168, 145, 0.28)",
+				"0 12px 20px -10px rgba(55, 168, 145, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(55, 168, 145, 0.28)",
 		"&:hover": {
 			backgroundColor: hoverColor,
 			boxShadow:
-				"0 12px 20px -10px rgba(55, 168, 145, 0.4), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(55, 168, 145, 0.4)"
+					"0 12px 20px -10px rgba(55, 168, 145, 0.4), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(55, 168, 145, 0.4)"
 		}
 	},
 	sidebarWrapper: {
@@ -181,12 +186,12 @@ const sidebarStyle = theme => ({
 		width: "260px",
 		zIndex: "4",
 		overflowScrolling: 'touch',
-		backgroundColor: "#434351"
+		// backgroundColor: "#eee"
 		// "#767684"
 	},
 	appBarWrapper: {
-		backgroundColor: "#767684"	
+		backgroundColor: primaryColor
 	}
-});
+})
 
 export default sidebarStyle;

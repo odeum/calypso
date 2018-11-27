@@ -82,9 +82,6 @@ class Toolbar extends PureComponent {
 							id={t.id}
 							key={i}
 							smooth
-							classes={{
-								root: classes.tab
-							}}
 							label={t.label}
 							to={`${t.url}`} />
 					}) : null}

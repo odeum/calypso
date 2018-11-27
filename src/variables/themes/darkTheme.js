@@ -8,6 +8,14 @@ const theme = createMuiTheme({
 		suppressDeprecationWarnings: true,
 	},
 	overrides: {
+		MuiAvatar: {
+
+		},
+		MuiTabs: {
+			indicator: {
+				backgroundColor: "#6FCEBA"
+			}
+		},
 		MuiAppBar: {
 			root: {
 				backgroundColor: "#424242",
@@ -53,7 +61,7 @@ const theme = createMuiTheme({
 					borderBottom: '2px solid #4db6ac' /* + primaryColor */,
 				},
 				'&:after': {
-					borderBottomColor: teal[500],
+					borderBottomColor: primaryColor,
 				},
 			}
 

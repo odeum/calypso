@@ -60,9 +60,9 @@ const Sidebar = ({ ...props }) => {
 	var brand = (
 		<div className={classes.logo}>
 			<Link to={'/'} className={classes.logoLink}>
-				<div className={classes.logoImage}>
-					<img src={logo} alt='logo' className={classes.img} />
-				</div>
+				{/* <div className={classes.logoImage}> */}
+				<img src={logo} alt='logo' className={classes.img} />
+				{/* </div> */}
 				{logoText}
 			</Link>
 		</div>
@@ -70,9 +70,9 @@ const Sidebar = ({ ...props }) => {
 	var smallBrand = (
 		<div className={classes.logo}>
 			<Link to={'/'} onClick={props.handleDrawerToggle} className={classes.logoLink}>
-				<div className={classes.logoImage}>
-					<img src={logo} alt='logo' className={classes.img}/>
-				</div>
+				{/* <div className={classes.logoImage}> */}
+				<img src={logo} alt='logo' className={classes.img}/>
+				{/* </div> */}
 			</Link>
 		</div>
 	)

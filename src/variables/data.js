@@ -6,12 +6,12 @@ let backendHost;
 
 const hostname = window && window.location && window.location.hostname;
 
-if (hostname === 'console.senti.cloud') {
-	backendHost = 'https://senti.cloud/rest/';
-} else if (hostname === 'beta.senti.cloud') {
-	backendHost = 'https://betabackend.senti.cloud/rest/';
+if (hostname === 'calypso.odeum.com') {
+	backendHost = 'https://calypso.odeum.com/rest/';
+} else if (hostname === 'calypso.odeum.com') {
+	backendHost = 'https://calypso.odeum.com/rest/';
 } else {
-	backendHost = 'https://betabackend.senti.cloud/rest/';
+	backendHost = 'https://calypso.odeum.com/rest/';
 }
 export const loginApi = create({
 	baseURL: backendHost,

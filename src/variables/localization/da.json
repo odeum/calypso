@@ -235,9 +235,9 @@
             "userName": "Brugernavn"
         },
         "groups": {
-            "136550100000143": "Superbruger",
-            "136550100000211": "Kontoansvarlig",
-            "136550100000225": "Bruger",
+            "137180100000023": "Superbruger",
+            "137180100000026": "Kontoansvarlig",
+            "137180100000025": "Bruger",
             "accountManager": "Kontoansvarlig",
             "superUser": "Superbruger",
             "user": "Bruger"

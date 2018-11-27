@@ -4,8 +4,7 @@ import projectStyles from 'assets/jss/views/projects';
 import UserTable from 'components/User/UserTable';
 import CircularLoader from 'components/Loader/CircularLoader';
 import GridContainer from 'components/Grid/GridContainer';
-import { /* getAllUsers, */ deleteUser } from 'variables/dataUsers';
-// import Toolbar from 'components/Toolbar/Toolbar'
+import { deleteUser } from 'variables/dataUsers';
 import { People, Business } from 'variables/icons';
 import { filterItems, handleRequestSort } from 'variables/functions';
 

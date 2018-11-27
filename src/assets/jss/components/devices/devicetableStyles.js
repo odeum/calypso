@@ -1,5 +1,5 @@
 
-import { red, green, yellow, grey } from '@material-ui/core/colors'
+import { red, green, yellow } from '@material-ui/core/colors'
 import { primaryColor } from 'assets/jss/material-dashboard-react'
 const devicetableStyles = theme => ({
 	orgUsersTD: {
@@ -63,7 +63,7 @@ const devicetableStyles = theme => ({
 		color: yellow[600]
 	},
 	headerCell: {
-		color: "inherit",
+		color: "#f5f5f5",
 	},
 	paragraphCell: {
 		margin: 0,
@@ -84,11 +84,21 @@ const devicetableStyles = theme => ({
 	},
 	header: {
 		padding: 0,
-		backgroundColor: grey[400],
+		backgroundColor: primaryColor,
+		color: '#f5f5f5'
 		// color: grey[200]
 	},
+	headerCheckbox: {
+		color: 'rgba(255, 255, 255, 0.7)',
+		'&$checked': {
+			color: '#fff'
+		},
+		'&:hover': {
+			color: "#fff"
+		}
+	},
 	checkbox: {
-		color: grey[800],
+		// color: grey[800],
 		'&$checked': {
 			color: primaryColor
 		},
@@ -99,23 +109,25 @@ const devicetableStyles = theme => ({
 	},
 	HeaderLabelActive: {
 		width: "100%",
-		color: grey[800],
+		color: 'rgba(255, 255, 255, 0.7)',
 		"&:hover": {
-			color: "black"
+			color: '#f5f5f5'
 		},
 		"&:focus": {
-			color: grey[900]
+			color: '#f5f5f5'
+
+			// color: grey[900]
 		}
 	},
 	tableCell: {
-		/* 		padding: 4,
+		// padding: 4,
 		fontSize: '0.875rem',
 		// maxWidth: 250,
-		width: 200,
+		// width: 200,
 		"&:last-child": {
 			paddingRight: 4
-		}, */
-		borderTop: "1px solid rgba(224, 224, 224, 1)",
+		},
+		// borderTop: "1px solid rgba(224, 224, 224, 1)",
 
 	},
 	tablecellcheckbox: {
@@ -126,7 +138,7 @@ const devicetableStyles = theme => ({
 			width: '45px'
 		},
 		fontSize: '0.875rem',
-		borderTop: "1px solid rgba(224, 224, 224, 1)",
+		// borderTop: "1px solid rgba(224, 224, 224, 1)",
 		/*padding: 0, */
 		width: '50px', 
 	},

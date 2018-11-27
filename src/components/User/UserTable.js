@@ -1,7 +1,7 @@
 import {
 	Checkbox, Hidden, Paper, Table, TableBody, TableCell,
 	TableRow, withStyles, DialogTitle, Dialog, DialogContent,
-	DialogContentText, DialogActions, Button, Typography, IconButton,
+	DialogContentText, DialogActions, Button, IconButton,
 } from '@material-ui/core'
 import TC from 'components/Table/TC'
 import { Delete, Edit, PictureAsPdf, Add, StarBorder, Star } from 'variables/icons'
@@ -246,7 +246,7 @@ class UserTable extends React.Component {
 							customColumn={[ {
 								id: 'avatar', label: <div style={{ width: 40 }}/>
 							}, {
-								id: 'firstName', label: <Typography variant={'body1'}>Users</Typography>
+								id: 'firstName', label: 'Users'
 							}]}
 						/>
 						<TableBody>

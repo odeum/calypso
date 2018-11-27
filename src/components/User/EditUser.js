@@ -35,8 +35,8 @@ class EditUser extends Component {
 					name: 'Ingen organisation'
 				},
 				groups: {
-					'136550100000225': {
-						id: 136550100000225,
+					'137180100000025': {
+						id: 137180100000025,
 						name: 'Senti User'
 					}
 				}
@@ -65,12 +65,12 @@ class EditUser extends Component {
 			let g = 0
 			let userGroups = Object.keys(user.groups)
 			userGroups.sort((a, b) => a > b ? 1 : -1)
-			if (userGroups.find(x => x === '136550100000211'))
-				g = '136550100000211'
-			if (userGroups.find(x => x === '136550100000225'))
-				g = '136550100000225'
-			if (userGroups.find(x => x === '136550100000143'))
-				g = '136550100000143'
+			if (userGroups.find(x => x === '137180100000026'))
+				g = '137180100000026'
+			if (userGroups.find(x => x === '137180100000025'))
+				g = '137180100000025'
+			if (userGroups.find(x => x === '137180100000023'))
+				g = '137180100000023'
 
 			this.setState({
 				selectedGroup: g,
@@ -269,14 +269,14 @@ class EditUser extends Component {
 		const { accessLevel, t } = this.props
 		return [
 			{
-				id: '136550100000211',
+				id: '137180100000026',
 				appId: '1220',
 				name: t('users.groups.accountManager'),
 				show: accessLevel.apiorg.editusers ? true : false
 				// description: ''
 			},
 			{
-				id: '136550100000143',
+				id: '137180100000023',
 				appId: '1220',
 				name: t('users.groups.superUser'),
 				// description: 'Senti Cloud group containing Super Users',
@@ -284,7 +284,7 @@ class EditUser extends Component {
 
 			},
 			{
-				id: '136550100000225',
+				id: '137180100000025',
 				appId: '1220',
 				name: t('users.groups.user'),
 				show: true

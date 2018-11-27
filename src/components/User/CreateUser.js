@@ -34,8 +34,8 @@ class CreateUser extends Component {
 					name: 'Ingen organisation'
 				},
 				groups: {
-					136550100000225: {
-						id: 136550100000225,
+					137180100000025: {
+						id: 137180100000025,
 						name: 'User'
 					} 
 				}
@@ -44,7 +44,7 @@ class CreateUser extends Component {
 			creating: false,
 			created: false,
 			loading: true,
-			selectedGroup: 136550100000225,
+			selectedGroup: 137180100000025,
 		}
 	}
     componentDidMount = async () => {
@@ -245,21 +245,21 @@ class CreateUser extends Component {
     	const { error, selectedGroup } = this.state
     	let groups = [
     		{
-    			id: 136550100000211,
+    			id: 137180100000026,
     			appId: 1220,
     			name: t('users.groups.accountManager'),
     			show: accessLevel.apiorg.editusers ? true : false
     			// description: ''
     		},
     		{
-    			id: 136550100000143,
+    			id: 137180100000023,
     			appId: 1220,
     			name: t('users.groups.superUser'),
     			show: accessLevel.apisuperuser ? true : false
 
     		},
     		{
-    			id: 136550100000225,
+    			id: 137180100000025,
     			appId: 1220,
     			name: t('users.groups.user'),
     			show: true

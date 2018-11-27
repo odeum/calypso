@@ -15,12 +15,12 @@ class UserContact extends Component {
 
 	renderUserGroup = () => {
 		const { t, user } = this.props
-		if (user.groups[136550100000143])
-			return t('users.groups.136550100000143')
-		if (user.groups[136550100000211])
-			return t('users.groups.136550100000211')
-		if (user.groups[136550100000225])
-			return t('users.groups.136550100000225')
+		if (user.groups[137180100000023])
+			return t('users.groups.137180100000023')
+		if (user.groups[137180100000026])
+			return t('users.groups.137180100000026')
+		if (user.groups[137180100000025])
+			return t('users.groups.137180100000025')
 	}
 	renderTopActionPriv = () => {
 		const { loggedUser, user } = this.props

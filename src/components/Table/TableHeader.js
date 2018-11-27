@@ -18,7 +18,8 @@ class EnhancedTableHead extends Component {
 							checked={numSelected === rowCount && numSelected > 0}
 							disabled={rowCount === 0}
 							onChange={onSelectAllClick}
-							className={classes.checkbox}
+							className={classes.headerCheckbox}
+							color={'default'}
 						/>
 					</TableCell>
 					<Hidden mdDown>
@@ -69,6 +70,7 @@ class EnhancedTableHead extends Component {
 									</TableSortLabel>
 								</TableCell>
 							}) : customColumn ? customColumn.map(c => {
+								console.log(c)
 								return <TableCell
 									key={c.id}
 									padding={c.checkbox ? 'checkbox' : 'default'}
@@ -83,6 +85,7 @@ class EnhancedTableHead extends Component {
 												[classes.hideIcon]: !(orderBy === c.id) ? true : false
 											})
 										}}>
+										{c.label}
 									</TableSortLabel>
 								</TableCell>
 							}) : null
