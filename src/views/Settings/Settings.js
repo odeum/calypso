@@ -2,13 +2,10 @@ import React, { Component, Fragment } from 'react'
 // import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { GridContainer, ItemGrid } from 'components';
-// import { changeLang } from 'redux/settings';
-// import { Button, Icon } from '@material-ui/core';
-import CalibrationSettings from './SettingsCards/CalibrationSettings';
 import DisplaySettings from './SettingsCards/DisplaySettings';
 import { changeLanguage } from 'redux/localization';
 import withLocalization from 'components/Localization/T';
-import { changeTRP, changeTheme, changeChartType, changeCalType, changeSideBarLoc, changeCount, changeCalNotif, changeDiscoverSenti, changeAlerts, changeDidKnow, saveSettingsOnServ, finishedSaving } from 'redux/settings';
+import { changeTRP, changeTheme, changeChartType, changeSideBarLoc, changeDiscoverSenti, changeAlerts, changeDidKnow, saveSettingsOnServ, finishedSaving } from 'redux/settings';
 import NotificationSettings from './SettingsCards/NotificationSettings';
 // import DeviceSettings from './SettingsCards/DeviceSettings';
 import ChartSettings from './SettingsCards/ChartSettings';
@@ -34,7 +31,7 @@ class Settings extends Component {
 		{ id: 3, title: '', label: <BarChart />, url: `#charts` },
 		// { id: 4, title: '', label: <Devices />, url: `#devices` }
 	]
-	componentDidUpdate = (prevProps, prevState) => {
+	componentDidUpdate = () => {
 		if (this.props.saved === true) {
 			this.props.s('snackbars.settingsSaved')
 			this.props.finishedSaving()
@@ -44,7 +41,6 @@ class Settings extends Component {
 	render() {
 		const { t } = this.props
 		const { language, sideBar, changeSideBarLoc, trp, changeTRP, theme, changeTheme, changeDiscoverSenti, discSentiVal, changeLanguage, changeChartType } = this.props
-		const { calibration, changeCalType, count, changeCount, calNotifications, changeCalNotif } = this.props
 		const { alerts, didKnow, changeAlerts, changeDidKnow, chartType } = this.props
 		return (
 			<Fragment>
@@ -71,14 +67,14 @@ class Settings extends Component {
 						/>
 					</ItemGrid>
 					<ItemGrid xs={12} noMargin id={'calibration'}>
-						<CalibrationSettings
+						{/* <CalibrationSettings
 							calibration={calibration}
 							changeCalType={changeCalType}
 							count={count}
 							changeCount={changeCount}
 							calNotifications={calNotifications}
 							changeCalNotif={changeCalNotif}
-							t={t} />
+							t={t} /> */}
 					</ItemGrid>
 					<ItemGrid xs={12} noMargin id={'notifications'}>
 						<NotificationSettings
@@ -138,9 +134,9 @@ const mapDispatchToProps = (dispatch) => {
 		changeTheme: t => dispatch(changeTheme(t)),
 		changeSideBarLoc: loc => dispatch(changeSideBarLoc(loc)),
 
-		changeCalType: type => dispatch(changeCalType(type)),
-		changeCount: count => dispatch(changeCount(count)),
-		changeCalNotif: type => dispatch(changeCalNotif(type)),
+		// changeCalType: type => dispatch(changeCalType(type)),
+		// changeCount: count => dispatch(changeCount(count)),
+		// changeCalNotif: type => dispatch(changeCalNotif(type)),
 
 		changeAlerts: t => dispatch(changeAlerts(t)),
 		changeDidKnow: t => dispatch(changeDidKnow(t)),

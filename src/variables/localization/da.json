@@ -1,0 +1,264 @@
+{
+    "404": {
+        "errorMessage": "Den ønskede ressource er ikke fundet! Prøv igen eller kontakt support!",
+        "networkError": "Netværksfejl!",
+        "title": "404 fejl - Siden ikke fundet"
+    },
+    "": "",
+    "actions": {
+        "apply": "Anvend",
+        "back": "Forrige",
+        "cancel": "Anuller",
+        "changePassword": "Skift kodeord",
+        "decline": "Afvis",
+        "deletePicture": "Slet dette billede",
+        "finish": "Luk",
+        "forgotPass": "Glemt kodeord?",
+        "goTo": "Går til",
+        "goToLogin": "Gå til log ind",
+        "learnMore": "Lær mere",
+        "login": "Log på",
+        "next": "Næste",
+        "nextPage": "Næste side",
+        "no": "Nej",
+        "previousPage": "Forrige side",
+        "requestPasswordReset": "Nulstil kodeord",
+        "reset": "Nulstil",
+        "save": "Gem",
+        "start": "Start",
+        "startNow": "Start nu",
+        "yes": "Ja"
+    },
+    "confirmUser": {
+        "button": "Bekræft og log ind",
+        "lastStep": "Indtast et kodeord for at bekræfte oprettelsen af din konto.",
+        "networkError": "Netværksfejl!",
+        "password": "Kodeord",
+        "passwordConfirm": "Bekræft kodeord",
+        "validation": {
+            "emailDoesntExist": "Den indtastede E-mail er ikke tilknyttet en eksisterende konto!",
+            "passwordEmpty": "Kodeord må ikke være blankt!",
+            "passwordMismatch": "De indtastede kodeord er ikke ens!",
+            "passwordUnder8": "Kodeord skal være på mindst 8 tegn!",
+            "userDoesntExistAnymore": "Brugeren eksisterer ikke længere, eller adgangen er udløbet!"
+        },
+        "welcomeMessage": "Velkommen til Senti.Cloud!"
+    },
+    "dialogs": {
+        "delete": {
+            "message": {
+                "org": "Er du sikker på du ønsker at slette denne organisation ( %{org} )?",
+                "orgs": "Er du sikker på du ønsker at slette disse organisationer:",
+                "user": "Er du sikker på du ønsker at slette denne bruger?",
+                "users": "Er du sikker på du ønsker at slette disse brugere:"
+            },
+            "title": {
+                "org": "Slet organisation?",
+                "orgs": "Slet organisationer?",
+                "user": "Slet bruger?",
+                "users": "Slet brugere?"
+            }
+        },
+        "login": {
+            "resetPassRequestMessage": "En E-mail er er blevet sendt med instruktioner for hvordan du nulstiller dit kodeord!",
+            "resetPasswordMessage": "Nulstil dit kodeord ved at indtaste din E-mail adresse"
+        }
+    },
+    "favorites": {
+        "fields": {
+            "name": "Navn",
+            "type": "Type"
+        },
+        "types": {
+            "org": "Organisation",
+            "user": "Bruger"
+        }
+    },
+    "filters": {
+        "dateOptions": {
+            "30days": "Seneste 30 dage",
+            "7days": "Seneste 7 dage",
+            "90days": "Seneste 90 dage",
+            "custom": "Tilpasset interval",
+            "daily": "Hver dag",
+            "hourly": "Hver time",
+            "minutely": "Hver minut",
+            "summary": "Resumé",
+            "thisWeek": "Denne uge",
+            "today": "I dag",
+            "yesterday": "I går"
+        },
+        "endDate": "Slutdato",
+        "search": "Søg",
+        "startDate": "Startdato"
+    },
+    "links": {
+        "mailTo": "Send E-mail til",
+        "phoneTo": "Ring til"
+    },
+    "login": {
+        "pass": "Kodeord",
+        "username": "Brugernavn"
+    },
+    "menus": {
+        "changePassword": "Skift kodeord",
+        "create": {
+            "user": "Opret bruger"
+        },
+        "delete": "Slet",
+        "edit": "Rediger",
+        "exportPDF": "Print som PDF",
+        "favorites": {
+            "add": "Tilføj til favoritter",
+            "remove": "Fjern fra favoritter"
+		},
+        "hideMore": "Skjul",
+        "more": "Mere",
+        "seeLess": "Se mindre",
+        "seeMore": "Se mere",
+        "showMore": "Vis mere",
+        "user": {
+            "account": "Min konto",
+            "profile": "Min profil",
+            "signout": "Log ud"
+        },
+        "userResendEmail": "Send bekræft e-mail igen"
+    },
+    "orgs": {
+        "create": "Opret",
+        "createOrg": "Opret organisation",
+        "fields": {
+            "CVR": "CVR nummer",
+            "EAN": "EAN nummer",
+            "address": "Adresse",
+            "city": "By",
+            "country": "Land",
+            "name": "Organisationsnavn",
+            "org": "Organisation",
+            "parentOrg": "Organisatorisk tilhørsforhold",
+            "region": "Region",
+            "topLevelOrg": "Uden tilhørsforhold",
+            "url": "Website",
+            "zip": "Postnummer"
+        },
+        "organisation": "Organisation",
+        "pageTitle": "Organisationer",
+        "updateOrg": "Rediger Organisation",
+        "validation": {
+            "networkError": "Netværksfejl!",
+            "noAddress": "Mangler adresse",
+            "noCity": "Mangler by",
+            "noCountry": "Mangler land",
+            "noName": "Mangler navn",
+            "noParent": "Mangler organisatorisk tilhørsforhold",
+            "noZip": "Mangler postnummer"
+        }
+    },
+    "settings": {
+        "alerts": "Alarmeringer",
+        "headers": {
+            "display": "Skærm",
+            "notifications": "Notifikationer"
+        },
+        "language": "Sprog",
+        "languages": {
+            "da": "Dansk",
+            "en": "Engelsk"
+        },
+        "pageTitle": "Instillinger",
+        "sideBarLeft": "Venstre",
+        "sideBarLoc": "Placering af menu",
+        "sideBarRight": "Højre",
+        "theme": "Tema",
+        "themes": {
+            "dark": "Mørkt",
+            "light": "Lyst"
+        },
+        "trp": "Rækker per side i lister"
+    },
+    "sidebar": {
+        "dashboard": "Dashboard",
+        "favorites": "Favoritter",
+        "settings": "Indstillinger",
+        "users": "Brugere"
+    },
+    "snackbars": {
+        "createdFail": "Oprettelse fejlede!",
+        "createdSuccess": "Oprettet!",
+        "creating": "Opretter ...",
+        "deletedFail": "Sletning fejlede!",
+        "deletedSuccess": "Slettet!",
+        "favorite": {
+            "manyRemoved": "Favoritter er blevet fjernet!",
+            "removed": "%{name} (%{type}) er blevet fjernet fra favoritter!",
+            "saved": "%{name} (%{type}) er blevet tilføjet til favoritter!",
+            "updated": "Favoritter er blevet opdateret!"
+        },
+        "orgCreated": "Organisation %{org} er  oprettet!",
+        "orgDeleted": "Organisation er slettet!",
+        "orgUpdated": "Organisation %{org} er opdateret!",
+        "settingsSaved": "Indstillinger gemt!",
+        "updatedSuccess": "Opdateret!",
+        "userCreated": "Bruger %{user} er opretted!",
+        "userDeleted": "Bruger %{user} er sletted!",
+        "userPasswordChanged": "Kodeord er skiftet!",
+        "userUpdated": "Bruger %{user} er opdateret!"
+    },
+    "tables": {
+        "filter": "Filter",
+        "rowsPerPage": "Rækker pr. side",
+        "selected": "valgt"
+    },
+    "users": {
+        "editUser": "Opdater bruger",
+        "fields": {
+            "accessLevel": "Adgangsniveau",
+            "active": "Aktiv",
+            "confirmPass": "Bekræft nyt kodeord",
+            "created": "Opdateret",
+            "currentPass": "Nuværende kodeord",
+            "email": "E-mail",
+            "firstName": "Fornavn",
+            "group": "Gruppe",
+            "language": "System sprog",
+            "lastName": "Efternavn",
+            "lastSignIn": "Seneste login",
+            "loginSuspended": "Login suspendederet",
+            "name": "Navn",
+            "neverLoggedIn": "Aldrig logget ind",
+            "newPass": "Nyt kodeord",
+            "noOrg": "Uden Organisation",
+            "organisation": "Organisation",
+            "phone": "Telefon",
+            "profileImage": "Profilbillede",
+            "tags": "Tags",
+            "userName": "Brugernavn"
+        },
+        "groups": {
+            "136550100000143": "Superbruger",
+            "136550100000211": "Kontoansvarlig",
+            "136550100000225": "Bruger",
+            "accountManager": "Kontoansvarlig",
+            "superUser": "Superbruger",
+            "user": "Bruger"
+        },
+        "headers": {
+            "contact": "Kontakt",
+            "system": "Systemlog"
+        },
+        "messages": {},
+        "pageTitle": "Brugere",
+        "tabs": {
+            "orgs": "Organisationer",
+            "users": "Brugere"
+        },
+        "user": "Bruger",
+        "userResendConfirm": "Er du sikker på du ønsker at gensende bekræftelses E-mail?",
+        "userResendEmail": "Gensend bekræftelses E-mail",
+        "validation": {
+            "noEmail": "E-mail mangler",
+            "noOrg": "Organisation mangler",
+            "userAlreadyExists": "E-mail er allerede tilknyttet en anden bruger konto!"
+        }
+    }
+}

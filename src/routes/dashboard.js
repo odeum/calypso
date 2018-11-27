@@ -1,11 +1,11 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom'
 import DashboardPage from 'views/Dashboard/Dashboard';
-import { Dashboard, LibraryBooks, SettingsRounded, People, DeviceHub, Star } from 'variables/icons';
+import { Dashboard, SettingsRounded, People, Star } from 'variables/icons';
 import NotFound from 'layouts/404/NotFound';
 import Loadable from 'react-loadable';
 import AsyncLoader from 'components/Loader/AsyncLoader';
-import { DataUsage } from 'variables/icons';
+
 const AsyncFavorites = Loadable({
 	loader: () => import('routes/favorites'),
 	loading: AsyncLoader

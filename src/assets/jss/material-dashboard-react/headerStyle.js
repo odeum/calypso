@@ -27,7 +27,7 @@ const headerStyle = theme => ({
 		// padding: "5px",
 		// paddingTop: "10px",
 		zIndex: "1029",
-		color: "#ffffff",
+		color: primaryColor,
 		border: "0",
 		// borderRadius: "3px",
 		// padding: "10px 0",
