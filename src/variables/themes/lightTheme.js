@@ -8,6 +8,12 @@ const theme = createMuiTheme({
 		suppressDeprecationWarnings: true,
 	},
 	overrides: {
+		MuiAppBar: {
+			root: {
+				backgroundColor: "#f5f5f5",
+				color: primaryColor
+			}
+		},
 		MuiButton: {
 			text: {
 				textTransform: 'uppercase'

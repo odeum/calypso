@@ -24,10 +24,6 @@ class DisplaySettings extends Component {
 
 	render() {
 		const { language, trp, sideBar, discSentiVal, theme, classes, t } = this.props
-		let discSenti = [
-			{ value: 1, label: t('actions.yes') },
-			{ value: 0, label: t('actions.no') }
-		]
 		let languages = [
 			{ value: 'en', label: t('settings.languages.en') },
 			{ value: 'da', label: t('settings.languages.da') }
@@ -45,10 +41,10 @@ class DisplaySettings extends Component {
 			{ value: 50, label: 50 },
 			{ value: 100, label: 100 }
 		]
-		let sideBarLocs = [
-			{ value: 0, label: t('settings.sideBarLeft') },
-			{ value: 1, label: t('settings.sideBarRight') }
-		]
+		// let sideBarLocs = [
+		// 	{ value: 0, label: t('settings.sideBarLeft') },
+		// 	{ value: 1, label: t('settings.sideBarRight') }
+		// ]
 		return (
 			discSentiVal !== null && language !== null && trp !== null && sideBar !== null && theme !== null ? 
 				<InfoCard
@@ -58,12 +54,12 @@ class DisplaySettings extends Component {
 					content={
 						<Grid container>
 							<List className={classes.list}>
-								<ListItem divider>
+								{/* <ListItem divider>
 									<ItemGrid container zeroMargin noPadding alignItems={'center'}>
 										<ListItemText>{t('settings.discoverSenti')}</ListItemText>
 										<DSelect menuItems={discSenti} value={discSentiVal} onChange={this.changeDiscoverSenti} />
 									</ItemGrid>
-								</ListItem>
+								</ListItem> */}
 								<ListItem divider>
 									<ItemGrid container zeroMargin noPadding alignItems={'center'}>
 										<ListItemText>{t('settings.language')}</ListItemText>
@@ -76,12 +72,12 @@ class DisplaySettings extends Component {
 										<DSelect menuItems={trps} value={trp} onChange={this.changeTRP} />
 									</ItemGrid>
 								</ListItem>
-								<ListItem divider>
+								{/* <ListItem divider>
 									<ItemGrid container zeroMargin noPadding alignItems={'center'}>
 										<ListItemText>{t('settings.sideBarLoc')}</ListItemText>
 										<DSelect menuItems={sideBarLocs} value={sideBar} onChange={this.changeSideBarLoc} />
 									</ItemGrid>
-								</ListItem>
+								</ListItem> */}
 								<ListItem >
 									<ItemGrid container zeroMargin noPadding alignItems={'center'}>
 										<ListItemText>{t('settings.theme')}</ListItemText>

@@ -10,13 +10,11 @@ import {
 	infoColor,
 	successColor,
 	warningColor,
-	dangerColor,
-	headerColor
+	dangerColor
 } from "assets/jss/material-dashboard-react.js";
 
 const headerStyle = theme => ({
 	appBar: {
-		backgroundColor: headerColor,
 		boxShadow: "none",
 		borderBottom: "0",
 		marginBottom: "0",
@@ -24,13 +22,8 @@ const headerStyle = theme => ({
 			height: 48
 		},
 		height: "70px",
-		// padding: "5px",
-		// paddingTop: "10px",
 		zIndex: "1029",
-		color: primaryColor,
 		border: "0",
-		// borderRadius: "3px",
-		// padding: "10px 0",
 		transition: "all 150ms ease 0s",
 		minHeight: "48px",
 		display: "block",

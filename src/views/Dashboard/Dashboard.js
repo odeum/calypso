@@ -22,12 +22,7 @@ class Dashboard extends React.Component {
 			projects: [],
 			devices: 0
 		}
-		props.setHeader('Senti.Cloud', false, '', 'dashboard')
-	}
-
-
-	componentDidMount = async () => {
-		this.props.setHeader('Senti.Cloud', false, '', 'dashboard')
+		props.setHeader('Calypso', false, '', 'dashboard')
 	}
 
 	componentWillUnmount = () => {
@@ -118,7 +113,7 @@ class Dashboard extends React.Component {
 					/></ItemG> */}
 					<ItemG container justify={'center'} xs={12}>
 						<Caption>
-							Beta Senti.Cloud version {pj.version}
+						 	Calypso User Management {pj.version}
 						</Caption>
 					</ItemG>
 				</GridContainer>

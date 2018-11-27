@@ -36,7 +36,7 @@ class CreateUser extends Component {
 				groups: {
 					136550100000225: {
 						id: 136550100000225,
-						name: 'Senti User'
+						name: 'User'
 					} 
 				}
 			},

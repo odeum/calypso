@@ -42,7 +42,7 @@
             "passwordUnder8": "Password must contain at least 8 characters!",
             "userDoesntExistAnymore": "The user doesn't exist anymore or the token has expired!"
         },
-        "welcomeMessage": "Welcome to Senti.Cloud!"
+        "welcomeMessage": "Welcome to Calypso!"
     },
     "dialogs": {
         "delete": {

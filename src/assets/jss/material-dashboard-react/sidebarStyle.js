@@ -8,7 +8,8 @@ import {
 	boxShadow,
 	defaultFont,
 	primaryColor,
-	hoverColor
+	hoverColor,
+	// headerColor
 } from "assets/jss/material-dashboard-react.js";
 
 const sidebarStyle = theme => ({
@@ -47,7 +48,7 @@ const sidebarStyle = theme => ({
 		}
 	},
 	logo: {
-		backgroundColor: '#1a1b32',
+		backgroundColor: '#eee',
 		position: "relative",
 		padding: "15px 15px",
 		minHeight: "40px",

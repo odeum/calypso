@@ -173,7 +173,7 @@ class ConfirmUser extends React.Component {
 								<Card className={classes[this.state.cardAnimaton]}>
 									<form className={classes.form}>
 										<CardHeader color='primary' className={classes.cardHeader}>
-											<h4>Senti.Cloud</h4>
+											<h4>Calypso</h4>
 										</CardHeader>
 										<CardBody>
 											<Grid container>

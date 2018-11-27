@@ -5,14 +5,11 @@ import { GridContainer, ItemGrid } from 'components';
 import DisplaySettings from './SettingsCards/DisplaySettings';
 import { changeLanguage } from 'redux/localization';
 import withLocalization from 'components/Localization/T';
-import { changeTRP, changeTheme, changeChartType, changeSideBarLoc, changeDiscoverSenti, changeAlerts, changeDidKnow, saveSettingsOnServ, finishedSaving } from 'redux/settings';
-import NotificationSettings from './SettingsCards/NotificationSettings';
-// import DeviceSettings from './SettingsCards/DeviceSettings';
-import ChartSettings from './SettingsCards/ChartSettings';
+import { changeTRP, changeTheme, changeSideBarLoc, changeDiscoverSenti, saveSettingsOnServ, finishedSaving } from 'redux/settings';
 import withSnackbar from 'components/Localization/S';
 import { compose } from 'recompose';
 import Toolbar from 'components/Toolbar/Toolbar';
-import { Laptop, Build, Notifications, /* Devices, */ BarChart } from 'variables/icons';
+import { Laptop } from 'variables/icons';
 
 //Add Section Calibrated/Uncalibrated data
 class Settings extends Component {
@@ -26,9 +23,9 @@ class Settings extends Component {
 	}
 	tabs = [
 		{ id: 0, title: '', label: <Laptop />, url: `#display` },
-		{ id: 1, title: '', label: <Build />, url: `#calibration` },
-		{ id: 2, title: '', label: <Notifications />, url: `#notifications` },
-		{ id: 3, title: '', label: <BarChart />, url: `#charts` },
+		// { id: 1, title: '', label: <Build />, url: `#calibration` },
+		// { id: 2, title: '', label: <Notifications />, url: `#notifications` },
+		// { id: 3, title: '', label: <BarChart />, url: `#charts` },
 		// { id: 4, title: '', label: <Devices />, url: `#devices` }
 	]
 	componentDidUpdate = () => {
@@ -40,8 +37,7 @@ class Settings extends Component {
 
 	render() {
 		const { t } = this.props
-		const { language, sideBar, changeSideBarLoc, trp, changeTRP, theme, changeTheme, changeDiscoverSenti, discSentiVal, changeLanguage, changeChartType } = this.props
-		const { alerts, didKnow, changeAlerts, changeDidKnow, chartType } = this.props
+		const { language, sideBar, changeSideBarLoc, trp, changeTRP, theme, changeTheme, changeDiscoverSenti, discSentiVal, changeLanguage } = this.props
 		return (
 			<Fragment>
 				<Toolbar
@@ -66,17 +62,17 @@ class Settings extends Component {
 							t={t}
 						/>
 					</ItemGrid>
-					<ItemGrid xs={12} noMargin id={'calibration'}>
-						{/* <CalibrationSettings
+					{/* <ItemGrid xs={12} noMargin id={'calibration'}>
+						 <CalibrationSettings
 							calibration={calibration}
 							changeCalType={changeCalType}
 							count={count}
 							changeCount={changeCount}
 							calNotifications={calNotifications}
 							changeCalNotif={changeCalNotif}
-							t={t} /> */}
-					</ItemGrid>
-					<ItemGrid xs={12} noMargin id={'notifications'}>
+							t={t} /> 
+					</ItemGrid> */}
+					{/* <ItemGrid xs={12} noMargin id={'notifications'}>
 						<NotificationSettings
 							didKnow={didKnow}
 							changeDidKnow={changeDidKnow}
@@ -84,14 +80,14 @@ class Settings extends Component {
 							changeAlerts={changeAlerts}
 							t={t}
 						/>
-					</ItemGrid>
-					<ItemGrid xs={12} noMargin id={'charts'}>
+					</ItemGrid> */}
+					{/* <ItemGrid xs={12} noMargin id={'charts'}>
 						<ChartSettings
 							chartType={chartType}
 							changeChartType={changeChartType}
 							t={t}
 						/>
-					</ItemGrid>
+					</ItemGrid> */}
 					{/* <ItemGrid xs={12} noMargin>
 						<DeviceSettings
 							t={t}
@@ -138,10 +134,10 @@ const mapDispatchToProps = (dispatch) => {
 		// changeCount: count => dispatch(changeCount(count)),
 		// changeCalNotif: type => dispatch(changeCalNotif(type)),
 
-		changeAlerts: t => dispatch(changeAlerts(t)),
-		changeDidKnow: t => dispatch(changeDidKnow(t)),
+		// changeAlerts: t => dispatch(changeAlerts(t)),
+		// changeDidKnow: t => dispatch(changeDidKnow(t)),
 
-		changeChartType: type => dispatch(changeChartType(type)),
+		// changeChartType: type => dispatch(changeChartType(type)),
 
 		saveSettings: () => dispatch(saveSettingsOnServ()),
 		finishedSaving: () => dispatch(finishedSaving())
