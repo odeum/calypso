@@ -10,7 +10,7 @@ import { Header, Sidebar, CircularLoader } from 'components';
 import dashboardRoutes from 'routes/dashboard.js';
 import appStyle from 'assets/jss/material-dashboard-react/appStyle.js';
 import { MuiThemeProvider } from '@material-ui/core/styles'
-import logo from '../../logo.svg';
+// import logo from '../../logo.svg';
 import cookie from 'react-cookies';
 import withLocalization from 'components/Localization/T';
 import { connect } from 'react-redux'
@@ -111,7 +111,7 @@ class App extends React.Component {
 						<Fragment>
 							<Sidebar
 								routes={dashboardRoutes}
-								logo={logo}
+								// logo={logo}
 								handleDrawerToggle={this.handleDrawerToggle}
 								open={this.state.mobileOpen}
 								color='senti'

@@ -18,10 +18,6 @@ const AsyncUser  = Loadable({
 	loader: () => import('routes/user'),
 	loading: AsyncLoader
 })
-const AsyncOrgs = Loadable({
-	loader: () => import('routes/orgs'),
-	loading: AsyncLoader
-})
 const AsyncOrg = Loadable({
 	loader: () => import('routes/org'),
 	loading: AsyncLoader

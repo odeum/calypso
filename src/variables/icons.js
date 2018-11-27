@@ -1,14 +1,14 @@
-//#region weather Icons 
-import ClearDay from 'assets/weather/clear_day.svg'
-import ClearNight from 'assets/weather/clear_night.svg'
-import Cloudy from 'assets/weather/cloudy.svg'
-import Fog from 'assets/weather/fog.svg'
-import PartlyCloudyDay from 'assets/weather/partly_cloudy_day.svg'
-import PartlyCloudyNight from 'assets/weather/partly_cloudy_night.svg'
-import Rain from 'assets/weather/rain.svg'
-import Sleet from 'assets/weather/sleet.svg'
-import Snow from 'assets/weather/snow.svg'
-import Wind from 'assets/weather/wind.svg'
+// //#region weather Icons 
+// import ClearDay from 'assets/weather/clear_day.svg'
+// import ClearNight from 'assets/weather/clear_night.svg'
+// import Cloudy from 'assets/weather/cloudy.svg'
+// import Fog from 'assets/weather/fog.svg'
+// import PartlyCloudyDay from 'assets/weather/partly_cloudy_day.svg'
+// import PartlyCloudyNight from 'assets/weather/partly_cloudy_night.svg'
+// import Rain from 'assets/weather/rain.svg'
+// import Sleet from 'assets/weather/sleet.svg'
+// import Snow from 'assets/weather/snow.svg'
+// import Wind from 'assets/weather/wind.svg'
 //#endregion
 import Star from '@material-ui/icons/Star'
 import StarBorder from '@material-ui/icons/StarBorder'
@@ -77,16 +77,16 @@ import Dashboard from '@material-ui/icons/Dashboard'
 import History from '@material-ui/icons/History'
 export {
 	//Weather Icons
-	ClearDay,
-	ClearNight,
-	Cloudy,
-	Fog,
-	PartlyCloudyDay,
-	PartlyCloudyNight,
-	Rain,
-	Sleet,
-	Snow,
-	Wind,
+	// ClearDay,
+	// ClearNight,
+	// Cloudy,
+	// Fog,
+	// PartlyCloudyDay,
+	// PartlyCloudyNight,
+	// Rain,
+	// Sleet,
+	// Snow,
+	// Wind,
 	//End Weather Icons
 	Star,
 	StarBorder,
