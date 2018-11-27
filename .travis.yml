@@ -29,9 +29,11 @@ notifications:
   email:
     recipients:
     - cb@webhouse.dk
+    - at@webhouse.dk
     on_success: never
     on_failure: always
   slack: webhouseteam:82qu1PX5R5wkYNCW5x6fVlhu
 script: 
+  - "npm install"
   - "npm run-script build"
   - "cp ./build/index.html ./build/200.html"
