@@ -3,6 +3,7 @@ const pathmodule = require('path')
 const workbox = require('workbox-build')
 function build() {
 	const cwd = process.cwd();
+	console.log(cwd)
 	const pkgPath = `${cwd}/node_modules/workbox-sw/package.json`;
 	const pkg = require(pkgPath);
 	const readPath = `${cwd}/node_modules/workbox-sw/${pkg.main}`;
