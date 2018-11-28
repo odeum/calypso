@@ -1,6 +1,6 @@
 {
   "name": "calypso",
-  "version": "0.0.7",
+  "version": "0.0.10",
   "description": "Calypso (WatsonC JavaScript frontend)",
   "main": "index.js",
   "dependencies": {
