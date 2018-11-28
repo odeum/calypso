@@ -1,10 +1,9 @@
 import { Grid, withStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import React from 'react';
-
+import cx from 'classnames'
 const style = theme => ({
 	grid: {
-
 		[theme.breakpoints.down('md')]: {
 			padding: '10px 10px 30px 10px',
 		},
@@ -12,15 +11,18 @@ const style = theme => ({
 			padding: '8px 8px 30px 8px'
 		},
 		padding: '30px',
-		width: 'auto',
-		margin: 0
+		width: 'auto'
 	}
 })
 
 function GridContainer({ ...props }) {
 	const { classes, children, className, ...rest } = props;
+	const gridClasses = cx({
+		[' ' + className]: className,
+		[classes.grid]: true,
+	});
 	return (
-		<Grid container {...rest} className={classes.grid + ' ' + className}>
+		<Grid container {...rest} className={gridClasses}>
 			{children}
 		</Grid>
 	);

@@ -297,7 +297,7 @@ class UserTable extends React.Component {
 								)
 							}) : null}
 							{emptyRows > 0 && (
-								<TableRow style={{ height: 49 }}>
+								<TableRow style={{ height: 49 * emptyRows }}>
 									<TableCell colSpan={8} />
 								</TableRow>
 							)}

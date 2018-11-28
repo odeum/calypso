@@ -70,7 +70,6 @@ class App extends React.Component {
 		if (this._isMounted) {
 			this.handleSetHeaderTitle('Calypso', false, '', 'dashboard')
 		}
-
 		await this.props.getSettings().then(rs => {
 			if (navigator.platform.indexOf('Win') > -1) {
 				if (!this.props.loading) {
