@@ -229,6 +229,7 @@ class Management extends Component {
 	render() {
 		const { users, orgs, filters, loading } = this.state
 		const { favorites } = this.props
+		const { classes, ...rest } = this.props
 		return (
 			!loading ? <Fragment>
 				<Toolbar
@@ -241,10 +242,10 @@ class Management extends Component {
 					route={this.state.route}
 				/>
 				<Switch>
-					<Route path={`${this.props.match.url}/users/new`} render={(rp) => <CreateUser {...this.props} />} />
-					<Route path={`${this.props.match.url}/users`} render={(rp) => <Users {...this.props} reload={this.reload} users={this.filterItems(users)} />} />
-					<Route path={`${this.props.match.url}/orgs/new`} component={(rp) => <CreateOrg {...this.props} />} />
-					<Route path={`${this.props.match.url}/orgs`} render={(rp) => <Orgs {...this.props} reload={this.reload} orgs={this.filterItems(orgs)} />} />
+					<Route path={`${this.props.match.url}/users/new`} render={(rp) => <CreateUser {...rest} />} />
+					<Route path={`${this.props.match.url}/users`} render={(rp) => <Users {...rest} reload={this.reload} users={this.filterItems(users)} />} />
+					<Route path={`${this.props.match.url}/orgs/new`} component={(rp) => <CreateOrg {...rest} />} />
+					<Route path={`${this.props.match.url}/orgs`} render={(rp) => <Orgs {...rest} reload={this.reload} orgs={this.filterItems(orgs)} />} />
 					<Route path={`${this.props.match.url}/favorites`} render={() => this.renderFavorites()} />
 					<Redirect from={'/management'} to={'/management/users'} />
 				</Switch>
