@@ -56,7 +56,6 @@ class Management extends Component {
 	getData = async () => {
 		let users = await getAllUsers().then(rs => rs)
 		let orgs = await getAllOrgs().then(rs => rs)
-
 		this.setState({
 			users: users ? users : [],
 			orgs: orgs ? orgs : [],
