@@ -1,15 +1,12 @@
 import { Button, withStyles } from '@material-ui/core';
-import imgs from 'assets/img/Squared';
 import dashboardStyle from 'assets/jss/material-dashboard-react/dashboardStyle';
 import { Caption, ItemG } from 'components';
-import MediaCard from 'components/Cards/MediaCard';
 import GridContainer from 'components/Grid/GridContainer';
 import withLocalization from 'components/Localization/T';
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import DiscoverSenti from 'views/Dashboard/DiscoverSenti';
 import pj from '../../../package.json';
 // const Skycons = require('skycons')(window)
 
