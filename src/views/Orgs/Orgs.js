@@ -99,7 +99,6 @@ class Orgs extends Component {
 		})
 	}
 	getData = async () => {
-		// const { t } = this.props
 		if (this.props.orgs) { 
 			this.setState({
 				loading: false

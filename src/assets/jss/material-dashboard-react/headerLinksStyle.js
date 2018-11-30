@@ -12,7 +12,6 @@ import {
 const headerLinksStyle = theme => ({
 	img: {
 		borderRadius: 50
-		
 	},
 	headerMargin: {
 		marginLeft: 18

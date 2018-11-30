@@ -6,7 +6,7 @@ import PerfectScrollbar from 'perfect-scrollbar';
 import 'perfect-scrollbar/css/perfect-scrollbar.css';
 import { withStyles, Snackbar, Button } from '@material-ui/core';
 import { Header, Sidebar, CircularLoader } from 'components';
-
+import cx from 'classnames'
 import dashboardRoutes from 'routes/dashboard.js';
 import appStyle from 'assets/jss/material-dashboard-react/appStyle.js';
 import { MuiThemeProvider } from '@material-ui/core/styles'
@@ -72,6 +72,12 @@ class App extends React.Component {
 		}
 		await this.props.getSettings().then(rs => {
 			if (rs) {
+				if (this.props.theme === 1) {
+					document.body.style = 'background: #2e2e2e;';
+				}
+				else {
+					document.body.style = 'background: #eee';
+				}
 				if (navigator.platform.indexOf('Win') > -1) {
 					if (!this.props.loading) {
 						if (this.refs.mainPanel) {
@@ -94,14 +100,26 @@ class App extends React.Component {
 			this.refs.mainPanel.scrollTop = 0
 		if (prevProps.sId !== this.props.sId && this.props.sId !== '')
 			this.setState({ openSnackbar: true })
+		if (this.props.theme !== prevProps.theme) { 
+			if (this.props.theme === 1) {
+				document.body.style = 'background: #2e2e2e;';
+			}
+			else { 
+				document.body.style = 'background: #eee';
+			}
+		}
 	}
 
 	render() {
 		const { classes, t, loading, sOpt, ...rest } = this.props;
+		let wrapperClasses = cx({
+			[classes.darkBackground]: this.props.theme !== 0 ? true : false,
+			[classes.wrapper]: true,
+		}
+		)
 		return (
 			<MuiThemeProvider theme={this.props.theme === 0 ? lightTheme : darkTheme}>
-
-				<div className={classes.wrapper + ' ' + (this.props.theme === 0 ? '' : classes.darkBackground)}>
+				<div className={wrapperClasses}>
 					<div className={classes.mainPanel} ref={'mainPanel'}>
 						<Header
 							routes={dashboardRoutes}

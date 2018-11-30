@@ -18,7 +18,7 @@ const sidebarStyle = theme => ({
 		background: primaryColor,
 	},
 	drawerPaper: {
-		backgroundColor: theme.palette.type === 'dark' ? '' : "#f5f5f5",
+		backgroundColor: "#003333",
 		border: "none",
 		position: "fixed",
 		top: "0",
@@ -138,6 +138,7 @@ const sidebarStyle = theme => ({
 		position: "relative",
 		display: "block",
 		textDecoration: "none",
+		
 	},
 	itemLink: {
 		width: 'auto',
@@ -148,16 +149,18 @@ const sidebarStyle = theme => ({
 		display: "block",
 		padding: "10px 15px",
 		backgroundColor: "transparent",
+		color: "#fff",
 		...defaultFont
 	},
 	itemIcon: {
+		color: "#fff",
 		width: "24px",
 		height: "30px",
 		float: "left",
 		marginRight: "15px",
 		textAlign: "center",
 		verticalAlign: "middle",
-		color: primaryColor
+		// color: primaryColor
 	},
 	itemText: {
 		...defaultFont,

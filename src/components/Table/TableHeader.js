@@ -70,7 +70,6 @@ class EnhancedTableHead extends Component {
 									</TableSortLabel>
 								</TableCell>
 							}) : customColumn ? customColumn.map(c => {
-								console.log(c)
 								return <TableCell
 									key={c.id}
 									padding={c.checkbox ? 'checkbox' : 'default'}
