@@ -56,7 +56,7 @@ class Orgs extends Component {
 	}
 	componentDidUpdate = async (prevState, prevProps) => {
 		if (prevProps.orgs !== this.props.orgs) {
-			this.setState({ orgs: this.props.orgs })
+			this.getData()
 		}
 	}
 	componentWillUnmount = () => {
@@ -64,7 +64,7 @@ class Orgs extends Component {
 	}
 	handleRequestSort = (event, property, way) => {
 		let order = way ? way : this.state.order === 'desc' ? 'asc' : 'desc'
-		let newData = handleRequestSort(property, order, this.state.orgs)
+		let newData = handleRequestSort(property, order, this.props.orgs)
 		this.setState({ orgs: newData, order, orderBy: property })
 	}
 
@@ -102,20 +102,9 @@ class Orgs extends Component {
 		// const { t } = this.props
 		if (this.props.orgs) { 
 			this.setState({
-				orgs: this.props.orgs,
 				loading: false
 			}, () => this.handleRequestSort(null, 'name', 'asc'))
-			return
 		}
-		// let orgs = await getAllOrgs().then(rs => rs)
-		// if (this._isMounted) {
-		// 	this.setState({
-		// 		orgs: orgs ? orgs : [],
-			
-		// 		loading: false
-		// 	}, () => this.handleRequestSort(null, 'name', 'asc'))
-
-		// }
 	}
 
 	tabs = [
