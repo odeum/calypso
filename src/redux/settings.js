@@ -53,7 +53,8 @@ export const getSettings = async () => {
 				cookie.save('SESSION', sessionCookie, { path: '/', expires: exp.toDate() })
 			}
 			else {
-				return cookie.remove('SESSION')
+				cookie.remove('SESSION')
+				return false
 			}
 		}
 
@@ -115,6 +116,7 @@ export const getSettings = async () => {
 			})
 			return false
 		}
+		return true
 	}
 
 

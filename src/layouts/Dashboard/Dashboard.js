@@ -71,13 +71,18 @@ class App extends React.Component {
 			this.handleSetHeaderTitle('Calypso', false, '', 'dashboard')
 		}
 		await this.props.getSettings().then(rs => {
-			if (navigator.platform.indexOf('Win') > -1) {
-				if (!this.props.loading) {
-					if (this.refs.mainPanel) {
-						//eslint-disable-next-line
-						const ps = new PerfectScrollbar(this.refs.mainPanel);
+			if (rs) {
+				if (navigator.platform.indexOf('Win') > -1) {
+					if (!this.props.loading) {
+						if (this.refs.mainPanel) {
+							//eslint-disable-next-line
+							const ps = new PerfectScrollbar(this.refs.mainPanel);
+						}
 					}
 				}
+			}
+			else {
+				this.props.history.push('/login')
 			}
 		})
 	}
