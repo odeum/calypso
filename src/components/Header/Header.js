@@ -18,7 +18,7 @@ function Header({ ...props }) {
 		<AppBar color={'inherit'} className={classes.appBar + appBarClasses}>
 			<Toolbar className={classes.container}>
 				<div className={classes.flex}>
-					{goBackButton && <Fab onClick={gbbFunc} variant={'fab'} className={classes.goBackButton}>
+					{goBackButton && <Fab onClick={gbbFunc} variant={'round'} className={classes.goBackButton}>
 						<KeyboardArrowLeft width={40} height={40} />
 					</Fab>}
 					<Button className={classes.title}>
