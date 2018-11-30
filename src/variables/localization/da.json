@@ -60,6 +60,7 @@
             }
         },
         "login": {
+			"paswordReseted": "Dit kodeord er blevet ændret!",
             "resetPassRequestMessage": "En E-mail er er blevet sendt med instruktioner for hvordan du nulstiller dit kodeord!",
             "resetPasswordMessage": "Nulstil dit kodeord ved at indtaste din E-mail adresse"
         }

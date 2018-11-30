@@ -60,6 +60,7 @@
             }
         },
         "login": {
+			"paswordReseted": "Your password has been changed!",
             "resetPassRequestMessage": "An E-mail has been sent with instructions on how to reset your password!",
             "resetPasswordMessage": "Reset your password by entering your E-mail"
         }
