@@ -6,12 +6,12 @@ let backendHost;
 
 const hostname = window && window.location && window.location.hostname;
 
-if (hostname === 'calypso.odeum.com') {
-	backendHost = 'https://calypso.odeum.com/rest/';
+if (hostname === 'calypso.watsonc.dk') {
+	backendHost = 'https://calypso.watsonc.dk/rest/';
 } else if (hostname === 'calypso.odeum.com') {
-	backendHost = 'https://calypso.odeum.com/rest/';
+	backendHost = 'https://calypso.watsonc.dk/rest/';
 } else {
-	backendHost = 'https://calypso.odeum.com/rest/';
+	backendHost = 'https://calypso.watsonc.dk/rest/';
 }
 export const loginApi = create({
 	baseURL: backendHost,

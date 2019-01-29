@@ -173,7 +173,7 @@ class LoginPage extends React.Component {
 													{/* </Button> */}
 												</ItemG>
 												<ItemG xs={12} zeroMinWidth container justify={'center'}>
-													<Button variant={'contained'} color={'primary'} /* className={classes.loginButton} */ onClick={this.loginUser}>
+													<Button variant={'contained'} color={'primary'} style={{ color: '#fff' }}/* className={classes.loginButton} */ onClick={this.loginUser}>
 														{t('actions.login')}
 													</Button>
 												</ItemG>
