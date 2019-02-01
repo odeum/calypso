@@ -75,7 +75,7 @@ class Dashboard extends React.Component {
 						<MediaCard
 							img={imgs.hosting}
 							header={t('dialogs.dashboard.title.manageOrgs')}
-							content={t('dialogs.dashboard.message.manageOrg')}
+							content={t('dialogs.dashboard.message.manageOrgs')}
 							rightAction={this.renderAction('actions.manage', '/management/orgs', true)}
 						/>
 					</ItemG>
