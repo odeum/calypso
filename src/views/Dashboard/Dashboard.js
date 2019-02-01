@@ -68,7 +68,7 @@ class Dashboard extends React.Component {
 							img={imgs.users}
 							header={t('dialogs.dashboard.title.manageUsers')}
 							content={t('dialogs.dashboard.message.manageUsers')}
-							rightAction={this.renderAction('actions.manage', '/management/orgs', true)}
+							rightAction={this.renderAction('actions.manage', '/management/users', true)}
 						/>
 					</ItemG>
 					<ItemG container justify={'center'} xs={12} sm={6} md={3}>
