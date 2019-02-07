@@ -64,32 +64,14 @@ class Orgs extends Component {
 	}
 	handleRequestSort = (event, property, way) => {
 		let order = way ? way : this.state.order === 'desc' ? 'asc' : 'desc'
-		let newData = handleRequestSort(property, order, this.props.orgs)
-		this.setState({ orgs: newData, order, orderBy: property })
+		let newData = handleRequestSort(property.id, order, this.props.orgs, property.type)
+		this.setState({ orgs: newData, order, orderBy: property.id })
 	}
 
 	filterItems = (data) => {
 		return filterItems(data, this.state.filters)
 	}
 
-	handleFilterStartDate = (value) => {
-		this.setState({
-			filters: {
-				...this.state.filters,
-				startDate: value,
-				activeDateFilter: value !== null ? true : false
-			}
-		})
-	}
-	handleFilterEndDate = (value) => {
-		this.setState({
-			filters: {
-				...this.state.filters,
-				endDate: value,
-				activeDateFilter: value !== null ? true : false
-			}
-		})
-	}
 	handleFilterKeyword = (value) => {
 		this.setState({
 			filters: {
@@ -102,7 +84,7 @@ class Orgs extends Component {
 		if (this.props.orgs) { 
 			this.setState({
 				loading: false
-			}, () => this.handleRequestSort(null, 'name', 'asc'))
+			}, () => this.handleRequestSort(null, { id: 'name' }, 'asc'))
 		}
 	}
 
@@ -153,19 +135,8 @@ class Orgs extends Component {
 		</GridContainer>
 	}
 	render() {
-		// const { orgs, route, filters } = this.state
 		return (
 			<Fragment>
-				{/* <Toolbar
-					data={orgs}
-					route={route}
-					filters={filters}
-					history={this.props.history}
-					match={this.props.match}
-					handleFilterKeyword={this.handleFilterKeyword}
-					tabs={this.tabs}
-					defaultRoute={1}
-				/> */}
 				{this.renderOrgs()}
 			</Fragment>
 		)

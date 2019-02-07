@@ -57,7 +57,6 @@ class Users extends Component {
 		return filterItems(data, this.state.filters)
 	}
 	handleRequestSort = (event, property, way) => {
-		console.log(event, property, way)
 		let order = way ? way : this.state.order === 'desc' ? 'asc' : 'desc'
 		let newData = handleRequestSort(property.id, order, this.props.users, property.type)
 		this.setState({ users: newData, order, orderBy: property.id })
@@ -75,7 +74,7 @@ class Users extends Component {
 		if (this.props.users) { 
 			this.setState({
 				loading: false
-			}, () => this.handleRequestSort(null, 'firstName', 'asc'))
+			}, () => this.handleRequestSort(null, { id: 'firstName' }, 'asc'))
 			return
 		}
 	}

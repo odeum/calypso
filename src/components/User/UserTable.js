@@ -69,7 +69,6 @@ class UserTable extends React.Component {
 	}
 
 	handleRequestSort = (event, property) => {
-		console.log(event, property)
 		this.props.handleRequestSort(event, property)
 	}
 
