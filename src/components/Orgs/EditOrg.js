@@ -163,8 +163,8 @@ class EditOrg extends Component {
 			updateFav(favObj)
 		}
 		this.setState({ created: true, creating: false })
-		this.props.s('snackbars.orgUpdated', ({ org: this.state.org.name }))
-		this.props.history.push(`/management/org/${this.state.org.id}`)
+		this.props.s('snackbars.orgUpdated', ({ org: org.name }))
+		this.props.history.push(`/management/org/${org.id}`)
 	}
 
 	handleUpdateOrg = () => {

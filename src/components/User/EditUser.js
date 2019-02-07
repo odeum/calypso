@@ -116,7 +116,7 @@ class EditUser extends Component {
 		const { user } = this.state
 		let favObj = {
 			id: user.id,
-			name: `${rs.firstName} ${rs.lastName}`,
+			name: `${user.firstName} ${user.lastName}`,
 			type: 'user',
 			path: `/management/user/${user.id}`
 		}
