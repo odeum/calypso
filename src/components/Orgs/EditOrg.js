@@ -170,9 +170,10 @@ class EditOrg extends Component {
 	handleUpdateOrg = () => {
 		clearTimeout(this.timer)
 		if (this.handleValidation()) {
-			return updateOrg(this.state.org).then(rs => rs ?
-				this.close() :
-				this.setState({ created: false, creating: false, error: true, errorMessage: this.props.t('orgs.validation.networkError') })
+			return updateOrg(this.state.org).then(rs => {
+				return rs ?
+					this.close() :
+					this.setState({ created: false, creating: false, error: true, errorMessage: this.props.t('orgs.validation.networkError') })}
 			)}
 		else {
 			this.setState({
@@ -373,6 +374,7 @@ class EditOrg extends Component {
 								<Button
 									variant='contained'
 									color='primary'
+									style={{ color: '#fff' }}
 									className={ buttonClassname }
 									disabled={ this.state.creating || this.state.created }
 									onClick={ this.state.created ? this.goToOrg : this.handleUpdateOrg }>

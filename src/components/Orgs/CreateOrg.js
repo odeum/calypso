@@ -240,7 +240,6 @@ class CreateOrg extends Component {
 									className={ classes.textField }
 									handleChange={ this.handleChange('name') }
 									margin='normal'
-									
 									error={ error }
 								/>
 							</ItemGrid>
@@ -362,6 +361,7 @@ class CreateOrg extends Component {
 								<Button
 									variant='contained'
 									color='primary'
+									style={{ color: '#fff' }}
 									className={ buttonClassname }
 									disabled={ this.state.creating || this.state.created }
 									onClick={ this.state.created ? this.goToOrg : this.handleCreateOrg }>

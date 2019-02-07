@@ -31,7 +31,7 @@ export const getOrgUsers = async (orgId) => {
  * @param {object} org 
  */
 export const updateOrg = async (org) => {
-	var data = await api.put(`core/org/${org.id}`, org).then(rs => rs.data)
+	var data = await api.put(`core/org/${org.id}`, org).then(rs => rs.ok)
 	return data
 }
 

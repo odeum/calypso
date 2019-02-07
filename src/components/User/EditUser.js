@@ -125,8 +125,8 @@ class EditUser extends Component {
 		}
 		this.setState({ created: true, creating: false, org: rs })
 		const { s, history } = this.props
-		s('snackbars.userUpdated', { user: `${rs.firstName} ${rs.lastName}` })
-		history.push(`/management/user/${rs.id}`)
+		s('snackbars.userUpdated', { user: `${user.firstName} ${user.lastName}` })
+		history.push(`/management/user/${user.id}`)
 	}
 
 	handleChange = prop => e => {
@@ -403,6 +403,7 @@ class EditUser extends Component {
 							<Button
 								variant='contained'
 								color='primary'
+								style={{ color: '#fff' }}
 								className={buttonClassname}
 								disabled={this.state.creating || this.state.created}
 								onClick={this.handleEditUser}>

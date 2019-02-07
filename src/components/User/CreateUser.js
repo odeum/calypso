@@ -375,6 +375,7 @@ class CreateUser extends Component {
     						<Button
     							variant='contained'
     							color='primary'
+    							style={{ color: '#fff' }}
     							className={buttonClassname}
     							disabled={this.state.creating || this.state.created}
     							onClick={this.handleCreateUser}>

@@ -7,6 +7,7 @@
 	"": "",
 	"actions": {
 		"createUser": "Opret bruger",
+		"update": "Rediger",
 		"createOrg": "Opret organisation",
 		"manage": "Administrer",
 		"apply": "Anvend",
