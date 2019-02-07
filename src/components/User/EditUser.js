@@ -106,12 +106,12 @@ class EditUser extends Component {
 			groups: groups
 		}
 		await editUser(newUser).then(rs => rs ?
-			this.close(rs) :
+			this.close() :
 			this.setState({ created: false, creating: false, error: true, errorMessage: this.props.t('orgs.validation.networkError') })
 
 		)
 	}
-	close = rs => {
+	close = () => {
 		const { isFav, updateFav } = this.props
 		const { user } = this.state
 		let favObj = {
@@ -123,7 +123,7 @@ class EditUser extends Component {
 		if (isFav(favObj)) {
 			updateFav(favObj)
 		}
-		this.setState({ created: true, creating: false, org: rs })
+		this.setState({ created: true, creating: false })
 		const { s, history } = this.props
 		s('snackbars.userUpdated', { user: `${user.firstName} ${user.lastName}` })
 		history.push(`/management/user/${user.id}`)
