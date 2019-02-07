@@ -147,6 +147,7 @@
 		"create": "Opret",
 		"createOrg": "Opret organisation",
 		"fields": {
+			"id": "Organisation ID",
 			"CVR": "CVR nummer",
 			"EAN": "EAN nummer",
 			"address": "Adresse",
@@ -231,6 +232,7 @@
 	"users": {
 		"editUser": "Opdater bruger",
 		"fields": {
+			"id": "Bruger ID",
 			"accessLevel": "Adgangsniveau",
 			"active": "Aktiv",
 			"confirmPass": "Bekræft nyt kodeord",

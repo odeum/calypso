@@ -147,6 +147,7 @@
 		"create": "Create",
 		"createOrg": "Create organisation",
 		"fields": {
+			"id": "Organisation ID",
 			"CVR": "Tax Registration Number",
 			"EAN": "EAN Number",
 			"address": "Address",
@@ -231,6 +232,7 @@
 	"users": {
 		"editUser": "Edit user",
 		"fields": {
+			"id": "User ID",
 			"accessLevel": "Access Level",
 			"active": "Active",
 			"confirmPass": "Confirm new password",

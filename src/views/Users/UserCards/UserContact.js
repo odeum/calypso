@@ -68,6 +68,7 @@ class UserContact extends Component {
 		return (
 			<InfoCard
 				title={`${user.firstName} ${user.lastName}`}
+				subheader={`${t('users.fields.id')}: ${user.id}`}
 				noExpand
 				avatar={<Person />}
 				topAction={this.renderTopActionPriv()}
@@ -79,6 +80,12 @@ class UserContact extends Component {
 							</ItemGrid>
 						</Hidden>
 						<ItemGrid zeroMargin noPadding lg={9} md={12}>
+							{/* <ItemGrid>
+								<Caption>{}</Caption>
+								<Info>
+									{user.id}
+								</Info>
+							</ItemGrid> */}
 							<ItemGrid>
 								<Caption>{t('users.fields.email')}</Caption>
 								<Info>

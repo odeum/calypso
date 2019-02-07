@@ -45,7 +45,9 @@ class OrgDetails extends Component {
 		// const { } = this.state
 		const { t, org } = this.props
 		return (
-			<InfoCard title={org.name} avatar={<Business />} subheader={''}
+			<InfoCard title={org.name}
+				avatar={<Business />}
+				subheader={`${t('orgs.fields.id')}: ${org.id}`}
 				noExpand
 				topAction={this.options().length > 0 ? <Dropdown
 					menuItems={
@@ -53,6 +55,14 @@ class OrgDetails extends Component {
 					} /> : null}
 				content={
 					<Grid container>
+						{/* <ItemGrid>
+							<Caption>
+								{t('orgs.fields.id')}
+							</Caption>
+							<Info >
+								{org.id}
+							</Info>
+						</ItemGrid> */}
 						<ItemGrid>
 							<Caption>
 								{t('orgs.fields.address')}
