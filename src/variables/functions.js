@@ -86,10 +86,13 @@ const sortFunc = (a, b, orderBy, way) => {
  * @param {String} way 
  * @param {Array} data 
  */
-export const handleRequestSort = (property, way, data) => {
+export const handleRequestSort = (property, way, data, type) => {
 	const orderBy = property;
 	let order = way;
 	let newData = []
+	if (type === 'date') { 
+		return newData = order === 'desc' ? data.sort((a, b) => moment(a[orderBy]).diff(b[orderBy])) : data.sort((a, b) => moment(b[orderBy]).diff(a[orderBy]))
+	}
 	newData =
 		order === 'desc'
 			? data.sort((a, b) => sortFunc(a, b, orderBy, true))

@@ -55,14 +55,6 @@ class OrgDetails extends Component {
 					} /> : null}
 				content={
 					<Grid container>
-						{/* <ItemGrid>
-							<Caption>
-								{t('orgs.fields.id')}
-							</Caption>
-							<Info >
-								{org.id}
-							</Info>
-						</ItemGrid> */}
 						<ItemGrid>
 							<Caption>
 								{t('orgs.fields.address')}

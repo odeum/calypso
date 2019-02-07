@@ -35,7 +35,7 @@ class EnhancedTableHead extends Component {
 										active={orderBy === column.id}
 										direction={order}
 										disabled={rowCount === 0}
-										onClick={this.createSortHandler(column.id)}
+										onClick={this.createSortHandler(column)}
 										classes={{
 											root: classes.HeaderLabelActive, active: classes.HeaderLabelActive, icon: classNames({
 												[classes.hideIcon]: !(orderBy === column.id) ? true : false
@@ -60,7 +60,7 @@ class EnhancedTableHead extends Component {
 									<TableSortLabel
 										active={orderBy === columnData[c].id}
 										direction={order}
-										onClick={this.createSortHandler(columnData[c].id)}
+										onClick={this.createSortHandler(columnData[c])}
 										classes={{
 											root: classes.HeaderLabelActive, active: classes.HeaderLabelActive, icon: classNames({
 												[classes.hideIcon]: !(orderBy === columnData[c].id) ? true : false
@@ -103,7 +103,6 @@ EnhancedTableHead.propTypes = {
 	onRequestSort: PropTypes.func.isRequired,
 	onSelectAllClick: PropTypes.func.isRequired,
 	order: PropTypes.string.isRequired,
-	orderBy: PropTypes.string.isRequired,
 	rowCount: PropTypes.number.isRequired,
 	columnData: PropTypes.array.isRequired,
 	classes: PropTypes.object.isRequired 

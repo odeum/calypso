@@ -45,6 +45,18 @@ class Management extends Component {
 		{ id: 1, title: this.props.t('users.tabs.orgs'), label: <Business />, url: `/management/orgs` },
 		{ id: 3, title: this.props.t('sidebar.favorites'), label: <Star />, url: `/management/favorites` }
 	]
+	renderUserGroup = (user) => {
+		const { t } = this.props
+		if (user.groups) {
+			if (user.groups[137180100000023])
+				return t('users.groups.137180100000023')
+			if (user.groups[137180100000026])
+				return t('users.groups.137180100000026')
+			if (user.groups[137180100000025])
+				return t('users.groups.137180100000025')
+		}
+		return ''
+	}
 	componentDidMount = async () => {
 		this.handleTabs()
 		await this.getData()
@@ -57,7 +69,7 @@ class Management extends Component {
 		let users = await getAllUsers().then(rs => rs)
 		let orgs = await getAllOrgs().then(rs => rs)
 		this.setState({
-			users: users ? users : [],
+			users: users ? users.map(u => ({ ...u, group: this.renderUserGroup(u) })) : [],
 			orgs: orgs ? orgs : [],
 			loading: false
 		})

@@ -36,7 +36,8 @@ class Users extends Component {
 			{ id: 'phone', label: t('users.fields.phone') },
 			{ id: 'email', label: t('users.fields.email') },
 			{ id: 'org.name', label: t('users.fields.organisation') },
-			{ id: 'lastSignIng', label: t('users.fields.lastSignIn') }
+			{ id: 'group', label: t('users.fields.group') },
+			{ id: 'lastLoggedIn', label: t('users.fields.lastSignIn'), type: 'date' },
 		]
 	}
 	componentDidMount = async () => {
@@ -56,28 +57,12 @@ class Users extends Component {
 		return filterItems(data, this.state.filters)
 	}
 	handleRequestSort = (event, property, way) => {
+		console.log(event, property, way)
 		let order = way ? way : this.state.order === 'desc' ? 'asc' : 'desc'
-		let newData = handleRequestSort(property, order, this.props.users)
-		this.setState({ users: newData, order, orderBy: property })
+		let newData = handleRequestSort(property.id, order, this.props.users, property.type)
+		this.setState({ users: newData, order, orderBy: property.id })
 	}
-	handleFilterStartDate = (value) => {
-		this.setState({
-			filters: {
-				...this.state.filters,
-				startDate: value,
-				activeDateFilter: value !== null ? true : false
-			}
-		})
-	}
-	handleFilterEndDate = (value) => {
-		this.setState({
-			filters: {
-				...this.state.filters,
-				endDate: value,
-				activeDateFilter: value !== null ? true : false
-			}
-		})
-	}
+
 	handleFilterKeyword = (value) => {
 		this.setState({
 			filters: {

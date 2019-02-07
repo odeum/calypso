@@ -69,6 +69,7 @@ class UserTable extends React.Component {
 	}
 
 	handleRequestSort = (event, property) => {
+		console.log(event, property)
 		this.props.handleRequestSort(event, property)
 	}
 
@@ -213,6 +214,7 @@ class UserTable extends React.Component {
 			}
 		</Fragment>
 	}
+
 	render() {
 		const { order, orderBy, data, classes, t } = this.props
 		const {  selected, rowsPerPage, page } = this.state
@@ -221,7 +223,6 @@ class UserTable extends React.Component {
 			emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage)
 		return (
 			<Paper className={classes.root}>
-
 				<EnhancedTableToolbar
 					anchorElMenu={this.state.anchorElMenu}
 					handleToolbarMenuClose={this.handleToolbarMenuClose}
@@ -290,6 +291,7 @@ class UserTable extends React.Component {
 											<TC label={<a onClick={e => e.stopPropagation()} href={`tel:${n.phone}`}>{n.phone ? pF(n.phone, this.props.language) : n.phone}</a>} />
 											<TC label={<a onClick={e => e.stopPropagation()} href={`mailto:${n.email}`}>{n.email}</a>} />
 											<TC label={n.org ? n.org.name : t('users.noOrg')} />
+											<TC label={n.group}/>
 											<TC label={lastLoggedIn} />
 										</Hidden>
 									</TableRow>
