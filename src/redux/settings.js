@@ -33,8 +33,8 @@ export const saveSettingsOnServ = () => {
 			trp: s.trp,
 		}
 		user.aux = user.aux ? user.aux : {}
-		user.aux.senti = user.aux.senti ? user.aux.senti : {}
-		user.aux.senti.settings = settings
+		user.aux.calypso = user.aux.calypso ? user.aux.calypso : {}
+		user.aux.calypso.settings = settings
 		user.aux.odeum.language = s.language
 		var saved = await saveSettings(user);
 		dispatch({
@@ -60,8 +60,8 @@ export const getSettings = async () => {
 
 		var userId = cookie.load('SESSION') ? cookie.load('SESSION').userID : 0
 		var user = userId !== 0 ? await getUser(userId) : null
-		var settings = user ? user.aux ? user.aux.senti ? user.aux.senti.settings ? user.aux.senti.settings : null : null : null : null
-		var favorites = user ? user.aux ? user.aux.senti ? user.aux.senti.favorites ? user.aux.senti.favorites : null : null : null : null
+		var settings = user ? user.aux ? user.aux.calypso ? user.aux.calypso.settings ? user.aux.calypso.settings : null : null : null : null
+		var favorites = user ? user.aux ? user.aux.calypso ? user.aux.calypso.favorites ? user.aux.calypso.favorites : null : null : null : null
 		moment.updateLocale('en-gb', {
 			week: {
 				dow: 1
@@ -73,7 +73,7 @@ export const getSettings = async () => {
 				dispatch({
 					type: GETSETTINGS,
 					settings: {
-						...user.aux.senti.settings,
+						...user.aux.calypso.settings,
 						language: user.aux.odeum.language
 					},
 					user

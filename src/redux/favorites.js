@@ -60,8 +60,8 @@ const saveFavorites = (noConfirm) => {
 		let user = getState().settings.user
 		let f = getState().favorites.favorites
 		user.aux = user.aux ? user.aux : {}
-		user.aux.senti = user.aux.senti ? user.aux.senti : {}
-		user.aux.senti.favorites = f
+		user.aux.calypso = user.aux.calypso ? user.aux.calypso : {}
+		user.aux.calypso.favorites = f
 		var saved = await saveSettings(user)
 		dispatch({
 			type: SAVEFAVORITES,

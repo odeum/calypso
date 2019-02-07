@@ -2,71 +2,6 @@ import { parsePhoneNumber } from 'libphonenumber-js'
 var moment = require('moment');
 var _ = require('lodash')
 
-
-export const dateDiff = (from, to) => {
-	let diff = moment.duration(from.diff(to)).asMinutes()
-	if (diff > 60 * 24 * 30)
-		return 3
-	if (diff < 60 * 24 && diff > 60)
-		return 1
-	if (diff > 60 * 24 * 2)
-		return 2
-	if (diff > 60)
-		return 1
-	else {
-		return 0
-	}
-}
-
-export const minutesToArray = (from, to) => {
-	let startDate = moment(from)
-	let endDate = moment(to)
-	let d = startDate
-	let diff = moment.duration(endDate.diff(startDate)).asMinutes()
-	let amount = diff > 60 ? diff > 120 ? diff > 240 ? 60 : 45 : 30 : 15
-	if (window.innerWidth < 426)
-		amount = diff > 60 ? diff > 120 ? diff > 240 ? 60 : 45 : 30 : 15
-	let arr = []
-	while (d <= endDate) {
-		arr.push(d.toDate())
-		d = d.clone().add(amount, 'm')
-	}
-	return arr
-}
-
-export const hoursToArr = (from, to) => {
-	let startDate = moment(from)
-	let endDate = moment(to)
-	let diff = moment.duration(endDate.diff(startDate)).asHours()
-	let amount = diff > 10 ? diff > 20 ? diff > 35 ? 30 : 5 : 3 : 1
-	if (window.innerWidth < 426)
-		amount = diff > 5 ? diff > 10 ? diff > 20 ? diff > 35 ? 30 : 5 : 3 : 3 : 1
-	let arr = []
-	let d = startDate.clone()
-	while (d <= endDate) {
-		arr.push(d.toDate())
-		d = d.clone().add(amount, 'h')
-	}
-	return arr
-}
-
-export const datesToArr = (from, to) => {
-	let startDate = moment(from)
-	let endDate = moment(to)
-	let diff = moment.duration(endDate.diff(startDate)).asDays()
-	let amount = diff > 10 ? diff > 20 ? diff > 35 ? 15 : 5 : 3 : 1
-	if (window.innerWidth < 426)
-		amount = diff > 5 ? (diff > 10 ? (diff > 20 ? (diff > 35 ? 30 : 10) : 5) : 3) : 1
-	let arr = []
-	let d = startDate.clone()
-	while (d <= endDate) {
-		arr.push(d.toDate())
-		d = d.clone().add(amount, 'd')
-	}
-	// 
-	return arr
-}
-
 export const dateFormat = (date) => {
 	let newDate = moment(date)
 	if (newDate.isBetween(moment().subtract(7, 'day'), moment().add(7, 'day')))
@@ -79,31 +14,9 @@ const isObject = (obj) => {
 	return obj === Object(obj);
 }
 
-const filterByDate = (items, filters) => {
-	const { startDate, endDate } = filters
-	var arr = items
-	var keys = Object.keys(arr[0])
-	var filteredByDate = arr.filter(c => {
-		var contains = keys.map(key => {
-			var openDate = moment(c['open_date'])
-			var closeDate = moment(c['close_date'])
-			if (openDate > startDate
-				&& closeDate < (endDate ? endDate : moment())) {
-				return true
-			}
-			else
-				return false
-		})
-		return contains.indexOf(true) !== -1 ? true : false
-	})
-	return filteredByDate
-}
-
 export const filterItems = (data, filters) => {
-	const { activeDateFilter, keyword } = filters
+	const { keyword } = filters
 	var arr = data
-	if (activeDateFilter)
-		arr = filterByDate(arr, filters)
 	if (arr) {
 		if (arr[0] === undefined)
 			return []
@@ -229,9 +142,6 @@ export const dateFormatter = (date) => {
 export const timeFormatter = (date) => {
 	var a = moment(date).format('HH:mm')
 	return a
-}
-export const ConvertDDToDMS = (D, lng) => {
-	return [0 | D, '\u00B0', 0 | (D < 0 ? D = -D : D) % 1 * 60, "' ", 0 | D * 60 % 1 * 60, '"', D < 0 ? lng ? 'W' : 'S' : lng ? 'E' : 'N'].join('');
 }
 
 const suggestionSlicer = (obj) => {

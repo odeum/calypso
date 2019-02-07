@@ -88,7 +88,8 @@ class EditOrg extends Component {
 					org: {
 						...rs,
 						aux: {
-							...rs.aux
+							...this.state.org.aux,
+							...rs.aux,
 						},
 						country: rs.country.length > 2 ? countries.getAlpha2Code(rs.country, 'en') ? countries.getAlpha2Code(rs.country, 'en') : countries.getAlpha2Code(rs.country, 'da')
 							: rs.country

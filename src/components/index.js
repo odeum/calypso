@@ -16,10 +16,8 @@ import InfoCard from './Cards/InfoCard'
 // #############################
 
 import Dropdown from './Dropdown/Dropdown'
-import CustomDateTime from './CustomInput/CustomDateTime'
 import CustomInput from './CustomInput/CustomInput.js';
 import DSelect from './CustomInput/DSelect'
-import DateFilterMenu from './CustomInput/DateFilterMenu'
 
 // ##############################
 // // // Footer
@@ -77,13 +75,11 @@ import CardBody from './Card/CardBody'
 import WeatherIcon from './Typography/WeatherIcon'
 
 export {
-	DateFilterMenu,
 	WeatherIcon,
 	Card,
 	CardHeader,
 	CardFooter,
 	CardBody,
-	CustomDateTime,
 	Dropdown,
 	ItemG,
 	GridContainer,

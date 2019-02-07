@@ -15,18 +15,10 @@ import { Laptop } from 'variables/icons';
 class Settings extends Component {
 	constructor(props) {
 		super(props)
-
-		this.state = {
-
-		}
 		props.setHeader('settings.pageTitle', false, '', 'settings')
 	}
 	tabs = [
 		{ id: 0, title: '', label: <Laptop />, url: `#display` },
-		// { id: 1, title: '', label: <Build />, url: `#calibration` },
-		// { id: 2, title: '', label: <Notifications />, url: `#notifications` },
-		// { id: 3, title: '', label: <BarChart />, url: `#charts` },
-		// { id: 4, title: '', label: <Devices />, url: `#devices` }
 	]
 	componentDidUpdate = () => {
 		if (this.props.saved === true) {
@@ -62,37 +54,6 @@ class Settings extends Component {
 							t={t}
 						/>
 					</ItemGrid>
-					{/* <ItemGrid xs={12} noMargin id={'calibration'}>
-						 <CalibrationSettings
-							calibration={calibration}
-							changeCalType={changeCalType}
-							count={count}
-							changeCount={changeCount}
-							calNotifications={calNotifications}
-							changeCalNotif={changeCalNotif}
-							t={t} /> 
-					</ItemGrid> */}
-					{/* <ItemGrid xs={12} noMargin id={'notifications'}>
-						<NotificationSettings
-							didKnow={didKnow}
-							changeDidKnow={changeDidKnow}
-							alerts={alerts}
-							changeAlerts={changeAlerts}
-							t={t}
-						/>
-					</ItemGrid> */}
-					{/* <ItemGrid xs={12} noMargin id={'charts'}>
-						<ChartSettings
-							chartType={chartType}
-							changeChartType={changeChartType}
-							t={t}
-						/>
-					</ItemGrid> */}
-					{/* <ItemGrid xs={12} noMargin>
-						<DeviceSettings
-							t={t}
-						/>
-					</ItemGrid> */}
 				</GridContainer>
 			</Fragment>
 
