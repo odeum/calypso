@@ -8,6 +8,7 @@ import { Save } from 'variables/icons'
 import classNames from 'classnames';
 import createprojectStyles from 'assets/jss/components/projects/createprojectStyles';
 import { isFav, updateFav } from 'redux/favorites';
+import { getSettings } from 'redux/settings';
 
 class EditUser extends Component {
 	constructor(props) {
@@ -111,7 +112,7 @@ class EditUser extends Component {
 
 		)
 	}
-	close = () => {
+	close = async () => {
 		const { isFav, updateFav } = this.props
 		const { user } = this.state
 		let favObj = {
@@ -120,6 +121,7 @@ class EditUser extends Component {
 			type: 'user',
 			path: `/management/user/${user.id}`
 		}
+		await this.props.getSettings()
 		if (isFav(favObj)) {
 			updateFav(favObj)
 		}
@@ -426,7 +428,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
 	isFav: (favObj) => dispatch(isFav(favObj)),
-	updateFav: (favObj) => dispatch(updateFav(favObj))
+	updateFav: (favObj) => dispatch(updateFav(favObj)),
+	getSettings: async () => dispatch(await getSettings())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(createprojectStyles)(EditUser))
