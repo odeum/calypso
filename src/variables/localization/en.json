@@ -132,9 +132,9 @@
 		"search": "Search",
 		"startDate": "Start date",
 		"users": {
-			"hasLogged": "Ever logged in",
-			"hasLoggedIn": "Has logged in",
-			"neverLoggedIn": "Never logged in"
+			"hasLogged": "Ever signed in",
+			"hasLoggedIn": "Has signed in",
+			"neverLoggedIn": "Never signed in"
 		}
 	},
 	"links": {
@@ -147,6 +147,7 @@
 	},
 	"menus": {
 		"changePassword": "Change password",
+		"copyEmails": "Copy e-mail addresses",
 		"create": {
 			"user": "Create user"
 		},
@@ -234,6 +235,7 @@
 		"creating": "Creating...",
 		"deletedFail": "Deletion failed!",
 		"deletedSuccess": "Deleted!",
+		"emailsCopied": "E-mail addresses copied to clipboard",
 		"favorite": {
 			"manyRemoved": "Favorites have been removed!",
 			"removed": "%{name} (%{type}) has been removed from favorites!",

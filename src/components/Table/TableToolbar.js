@@ -10,9 +10,9 @@ import { ItemGrid } from 'components';
 import { ItemG } from 'components/index';
 import FilterToolbar from 'components/Filter/FilterToolbar';
 
+
 let selectedRender = props => {
-	const { numSelected, t } = props;
-	const [anchor, setAnchor] = useState(null)
+	const { numSelected, t, anchor, setAnchor } = props;
 	return <Grid container justify={'space-between'} alignItems={'center'}>
 		<ItemGrid>
 			<Typography variant='subtitle1'>
@@ -28,6 +28,10 @@ let selectedRender = props => {
 				<MoreVertIcon />
 			</IconButton>
 			<Menu
+				disablePortal
+				disableEnforceFocus
+				disableAutoFocus
+				disableRestoreFocus
 				id='long-menu'
 				anchorEl={anchor}
 				open={Boolean(anchor)}
@@ -38,11 +42,11 @@ let selectedRender = props => {
 					if (option.dontShow)
 						return null
 					if (option.single)
-						return numSelected === 1 ? <MenuItem key={i} onClick={option.func}>
+						return numSelected === 1 ? <MenuItem key={i} onClick={() => { setAnchor(null); option.func(); }}>
 							<option.icon className={props.classes.leftIcon} />{option.label}
 						</MenuItem> : null
 					else {
-						return <MenuItem key={i} onClick={option.func}>
+						return <MenuItem key={i} onClick={() => { setAnchor(null);option.func(); }}>
 							<option.icon className={props.classes.leftIcon} />{option.label}
 						</MenuItem>
 					}
@@ -69,6 +73,8 @@ let defaultRender = props => {
 }
 let TableToolbar = props => {
 	const { numSelected, classes } = props;
+	const [anchor, setAnchor] = useState(null)
+
 	return (
 		<Toolbar
 			className={classNames(classes.root, {
@@ -77,7 +83,7 @@ let TableToolbar = props => {
 
 			<ItemG container alignItems={'center'}>
 				{numSelected > 0 ? (
-					selectedRender(props)
+					selectedRender({ ...props, anchor, setAnchor })
 				) :
 					defaultRender(props)
 				}

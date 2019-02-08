@@ -36,13 +36,18 @@ class Orgs extends Component {
 		const { t, accessLevel, isFav, orgs } = this.props
 		const { selected } = this.state
 		let org = orgs[orgs.findIndex(d => d.id === selected[0])]
-		let favObj = {
-			id: org.id,
-			name: org.name,
-			type: 'org',
-			path: `/management/org/${org.id}`
+		let favObj
+		let isFavorite = false
+		if (org)
+		{
+			favObj = {
+				id: org.id,
+				name: org.name,
+				type: 'org',
+				path: `/management/org/${org.id}`
+			}
+			isFavorite = isFav(favObj)
 		}
-		let isFavorite = isFav(favObj)
 		let allOptions = [
 			{ label: t('menus.edit'), func: this.handleEdit, single: true, icon: Edit },
 			{ label: isFavorite ? t('menus.favorites.remove') : t('menus.favorites.add'), icon: isFavorite ? Star : StarBorder, func: isFavorite ? () => this.removeFromFav(favObj) : () => this.addToFav(favObj) },
@@ -162,6 +167,8 @@ class Orgs extends Component {
 	}
 	componentDidUpdate = async (prevState, prevProps) => {
 		if (prevProps.orgs !== this.props.orgs) {
+			if (this.state.selected.length > 0)
+				this.setState({ selected: [] })
 			this.getData()
 		}
 	}
@@ -233,8 +240,13 @@ class Orgs extends Component {
 					{t('dialogs.delete.message.orgs')}:
 				</DialogContentText>
 				<List>
-					{selected.map(s => <ListItem classes={{ root: classes.deleteListItem }} key={s}><ListItemIcon><div>&bull;</div></ListItemIcon>
-						<ListItemText primary={orgs[orgs.findIndex(d => d.id === s)].name} /></ListItem>)}
+					{selected.map(s => { 
+						let org = orgs[orgs.findIndex(d => d.id === s)]
+						return org ? <ListItem classes={{ root: classes.deleteListItem }} key={s}>
+							<ListItemIcon><div>&bull;</div></ListItemIcon>
+							<ListItemText primary={org.name} />
+						</ListItem> : null})
+					}
 				</List>
 			</DialogContent>
 			<DialogActions>

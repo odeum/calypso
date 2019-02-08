@@ -6,7 +6,7 @@ import CircularLoader from 'components/Loader/CircularLoader';
 import GridContainer from 'components/Grid/GridContainer';
 import { deleteUser } from 'variables/dataUsers';
 import { People, Business, Add, Delete, PictureAsPdf, Edit, Star, StarBorder } from 'variables/icons';
-import { handleRequestSort } from 'variables/functions';
+import { handleRequestSort, copyToClipboard } from 'variables/functions';
 import TableToolbar from 'components/Table/TableToolbar';
 import { Info } from 'components';
 import { customFilterItems } from 'variables/Filters';
@@ -36,13 +36,13 @@ class Users extends Component {
 			{ value: 137180100000025, label: t("users.groups.137180100000025") },
 		]
 	}
-	dSuspended = () => {
-		const { t } = this.props
-		return [
-			{ value: 0, label: t('users.fields.active') },
-			{ value: 1, label: t('users.fields.loginSuspended') },
-		]
-	}
+	// dSuspended = () => {
+	// 	const { t } = this.props
+	// 	return [
+	// 		{ value: 0, label: t('users.fields.active') },
+	// 		{ value: 1, label: t('users.fields.loginSuspended') },
+	// 	]
+	// }
 	dHasLoggedIn = () => {
 		const { t } = this.props
 		return [
@@ -66,7 +66,7 @@ class Users extends Component {
 			{ key: 'org.name', name: t('orgs.fields.name'), type: 'string' },
 			{ key: 'groups', name: t('users.fields.group'), type: 'dropDown', options: this.dUserGroup() },
 			{ key: 'lastLoggedIn', name: t('users.fields.lastSignIn'), type: 'date' },
-			{ key: 'suspended', name: t('users.fields.loginSuspended'), type: 'dropDown', options: this.dSuspended() },
+			// { key: 'suspended', name: t('users.fields.loginSuspended'), type: 'dropDown', options: this.dSuspended() },
 			{ key: 'lastLoggedIn', name: t('filters.users.hasLogged'), type: 'diff', options: { dropdown: this.dHasLoggedIn(), values: { false: [null] } } },
 			{ key: 'aux.odeum.language', name: t('users.fields.language'), type: 'dropDown', options: this.dLang() },
 			{ key: '', name: t('filters.freeText'), type: 'string', hidden: true }
@@ -87,19 +87,41 @@ class Users extends Component {
 		const { t, isFav, users } = this.props
 		const { selected } = this.state
 		let user = users[users.findIndex(d => d.id === selected[0])]
-		let favObj = {
-			id: user.id,
-			name: `${user.firstName} ${user.lastName}`,
-			type: 'user',
-			path: `/management/user/${user.id}`
+		let favObj
+		let isFavorite = false
+		if (user)
+		{
+			favObj = {
+				id: user.id,
+				name: `${user.firstName} ${user.lastName}`,
+				type: 'user',
+				path: `/management/user/${user.id}`	
+			}
+			isFavorite = isFav(favObj)
 		}
-		let isFavorite = isFav(favObj)
 		return [
 			{ label: t('menus.edit'), func: this.handleEdit, single: true, icon: Edit },
 			{ label: isFavorite ? t('menus.favorites.remove') : t('menus.favorites.add'), icon: isFavorite ? Star : StarBorder, func: isFavorite ? () => this.removeFromFav(favObj) : () => this.addToFav(favObj) },
+			{ label: t('menus.copyEmails'), icon: Edit, func: this.handleCopyEmailsSelected },
 			{ label: t('menus.exportPDF'), func: () => { }, icon: PictureAsPdf },
 			{ label: t('menus.delete'), func: this.handleOpenDeleteDialog, icon: Delete }
 		]
+	}
+	handleCopyEmailsSelected = () => {
+		const { selected } = this.state
+		const { users } = this.props
+		let fUsers =  users.filter((el) => {
+			return selected.some((f) => {
+				return f === el.id 
+			});
+		});
+		let emails = fUsers.map(u => u.email).join(';')
+		// this.setState({})
+		// console.log(emails)
+		copyToClipboard(emails)
+		this.props.s('snackbars.emailsCopied')
+		// this.setState({ anchorElMenu: null })
+
 	}
 	userHeader = () => {
 		const { t } = this.props
@@ -122,6 +144,8 @@ class Users extends Component {
 	}
 	componentDidUpdate = async (prevState, prevProps) => {
 		if (prevProps.users !== this.props.users) {
+			if (this.state.selected.length > 0)
+				this.setState({ selected: [] })
 			await this.getData()
 		}
 	}
@@ -242,7 +266,7 @@ class Users extends Component {
 				<div>
 					{selected.map(s => {
 						let u = users[users.findIndex(d => d.id === s)]
-						return <Info key={s}>&bull;{u.firstName + ' ' + u.lastName}</Info>
+						return u ? <Info key={s}>&bull;{u.firstName + ' ' + u.lastName}</Info> : null
 					})
 					}
 				</div>
@@ -274,7 +298,8 @@ class Users extends Component {
 					options={this.options}
 					t={t}
 					content={this.renderTableToolBarContent()}
-				/><UserTable
+				/>
+				<UserTable
 					data={this.filterItems(users)}
 					selected={selected}
 					tableHead={this.userHeader()}

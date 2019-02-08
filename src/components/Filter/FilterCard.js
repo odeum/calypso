@@ -246,7 +246,7 @@ class FilterCard extends Component {
 								autoOk
 								clearable
 								ampm={false}
-								format='LL'
+								format='LLL'
 								value={date}
 								autoFocus
 								onChange={val => this.handleCustomDate(val, 'date')}

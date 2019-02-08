@@ -147,6 +147,7 @@
 	},
 	"menus": {
 		"changePassword": "Skift kodeord",
+		"copyEmails": "Kopier mail adresser",
 		"create": {
 			"user": "Opret bruger"
 		},
@@ -234,6 +235,7 @@
 		"creating": "Opretter ...",
 		"deletedFail": "Sletning fejlede!",
 		"deletedSuccess": "Slettet!",
+		"emailsCopied": "Mail adresser kopieret til klippebord",
 		"favorite": {
 			"manyRemoved": "Favoritter er blevet fjernet!",
 			"removed": "%{name} (%{type}) er blevet fjernet fra favoritter!",
