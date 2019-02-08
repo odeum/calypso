@@ -205,7 +205,6 @@ class FilterInput extends Component {
 				this.props.onBeforeDelete()
 		}
 		if (this.props.newChipKeyCodes.indexOf(event.keyCode) >= 0) {
-			console.log(focusedChip)
 			if (focusedChip !== null) {
 				this.handleDoubleClick({ id: focusedChip })
 			}

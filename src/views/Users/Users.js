@@ -31,9 +31,9 @@ class Users extends Component {
 	dUserGroup = () => {
 		const { t } = this.props
 		return [
-			{ value: 136550100000143, label: t("users.groups.superUser") },
-			{ value: 136550100000211, label: t("users.groups.accountManager") },
-			{ value: 136550100000225, label: t("users.groups.user") },
+			{ value: 137180100000023, label: t("users.groups.137180100000023") },
+			{ value: 137180100000026, label: t("users.groups.137180100000026") },
+			{ value: 137180100000025, label: t("users.groups.137180100000025") },
 		]
 	}
 	dSuspended = () => {
@@ -60,7 +60,6 @@ class Users extends Component {
 	ftUsers = () => {
 		const { t } = this.props
 		return [
-			{ key: '', name: t('filters.freeText'), type: 'string', hidden: true },
 			{ key: 'firstName', name: t('users.fields.firstName'), type: 'string' },
 			{ key: 'lastName', name: t('users.fields.lastName'), type: 'string' },
 			{ key: 'email', name: t('users.fields.email'), type: 'string' },
@@ -69,7 +68,8 @@ class Users extends Component {
 			{ key: 'lastLoggedIn', name: t('users.fields.lastSignIn'), type: 'date' },
 			{ key: 'suspended', name: t('users.fields.loginSuspended'), type: 'dropDown', options: this.dSuspended() },
 			{ key: 'lastLoggedIn', name: t('filters.users.hasLogged'), type: 'diff', options: { dropdown: this.dHasLoggedIn(), values: { false: [null] } } },
-			{ key: 'aux.odeum.language', name: t('users.fields.language'), type: 'dropDown', options: this.dLang() }
+			{ key: 'aux.odeum.language', name: t('users.fields.language'), type: 'dropDown', options: this.dLang() },
+			{ key: '', name: t('filters.freeText'), type: 'string', hidden: true }
 		]
 	}
 	handleEdit = () => {

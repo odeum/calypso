@@ -66,13 +66,13 @@ class Orgs extends Component {
 	ftOrgs = () => {
 		const { t } = this.props
 		return [
-			{ key: "", name: t('filters.freeText'), type: 'string', hidden: true },
 			{ key: 'name', name: t('orgs.fields.name'), type: 'string' },
 			{ key: 'address', name: t('orgs.fields.address'), type: 'string' },
 			{ key: 'city', name: t('orgs.fields.city'), type: 'string' },
 			{ key: 'zip', name: t('orgs.fields.zip'), type: 'string' },
 			{ key: 'org.name', name: t('orgs.fields.parentOrg'), type: 'string' },
-			{ key: 'org.id', name: t('filters.orgs.parentOrg'), type: 'diff', options: { dropdown: this.dHasOrgParent(), values: { false: [-1] } } }
+			{ key: 'org.id', name: t('filters.orgs.parentOrg'), type: 'diff', options: { dropdown: this.dHasOrgParent(), values: { false: [-1] } } },
+			{ key: "", name: t('filters.freeText'), type: 'string', hidden: true }
 		]
 	}
 	handleCheckboxClick = (event, id) => {
