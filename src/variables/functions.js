@@ -65,7 +65,7 @@ const sortFunc = (a, b, orderBy, way) => {
 	let newA = _.get(a, orderBy) ? _.get(a, orderBy) : ''
 	let newB = _.get(b, orderBy) ? _.get(b, orderBy) : ''
 	if (moment(new Date(newA)).isValid() || moment(new Date(newB)).isValid()) {
-		return way ? moment(newA).diff(newB) : moment(newB).diff(newA)
+		return way ? moment(new Date(newA)).diff(new Date(newB)) : moment(new Date(newB)).diff(new Date(newA))
 	}
 	if (typeof newA === 'number')
 		if (way) {
