@@ -75,7 +75,9 @@ import DataUsage from '@material-ui/icons/DataUsage'
 import DeviceHub from '@material-ui/icons/DeviceHub'
 import Dashboard from '@material-ui/icons/Dashboard'
 import History from '@material-ui/icons/History'
+import Mail from '@material-ui/icons/Mail'
 export {
+	Mail,
 	//Weather Icons
 	// ClearDay,
 	// ClearNight,

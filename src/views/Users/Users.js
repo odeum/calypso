@@ -5,7 +5,7 @@ import UserTable from 'components/User/UserTable';
 import CircularLoader from 'components/Loader/CircularLoader';
 import GridContainer from 'components/Grid/GridContainer';
 import { deleteUser } from 'variables/dataUsers';
-import { People, Business, Add, Delete, PictureAsPdf, Edit, Star, StarBorder } from 'variables/icons';
+import { People, Business, Add, Delete, PictureAsPdf, Edit, Star, StarBorder, Mail } from 'variables/icons';
 import { handleRequestSort, copyToClipboard } from 'variables/functions';
 import TableToolbar from 'components/Table/TableToolbar';
 import { Info } from 'components';
@@ -102,7 +102,7 @@ class Users extends Component {
 		return [
 			{ label: t('menus.edit'), func: this.handleEdit, single: true, icon: Edit },
 			{ label: isFavorite ? t('menus.favorites.remove') : t('menus.favorites.add'), icon: isFavorite ? Star : StarBorder, func: isFavorite ? () => this.removeFromFav(favObj) : () => this.addToFav(favObj) },
-			{ label: t('menus.copyEmails'), icon: Edit, func: this.handleCopyEmailsSelected },
+			{ label: t('menus.copyEmails'), icon: Mail, func: this.handleCopyEmailsSelected },
 			{ label: t('menus.exportPDF'), func: () => { }, icon: PictureAsPdf },
 			{ label: t('menus.delete'), func: this.handleOpenDeleteDialog, icon: Delete }
 		]
