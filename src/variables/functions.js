@@ -64,6 +64,9 @@ export const keyTester = (obj, sstr) => {
 const sortFunc = (a, b, orderBy, way) => {
 	let newA = _.get(a, orderBy) ? _.get(a, orderBy) : ''
 	let newB = _.get(b, orderBy) ? _.get(b, orderBy) : ''
+	if (moment(new Date(newA)).isValid() || moment(new Date(newB)).isValid()) {
+		return way ? moment(newA).diff(newB) : moment(newB).diff(newA)
+	}
 	if (typeof newA === 'number')
 		if (way) {
 			return newB <= newA ? -1 : 1
@@ -90,9 +93,9 @@ export const handleRequestSort = (property, way, data, type) => {
 	const orderBy = property;
 	let order = way;
 	let newData = []
-	if (type === 'date') { 
-		return newData = order === 'desc' ? data.sort((a, b) => moment(a[orderBy]).diff(b[orderBy])) : data.sort((a, b) => moment(b[orderBy]).diff(a[orderBy]))
-	}
+	// if (type === 'date') { 
+	// 	return newData = order === 'desc' ? data.sort((a, b) => moment(a[orderBy]).diff(b[orderBy])) : data.sort((a, b) => moment(b[orderBy]).diff(a[orderBy]))
+	// }
 	newData =
 		order === 'desc'
 			? data.sort((a, b) => sortFunc(a, b, orderBy, true))

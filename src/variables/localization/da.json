@@ -6,6 +6,8 @@
 	},
 	"": "",
 	"actions": {
+		"addFilter": "Tilføj filter",
+		"editFilter": "Rediger filter",
 		"createUser": "Opret bruger",
 		"update": "Rediger",
 		"createOrg": "Opret organisation",
@@ -94,6 +96,12 @@
 		}
 	},
 	"filters": {
+		"freeText": "Fri tekst",
+		"after": "efter",
+		"afterDate": "Efter dato",
+		"before": "før",
+		"beforeDate": "Før dato",
+		"contains": "Indeholder",
 		"dateOptions": {
 			"30days": "Seneste 30 dage",
 			"7days": "Seneste 7 dage",
@@ -107,9 +115,27 @@
 			"today": "I dag",
 			"yesterday": "I går"
 		},
+		"devices": {
+			"calibrated": "Kalibreret",
+			"notCalibrated": "Ikke kalibreret"
+		},
+		"display": "Visning",
 		"endDate": "Slutdato",
+		"options": {
+			"graphType": "Diagramtype"
+		},
+		"orgs": {
+			"hasParentOrg": "Med organisatorisk tilhørsforhold",
+			"noParentOrg": "Uden organisatiorisk tilhørsforhold",
+			"parentOrg": "Med/uden organisatorisk tilhørsforhold"
+		},
 		"search": "Søg",
-		"startDate": "Startdato"
+		"startDate": "Startdato",
+		"users": {
+			"hasLogged": "Ever logged in",
+			"hasLoggedIn": "Has logged in",
+			"neverLoggedIn": "Never logged in"
+		}
 	},
 	"links": {
 		"mailTo": "Send E-mail til",

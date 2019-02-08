@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "@babel/runtime": "7.1.2",
+    "@date-io/moment": "^1.0.3",
     "@material-ui/core": "^3.3.2",
     "@material-ui/icons": "^3.0.1",
     "@react-pdf/renderer": "^1.0.0-alpha.25",

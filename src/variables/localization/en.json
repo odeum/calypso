@@ -6,6 +6,8 @@
 	},
 	"": "",
 	"actions": {
+		"addFilter": "Add filter",
+		"editFilter": "Edit filter",
 		"createUser": "Create user",
 		"update": "Update",
 		"createOrg": "Create organisation",
@@ -94,6 +96,12 @@
 		}
 	},
 	"filters": {
+		"freeText": "Free text",
+		"after": "after",
+		"afterDate": "After date",
+		"before": "before",
+		"beforeDate": "Before date",
+		"contains": "Contains",
 		"dateOptions": {
 			"30days": "Last 30 days",
 			"7days": "Last 7 days",
@@ -107,9 +115,27 @@
 			"today": "Today",
 			"yesterday": "Yesterday"
 		},
+		"devices": {
+			"calibrated": "Calibrated",
+			"notCalibrated": "Not calibrated"
+		},
+		"display": "Display:",
 		"endDate": "End date",
+		"options": {
+			"graphType": "Chart type"
+		},
+		"orgs": {
+			"hasParentOrg": "With parent organisation",
+			"noParentOrg": "Without parent organisation",
+			"parentOrg": "With/Without parent organisation"
+		},
 		"search": "Search",
-		"startDate": "Start date"
+		"startDate": "Start date",
+		"users": {
+			"hasLogged": "Ever logged in",
+			"hasLoggedIn": "Has logged in",
+			"neverLoggedIn": "Never logged in"
+		}
 	},
 	"links": {
 		"mailTo": "Mail to",
