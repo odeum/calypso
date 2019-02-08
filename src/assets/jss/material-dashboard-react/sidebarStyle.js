@@ -179,6 +179,10 @@ const sidebarStyle = theme => ({
 			backgroundColor: hoverColor,
 			boxShadow:
 					"0 12px 20px -10px rgba(55, 168, 145, 0.4), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(55, 168, 145, 0.4)"
+		},
+		"&:focus": {
+			color: "#fff",
+			background: primaryColor
 		}
 	},
 	sidebarWrapper: {

@@ -28,7 +28,6 @@ const Sidebar = ({ ...props }) => {
 			{routes.map((prop, key) => {
 				if (prop.redirect) return null;
 				if (prop.hideFromSideBar) return null;
-
 				const listItemClasses = cx({
 					[' ' + classes[color]]: activeRoute(prop.menuRoute)
 				});
