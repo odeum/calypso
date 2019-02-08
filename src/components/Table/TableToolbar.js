@@ -30,7 +30,6 @@ let selectedRender = props => {
 			<Menu
 				disablePortal
 				disableEnforceFocus
-				disableAutoFocus
 				disableRestoreFocus
 				id='long-menu'
 				anchorEl={anchor}
