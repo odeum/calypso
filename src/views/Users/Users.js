@@ -57,6 +57,13 @@ class Users extends Component {
 			{ value: 'en', label: t('settings.languages.en') }
 		]
 	}
+	dNewsletter = () => {
+		const { t } = this.props
+		return [
+			{ value: true, label: t('actions.yes') },
+			{ value: false, label: t('actions.no') }
+		]
+	}
 	ftUsers = () => {
 		const { t } = this.props
 		return [
@@ -66,6 +73,7 @@ class Users extends Component {
 			{ key: 'org.name', name: t('orgs.fields.name'), type: 'string' },
 			{ key: 'groups', name: t('users.fields.group'), type: 'dropDown', options: this.dUserGroup() },
 			{ key: 'lastLoggedIn', name: t('users.fields.lastSignIn'), type: 'date' },
+			{ key: 'aux.calypso.extendedProfile.newsletter', name: t('users.fields.newsletter'), type: 'diff', options: { dropdown: this.dNewsletter(), values: { false: [null, undefined] } } },
 			// { key: 'suspended', name: t('users.fields.loginSuspended'), type: 'dropDown', options: this.dSuspended() },
 			{ key: 'lastLoggedIn', name: t('filters.users.hasLogged'), type: 'diff', options: { dropdown: this.dHasLoggedIn(), values: { false: [null] } } },
 			{ key: 'aux.odeum.language', name: t('users.fields.language'), type: 'dropDown', options: this.dLang() },
@@ -226,7 +234,7 @@ class Users extends Component {
 	}
 	handleSelectAllClick = (event, checked) => {
 		if (checked) {
-			this.setState({ selected: this.props.users.map(n => n.id) })
+			this.setState({ selected: this.filterItems(this.props.users).map(n => n.id) })
 			return;
 		}
 		this.setState({ selected: [] })

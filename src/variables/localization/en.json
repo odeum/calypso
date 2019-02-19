@@ -33,7 +33,8 @@
 		"save": "Save",
 		"start": "Start",
 		"startNow": "Start now",
-		"yes": "Yes"
+		"yes": "Yes",
+		"extendProfile": "Extended Profile"
 	},
 	"confirmUser": {
 		"button": "Confirm password",
@@ -260,7 +261,14 @@
 	"users": {
 		"editUser": "Edit user",
 		"fields": {
-			"id": "User ID",
+			"bio": "Bio",
+			"newsletter": "Newsletter",
+			"position": "Position",
+			"location": "Location",
+			"recoveryEmail": "Recovery email",
+			"linkedInURL": "LinkedIn",
+			"twitterURL": "Twitter",
+			"birthday": "Birthday",
 			"accessLevel": "Access Level",
 			"active": "Active",
 			"confirmPass": "Confirm new password",

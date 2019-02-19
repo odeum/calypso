@@ -33,7 +33,8 @@
 		"save": "Gem",
 		"start": "Start",
 		"startNow": "Start nu",
-		"yes": "Ja"
+		"yes": "Ja",
+		"extendProfile": "Udvidet profil"
 	},
 	"confirmUser": {
 		"button": "Bekræft og log ind",
@@ -260,7 +261,14 @@
 	"users": {
 		"editUser": "Opdater bruger",
 		"fields": {
-			"id": "Bruger ID",
+			"bio": "Biografi",
+			"newsletter": "Nyhedsbrev",
+			"position": "Stilling",
+			"location": "Placering",
+			"recoveryEmail": "Gendannelses E-mail",
+			"linkedInURL": "LinkedIn",
+			"twitterURL": "Twitter",
+			"birthday": "Fødselsdag",
 			"accessLevel": "Adgangsniveau",
 			"active": "Aktiv",
 			"confirmPass": "Bekræft nyt kodeord",
