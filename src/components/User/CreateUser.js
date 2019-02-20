@@ -80,6 +80,14 @@ class CreateUser extends Component {
 			loading: false
 		})
 	}
+	handleExtendedNewsletter = () => {
+		this.setState({
+			extended: {
+				...this.state.extended,
+				newsletter: !this.state.extended.newsletter
+			}
+		})
+	}
 	handleCreateUser = async () => {
 		const { user, openExtended } = this.state
 		let newUser = {
@@ -375,17 +383,7 @@ class CreateUser extends Component {
 					error={error}
 				/>
 			</ItemGrid>
-			{/* <ItemGrid container xs={12} md={6}>
-				<TextF
-					id={'recoveryEmail'}
-					label={t('users.fields.recoveryEmail')}
-					value={extended.recoveryEmail}
-					className={classes.textField}
-					handleChange={this.handleExtendedChange('recoveryEmail')}
-					margin='normal'
-					error={error}
-				/>
-			</ItemGrid> */}
+
 			<ItemGrid container xs={12} md={6}>
 				<TextF
 					id={'linkedInURL'}
@@ -430,8 +428,7 @@ class CreateUser extends Component {
 					control={
 						<Checkbox
 							checked={extended.newsletter}
-							onChange={this.handleExtendedChange('newsletter')}
-							value="checkedB"
+							onChange={this.handleExtendedNewsletter}
 							color="primary"
 						/>
 					}
