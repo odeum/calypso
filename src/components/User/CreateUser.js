@@ -17,6 +17,7 @@ class CreateUser extends Component {
 
 		this.state = {
 			openExtended: false,
+			mail: false,
 			extended: {
 				bio: "",
 				position: "",
@@ -25,7 +26,7 @@ class CreateUser extends Component {
 				linkedInURL: "",
 				twitterURL: "",
 				birthday: moment('01011990', 'DDMMYYYY'),
-				newsletter: true,
+
 			},
 			user: {
 				userName: '',
@@ -39,8 +40,7 @@ class CreateUser extends Component {
 						language: 'da'
 					},
 					calypso: {
-						extendedProfile: {							
-							newsletter: true,
+						extendedProfile: {
 						}
 					}
 				},
@@ -82,18 +82,22 @@ class CreateUser extends Component {
 	}
 	handleExtendedNewsletter = () => {
 		this.setState({
-			extended: {
-				...this.state.extended,
-				newsletter: !this.state.extended.newsletter
-			}
+			mail: !this.state.mail
 		})
 	}
 	handleCreateUser = async () => {
 		const { user, openExtended } = this.state
 		let newUser = {
 			...this.state.user,
+			aux: {
+				...this.state.user.aux,
+				calypso: {
+					mail: this.state.mail
+				}
+			},
 			userName: user.email
 		}
+
 		if (openExtended)
 			newUser.aux.calypso.extendedProfile = this.state.extended
 		if (this.handleValidation()) {
@@ -423,18 +427,7 @@ class CreateUser extends Component {
 					/>
 				</MuiPickersUtilsProvider>
 			</ItemGrid>
-			<ItemGrid container xs={12} md={6}>
-				<FormControlLabel
-					control={
-						<Checkbox
-							checked={extended.newsletter}
-							onChange={this.handleExtendedNewsletter}
-							color="primary"
-						/>
-					}
-					label={t('users.fields.newsletter')}
-				/>
-			</ItemGrid>
+
 		</Collapse>
 	}
 	render() {
@@ -508,6 +501,18 @@ class CreateUser extends Component {
 						</ItemGrid>
 						<ItemGrid container xs={12} md={6}>
 							{this.renderAccess()}
+						</ItemGrid>
+						<ItemGrid container xs={12} md={6}>
+							<FormControlLabel
+								control={
+									<Checkbox
+										checked={this.state.mail}
+										onChange={this.handleExtendedNewsletter}
+										color="primary"
+									/>
+								}
+								label={t('users.fields.newsletter')}
+							/>
 						</ItemGrid>
 						<ItemG xs={12}>
 							{this.renderExtendedProfile()}

@@ -73,7 +73,7 @@ class Users extends Component {
 			{ key: 'org.name', name: t('orgs.fields.name'), type: 'string' },
 			{ key: 'groups', name: t('users.fields.group'), type: 'dropDown', options: this.dUserGroup() },
 			{ key: 'lastLoggedIn', name: t('users.fields.lastSignIn'), type: 'date' },
-			{ key: 'aux.calypso.extendedProfile.newsletter', name: t('users.fields.newsletter'), type: 'diff', options: { dropdown: this.dNewsletter(), values: { false: [false, null, undefined] } } },
+			{ key: 'aux.calypso.mail', name: t('users.fields.newsletter'), type: 'dropDown', options: this.dNewsletter() },
 			// { key: 'suspended', name: t('users.fields.loginSuspended'), type: 'dropDown', options: this.dSuspended() },
 			{ key: 'lastLoggedIn', name: t('filters.users.hasLogged'), type: 'diff', options: { dropdown: this.dHasLoggedIn(), values: { false: [null] } } },
 			{ key: 'aux.odeum.language', name: t('users.fields.language'), type: 'dropDown', options: this.dLang() },

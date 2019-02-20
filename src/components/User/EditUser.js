@@ -20,6 +20,7 @@ class EditUser extends Component {
 
 		this.state = {
 			openExtended: false,
+			mail: false,
 			extended: {
 				bio: "",
 				position: "",
@@ -28,7 +29,6 @@ class EditUser extends Component {
 				linkedInURL: "",
 				twitterURL: "",
 				birthday: moment('01011990', 'DDMMYYYY'),
-				newsletter: false,
 			},
 			user: {
 				userName: '',
@@ -101,6 +101,7 @@ class EditUser extends Component {
 					...user,
 					groups: Object.keys(user.groups).map(g => ({ id: g, name: user.groups[g].name, appId: user.groups[g].appId }))
 				},
+				mail: user.aux.calypso.mail,
 				extended: user.aux.calypso ? user.aux.calypso.extendedProfile ? 
 					user.aux.calypso.extendedProfile : this.state.extended : this.state.extended
 			
@@ -127,10 +128,16 @@ class EditUser extends Component {
 		})
 		let newUser = {
 			...this.state.user,
+			aux: {
+				...this.state.user.aux,
+				calypso: {
+					...this.state.user.aux.calypso,
+					mail: this.state.mail
+				}
+			},
 			userName: user.email,
 			groups: groups
 		}
-		console.log(newUser)
 		if (!newUser.aux.calypso) { 
 			newUser.aux.calypso = {}
 		}
@@ -367,10 +374,7 @@ class EditUser extends Component {
 	}
 	handleExtendedNewsletter = () => {
 		this.setState({
-			extended: {
-				...this.state.extended,
-				newsletter: !this.state.extended.newsletter
-			}
+			mail: !this.state.mail
 		})
 	}
 	handleExtendedChange = prop => e => {
@@ -477,18 +481,7 @@ class EditUser extends Component {
 					/>
 				</MuiPickersUtilsProvider>
 			</ItemGrid>
-			<ItemGrid container xs={12} md={6}>
-				<FormControlLabel
-					control={
-						<Checkbox
-							checked={extended.newsletter}
-							onChange={this.handleExtendedNewsletter}
-							color="primary"
-						/>
-					}
-					label={t('users.fields.newsletter')}
-				/>
-			</ItemGrid>
+
 		</Collapse>
 	}
 	render() {
@@ -563,9 +556,22 @@ class EditUser extends Component {
 						<ItemGrid container xs={12} md={6}>
 							{this.renderAccess()}
 						</ItemGrid>
+						<ItemGrid container xs={12} md={6}>
+							<FormControlLabel
+								control={
+									<Checkbox
+										checked={this.state.mail}
+										onChange={this.handleExtendedNewsletter}
+										color="primary"
+									/>
+								}
+								label={t('users.fields.newsletter')}
+							/>
+						</ItemGrid>
 						<ItemG xs={12}>
 							{this.renderExtendedProfile()}
 						</ItemG>
+
 						<ItemGrid container xs={12} md={12}>
 							<Button color={'primary'} onClick={() => this.setState({ openExtended: !this.state.openExtended })}>{t('actions.extendProfile')}</Button>
 						</ItemGrid>
@@ -590,6 +596,7 @@ class EditUser extends Component {
 							</Button>
 						</div>
 					</Grid>
+
 				</Paper>
 
 			</GridContainer> : <CircularLoader />

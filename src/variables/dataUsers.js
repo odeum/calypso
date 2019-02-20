@@ -10,6 +10,7 @@ export const getValidSession = async (userId) => {
 	return data
 }
 export const getUser = async (userId) => {
+	console.trace()
 	var data = await api.get(`core/user/${userId}`).then(rs => rs.data)
 	return data
 }
