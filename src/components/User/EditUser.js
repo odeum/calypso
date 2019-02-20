@@ -130,6 +130,10 @@ class EditUser extends Component {
 			userName: user.email,
 			groups: groups
 		}
+		console.log(newUser)
+		if (!newUser.aux.calypso) { 
+			newUser.aux.calypso = {}
+		}
 		if (openExtended) {
 			newUser.aux.calypso.extendedProfile = this.state.extended
 		}

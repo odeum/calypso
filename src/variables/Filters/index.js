@@ -44,8 +44,9 @@ const filterByDiff = (items, k) => {
 	items = items.reduce((newArr, d) => { 
 		let objVal = index(d, k.key)
 		if (k.value.diff) {
-			if (k.value.values.false.indexOf(objVal) === -1)
+			if (k.value.values.false.indexOf(objVal) === -1) { 
 				newArr.push(d)
+			}
 		}
 		else { 
 			if (k.value.values.false.indexOf(objVal) !== -1)
