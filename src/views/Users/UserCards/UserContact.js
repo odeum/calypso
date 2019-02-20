@@ -168,7 +168,7 @@ class UserContact extends Component {
 						<ItemG xs={12}>
 							<Caption>{t('users.fields.newsletter')}</Caption>
 							<Info>
-								{extended ? extended.newsletter ? t('actions.yes') : t('actions.no') : t('actions.no')}
+								{user.aux.calypso ? user.aux.calypso.mail ? t('actions.yes') : t('actions.no') : t('actions.no')}
 							</Info>
 						</ItemG>
 					</ItemG>
