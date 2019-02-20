@@ -28,7 +28,7 @@ class EditUser extends Component {
 				linkedInURL: "",
 				twitterURL: "",
 				birthday: moment('01011990', 'DDMMYYYY'),
-				newsletter: true,
+				newsletter: false,
 			},
 			user: {
 				userName: '',
