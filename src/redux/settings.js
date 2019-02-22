@@ -233,7 +233,7 @@ let initialState = {
 	didKnow: 0,
 	loading: true,
 	saved: false,
-	rowsPerPageOptions: [5, 10, 15, 20, 25, 50, 100]
+	rowsPerPageOptions: [5, 7, 8, 10, 15, 20, 25, 50, 100]
 }
 export const settings = (state = initialState, action) => {
 	switch (action.type) {
