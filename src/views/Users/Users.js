@@ -36,13 +36,13 @@ class Users extends Component {
 			{ value: 137180100000025, label: t("users.groups.137180100000025") },
 		]
 	}
-	// dSuspended = () => {
-	// 	const { t } = this.props
-	// 	return [
-	// 		{ value: 0, label: t('users.fields.active') },
-	// 		{ value: 1, label: t('users.fields.loginSuspended') },
-	// 	]
-	// }
+	dSuspended = () => {
+		const { t } = this.props
+		return [
+			{ value: 0, label: t('users.fields.active') },
+			{ value: 1, label: t('users.fields.loginSuspended') },
+		]
+	}
 	dHasLoggedIn = () => {
 		const { t } = this.props
 		return [
@@ -74,7 +74,7 @@ class Users extends Component {
 			{ key: 'groups', name: t('users.fields.group'), type: 'dropDown', options: this.dUserGroup() },
 			{ key: 'lastLoggedIn', name: t('users.fields.lastSignIn'), type: 'date' },
 			{ key: 'aux.calypso.mail', name: t('users.fields.newsletter'), type: 'dropDown', options: this.dNewsletter() },
-			// { key: 'suspended', name: t('users.fields.loginSuspended'), type: 'dropDown', options: this.dSuspended() },
+			{ key: 'suspended', name: t('users.fields.loginSuspended'), type: 'dropDown', options: this.dSuspended() },
 			{ key: 'lastLoggedIn', name: t('filters.users.hasLogged'), type: 'diff', options: { dropdown: this.dHasLoggedIn(), values: { false: [null] } } },
 			{ key: 'aux.odeum.language', name: t('users.fields.language'), type: 'dropDown', options: this.dLang() },
 			{ key: '', name: t('filters.freeText'), type: 'string', hidden: true }
@@ -97,13 +97,12 @@ class Users extends Component {
 		let user = users[users.findIndex(d => d.id === selected[0])]
 		let favObj
 		let isFavorite = false
-		if (user)
-		{
+		if (user) {
 			favObj = {
 				id: user.id,
 				name: `${user.firstName} ${user.lastName}`,
 				type: 'user',
-				path: `/management/user/${user.id}`	
+				path: `/management/user/${user.id}`
 			}
 			isFavorite = isFav(favObj)
 		}
@@ -118,9 +117,9 @@ class Users extends Component {
 	handleCopyEmailsSelected = () => {
 		const { selected } = this.state
 		const { users } = this.props
-		let fUsers =  users.filter((el) => {
+		let fUsers = users.filter((el) => {
 			return selected.some((f) => {
-				return f === el.id 
+				return f === el.id
 			});
 		});
 		let emails = fUsers.map(u => u.email).join(';')
@@ -140,6 +139,7 @@ class Users extends Component {
 			{ id: 'email', label: t('users.fields.email') },
 			{ id: 'org.name', label: t('users.fields.organisation') },
 			{ id: 'group', label: t('users.fields.group') },
+			{ id: 'suspended', label: t('users.fields.status') },
 			{ id: 'lastLoggedIn', label: t('users.fields.lastSignIn') }
 		]
 	}

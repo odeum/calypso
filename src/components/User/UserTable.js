@@ -124,6 +124,7 @@ class UserTable extends React.Component {
 											<TC label={<a onClick={e => e.stopPropagation()} href={`mailto:${n.email}`}>{n.email}</a>} />
 											<TC label={n.org ? n.org.name : t('users.noOrg')} />
 											<TC label={n.group} />
+											<TC label={n.suspended} />
 											<TC label={lastLoggedIn} />
 										</Hidden>
 									</TableRow>
