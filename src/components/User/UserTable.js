@@ -124,7 +124,7 @@ class UserTable extends React.Component {
 											<TC label={<a onClick={e => e.stopPropagation()} href={`mailto:${n.email}`}>{n.email}</a>} />
 											<TC label={n.org ? n.org.name : t('users.noOrg')} />
 											<TC label={n.group} />
-											<TC label={n.suspended} />
+											<TC label={n.suspendedS} />
 											<TC label={lastLoggedIn} />
 										</Hidden>
 									</TableRow>
@@ -133,7 +133,7 @@ class UserTable extends React.Component {
 							}) : null}
 							{emptyRows > 0 && (
 								<TableRow style={{ height: 49 }}>
-									<TableCell colSpan={8} />
+									<TableCell colSpan={9} />
 								</TableRow>
 							)}
 						</TableBody>

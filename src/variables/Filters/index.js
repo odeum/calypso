@@ -20,6 +20,26 @@ const filterByDate = (items, k) => {
 		return newArr
 	}, [])
 }
+const filterByDropdown = (items, k) => {
+	if (k.key === "") {
+		return items = filterItems(items, { keyword: k.value })
+	}
+	else
+		return items = items.reduce((newArr, d) => {
+			let objVal = index(d, k.key)
+			if (objVal !== null && objVal !== undefined) {
+				if (objVal.toString().toLowerCase() === (k.value.toString().toLowerCase()))
+					newArr.push(d)
+				else {
+					if (objVal.hasOwnProperty(k.value)) {
+						newArr.push(d)
+					}
+				}
+			}
+
+			return newArr
+		}, [])
+}
 const filterByString = (items, k) => {
 	if (k.key === "") {
 		return items = filterItems(items, { keyword: k.value })
@@ -36,19 +56,19 @@ const filterByString = (items, k) => {
 					}
 				}
 			}
-		
+
 			return newArr
 		}, [])
 }
-const filterByDiff = (items, k) => { 
-	items = items.reduce((newArr, d) => { 
+const filterByDiff = (items, k) => {
+	items = items.reduce((newArr, d) => {
 		let objVal = index(d, k.key)
 		if (k.value.diff) {
-			if (k.value.values.false.indexOf(objVal) === -1) { 
+			if (k.value.values.false.indexOf(objVal) === -1) {
 				newArr.push(d)
 			}
 		}
-		else { 
+		else {
 			if (k.value.values.false.indexOf(objVal) !== -1)
 				newArr.push(d)
 		}
@@ -60,9 +80,11 @@ export const customFilterItems = (items, keyValues) => {
 	keyValues.forEach(k => {
 		switch (k.type) {
 			case 'string':
-			case 'dropDown':
 			case null:
 				items = filterByString(items, k)
+				break;
+			case 'dropDown':
+				items = filterByDropdown(items, k)
 				break;
 			case 'date':
 				items = filterByDate(items, k)

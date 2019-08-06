@@ -289,7 +289,14 @@
 			"phone": "Telefon",
 			"profileImage": "Profilbillede",
 			"tags": "Tags",
-			"userName": "Brugernavn"
+			"userName": "Brugernavn",
+			"status": "Status"
+		},
+		"statuses": {
+			"active": "Aktiv",
+			"suspended": "Suspenderet",
+			"suspendedUnconfirmed": "Ubekræftet",
+			"suspendedReqActivation": "Kræver aktivering"
 		},
 		"groups": {
 			"137180100000023": "Superbruger",

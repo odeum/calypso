@@ -31,16 +31,18 @@ class Users extends Component {
 	dUserGroup = () => {
 		const { t } = this.props
 		return [
-			{ value: 137180100000023, label: t("users.groups.137180100000023") },
-			{ value: 137180100000026, label: t("users.groups.137180100000026") },
-			{ value: 137180100000025, label: t("users.groups.137180100000025") },
+			{ value: t("users.groups.137180100000023"), label: t("users.groups.137180100000023") },
+			{ value: t("users.groups.137180100000026"), label: t("users.groups.137180100000026") },
+			{ value: t("users.groups.137180100000025"), label: t("users.groups.137180100000025") },
 		]
 	}
 	dSuspended = () => {
 		const { t } = this.props
 		return [
-			{ value: 0, label: t('users.fields.active') },
-			{ value: 1, label: t('users.fields.loginSuspended') },
+			{ value: 0, label: t('users.statuses.active') },
+			{ value: 1, label: t('users.statuses.suspended') },
+			{ value: 2, label: t('users.statuses.suspendedUnconfirmed') },
+			{ value: 3, label: t('users.statuses.suspendedReqActivation') },
 		]
 	}
 	dHasLoggedIn = () => {
@@ -50,13 +52,13 @@ class Users extends Component {
 			{ value: false, label: t('filters.users.neverLoggedIn') }
 		]
 	}
-	dLang = () => {
-		const { t } = this.props
-		return [
-			{ value: 'da', label: t('settings.languages.da') },
-			{ value: 'en', label: t('settings.languages.en') }
-		]
-	}
+	// dLang = () => {
+	// 	const { t } = this.props
+	// 	return [
+	// 		{ value: 'da', label: t('settings.languages.da') },
+	// 		{ value: 'en', label: t('settings.languages.en') }
+	// 	]
+	// }
 	dNewsletter = () => {
 		const { t } = this.props
 		return [
@@ -71,12 +73,12 @@ class Users extends Component {
 			{ key: 'lastName', name: t('users.fields.lastName'), type: 'string' },
 			{ key: 'email', name: t('users.fields.email'), type: 'string' },
 			{ key: 'org.name', name: t('orgs.fields.name'), type: 'string' },
-			{ key: 'groups', name: t('users.fields.group'), type: 'dropDown', options: this.dUserGroup() },
+			{ key: 'group', name: t('users.fields.group'), type: 'dropDown', options: this.dUserGroup() },
 			{ key: 'lastLoggedIn', name: t('users.fields.lastSignIn'), type: 'date' },
 			{ key: 'aux.calypso.mail', name: t('users.fields.newsletter'), type: 'dropDown', options: this.dNewsletter() },
-			{ key: 'suspended', name: t('users.fields.loginSuspended'), type: 'dropDown', options: this.dSuspended() },
-			{ key: 'lastLoggedIn', name: t('filters.users.hasLogged'), type: 'diff', options: { dropdown: this.dHasLoggedIn(), values: { false: [null] } } },
-			{ key: 'aux.odeum.language', name: t('users.fields.language'), type: 'dropDown', options: this.dLang() },
+			{ key: 'suspended', name: t('users.fields.status'), type: 'dropDown', options: this.dSuspended() },
+			// { key: 'lastLoggedIn', name: t('filters.users.hasLogged'), type: 'diff', options: { dropdown: this.dHasLoggedIn(), values: { false: [null] } } },
+			// { key: 'aux.odeum.language', name: t('users.fields.language'), type: 'dropDown', options: this.dLang() },
 			{ key: '', name: t('filters.freeText'), type: 'string', hidden: true }
 		]
 	}

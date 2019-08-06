@@ -289,7 +289,14 @@
 			"phone": "Phone",
 			"profileImage": "Profile image",
 			"tags": "Tags",
-			"userName": "Username"
+			"userName": "Username",
+			"status": "Status"
+		},
+		"statuses": {
+			"active": "Active",
+			"suspended": "Suspended",
+			"suspendedUnconfirmed": "Unconfirmed",
+			"suspendedReqActivation": "Req. activation"
 		},
 		"groups": {
 			"137180100000023": "Super user",

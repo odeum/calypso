@@ -20,6 +20,7 @@ import TableToolbar from 'components/Table/TableToolbar';
 import projectStyles from 'assets/jss/views/projects';
 import { customFilterItems } from 'variables/Filters';
 
+
 class Management extends Component {
 	constructor(props) {
 		super(props)
@@ -39,7 +40,7 @@ class Management extends Component {
 		}
 		props.setHeader('users.pageTitle', false, '', 'users')
 	}
-	
+
 	tabs = [
 		{ id: 0, title: this.props.t('users.tabs.users'), label: <People />, url: `/management/users` },
 		{ id: 1, title: this.props.t('users.tabs.orgs'), label: <Business />, url: `/management/orgs` },
@@ -55,7 +56,21 @@ class Management extends Component {
 		this.getData()
 		this.handleFilterKeyword('')
 	}
-
+	renderStatus = (susp) => {
+		const { t } = this.props
+		switch (susp) {
+			case 0:
+				return t('users.statuses.active')
+			case 1:
+				return t('users.statuses.suspended')
+			case 2:
+				return t('users.statuses.suspendedUnconfirmed')
+			case 3:
+				return t('users.statuses.suspendedReqActivation')
+			default:
+				break
+		}
+	}
 	renderUserGroup = (user) => {
 		const { t } = this.props
 		if (user.groups) {
@@ -65,6 +80,8 @@ class Management extends Component {
 				return t('users.groups.137180100000026')
 			if (user.groups[137180100000025])
 				return t('users.groups.137180100000025')
+			if (user.groups.length === 0)
+				return t('users.groups.137180100000025')
 		}
 		return ''
 	}
@@ -72,7 +89,7 @@ class Management extends Component {
 		let users = await getAllUsers().then(rs => rs)
 		let orgs = await getAllOrgs().then(rs => rs)
 		this.setState({
-			users: users ? users.map(u => ({ ...u, group: this.renderUserGroup(u) })) : [],
+			users: users ? users.map(u => ({ ...u, group: this.renderUserGroup(u), suspendedS: this.renderStatus(u.suspended) })) : [],
 			orgs: orgs ? orgs : [],
 			loading: false
 		})
@@ -128,7 +145,7 @@ class Management extends Component {
 	handleTabsChange = (e, value) => {
 		this.setState({ route: value })
 	}
-	filterFavorites = (data) => { 
+	filterFavorites = (data) => {
 		const { filters } = this.state
 		const rFilters = this.props.filtersFavorites
 		return customFilterItems(this.filterItems(data, filters), rFilters)
