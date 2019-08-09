@@ -24,11 +24,30 @@ export const resendConfirmEmail = async (user) => {
 }
 export const confirmUser = async (obj) => {
 	let response = await api.post(`core/user/confirm`, obj).then(rs => rs)
-	return response.ok ? response.data : response.status 
+	return response.ok ? response.data : response.status
 }
 export const editUser = async (user) => {
 	let data = await api.put(`core/user/${user.id}`, user).then(rs => rs.ok)
 	return data
+}
+
+export const manualConfirm = async (user) => {
+	let newUser = {
+		...user,
+		aux: {
+			...user.aux,
+			calypso: {
+				...user.aux.calypso
+			}
+		},
+		userName: user.email,
+	}
+	delete (user.group)
+	if (!newUser.aux.calypso) {
+		newUser.aux.calypso = {}
+	}
+	let res = await editUser(newUser).then(rs => rs)
+	return res
 }
 
 export const deleteUser = async (user) => {

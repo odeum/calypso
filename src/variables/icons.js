@@ -1,4 +1,4 @@
-// //#region weather Icons 
+// //#region weather Icons
 // import ClearDay from 'assets/weather/clear_day.svg'
 // import ClearNight from 'assets/weather/clear_night.svg'
 // import Cloudy from 'assets/weather/cloudy.svg'
@@ -10,6 +10,7 @@
 // import Snow from 'assets/weather/snow.svg'
 // import Wind from 'assets/weather/wind.svg'
 //#endregion
+import PersonAdd from '@material-ui/icons/PersonAdd'
 import Star from '@material-ui/icons/Star'
 import StarBorder from '@material-ui/icons/StarBorder'
 import CloudDownload from '@material-ui/icons/CloudDownload'
@@ -77,6 +78,7 @@ import Dashboard from '@material-ui/icons/Dashboard'
 import History from '@material-ui/icons/History'
 import Mail from '@material-ui/icons/Mail'
 export {
+	PersonAdd,
 	Mail,
 	//Weather Icons
 	// ClearDay,

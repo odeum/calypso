@@ -52,6 +52,13 @@
 		"welcomeMessage": "Welcome to Calypso!"
 	},
 	"dialogs": {
+		"confirm": {
+			"title": "Confirm user",
+			"message": {
+				"users": "Are you sure you want to confirm these users:",
+				"user": "Are you sure you want to confirm this user?"
+			}
+		},
 		"dashboard": {
 			"title": {
 				"createUser": "Create user",
@@ -147,6 +154,8 @@
 		"username": "Username"
 	},
 	"menus": {
+		"confirmUsers": "Confirm users",
+		"confirmUser": "Confirm user",
 		"changePassword": "Change password",
 		"copyEmails": "Copy e-mail addresses",
 		"create": {
@@ -231,6 +240,10 @@
 		"users": "Users"
 	},
 	"snackbars": {
+		"confirmed": "User confirmed",
+		"confirmedAll": "Users confirmed",
+		"confirmedPartial": "Users partially confirmed",
+		"failed": "Confirmation failed!",
 		"createdFail": "Creation failed!",
 		"createdSuccess": "Created!",
 		"creating": "Creating...",

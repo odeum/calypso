@@ -11,7 +11,7 @@ import {
 	DialogActions,
 	Button
 } from '@material-ui/core';
-import { getUser, deleteUser, resendConfirmEmail } from 'variables/dataUsers';
+import { getUser, deleteUser, resendConfirmEmail, manualConfirm } from 'variables/dataUsers';
 import { connect } from 'react-redux'
 import { setPassword } from 'variables/dataLogin';
 import { userStyles } from 'assets/jss/components/users/userStyles';
@@ -44,7 +44,8 @@ class User extends Component {
 			if (prevProps.match.params.id !== this.props.match.params.id) {
 				this.setState({ loading: true })
 				this.componentDidMount()
-			}}
+			}
+		}
 		if (this.props.saved === true) {
 			const { user } = this.state
 			if (this.props.isFav({ id: user.id, type: 'user' })) {
@@ -63,7 +64,8 @@ class User extends Component {
 			id: user.id,
 			name: `${user.firstName} ${user.lastName}`,
 			type: 'user',
-			path: this.props.match.url }
+			path: this.props.match.url
+		}
 		this.props.addToFav(favObj)
 	}
 	removeFromFav = () => {
@@ -72,7 +74,8 @@ class User extends Component {
 			id: user.id,
 			name: `${user.firstName} ${user.lastName}`,
 			type: 'user',
-			path: this.props.match.url }
+			path: this.props.match.url
+		}
 		this.props.removeFromFav(favObj)
 	}
 	componentDidMount = async () => {
@@ -135,6 +138,12 @@ class User extends Component {
 			case 2:
 				s('snackbars.userPasswordChanged')
 				break
+			case 3:
+				s('snackbars.confirmed')
+				break
+			case 4:
+				s('snackbars.failed')
+				break
 			default:
 				break
 		}
@@ -144,7 +153,7 @@ class User extends Component {
 		this.setState({ openChangePassword: true })
 	}
 
-	handleCloseChangePassword = success => e => {		
+	handleCloseChangePassword = success => e => {
 		if (e) {
 			e.preventDefault()
 		}
@@ -263,6 +272,55 @@ class User extends Component {
 			</DialogActions>
 		</Dialog>
 	}
+	handleOpenConfirmDialog = () => {
+		this.setState({
+			openConfirm: true
+
+		})
+	}
+	handleCloseConfirmDialog = () => {
+		this.setState({
+			openConfirm: false
+		})
+	}
+	handleConfirmUser = async () => {
+		const { user } = this.state
+		console.log(user)
+		// let result = false
+		let result = await manualConfirm(user).then(rs => rs)
+		if (result) {
+			this.snackBarMessages(3)
+		}
+		else {
+			this.snackBarMessages(4)
+		}
+		this.handleCloseConfirmDialog()
+		this.componentDidMount()
+	}
+	renderConfirmDialog = () => {
+		const { openConfirm } = this.state
+		const { t } = this.props
+		return <Dialog
+			open={openConfirm}
+			onClose={this.handleCloseConfirmDialog}
+		>
+			<DialogTitle>{t('dialogs.confirm.title')}</DialogTitle>
+			<DialogContent>
+				<DialogContentText>
+					{t('dialogs.confirm.message.user')}
+				</DialogContentText>
+			</DialogContent>
+			<DialogActions>
+				<Button onClick={this.handleCloseConfirmDialog} color='primary'>
+					{t('actions.cancel')}
+				</Button>
+				<Button onClick={this.handleConfirmUser} color='primary'>
+					{t('actions.yes')}
+				</Button>
+			</DialogActions>
+
+		</Dialog>
+	}
 	renderDeleteDialog = () => {
 		const { openDelete } = this.state
 		const { t } = this.props
@@ -308,6 +366,7 @@ class User extends Component {
 							deleteUser={this.handleOpenDeleteDialog}
 							changePass={this.handleOpenChangePassword}
 							resendConfirmEmail={this.handleOpenResend}
+							confirmUser={this.handleOpenConfirmDialog}
 							{...rp} />
 					</ItemGrid>
 					<ItemGrid xs={12} noMargin>
@@ -317,6 +376,7 @@ class User extends Component {
 				{this.renderDeleteDialog()}
 				{this.renderChangePassword()}
 				{this.renderConfirmEmail()}
+				{this.renderConfirmDialog()}
 			</Fragment>
 		)
 	}

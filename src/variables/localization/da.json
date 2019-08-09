@@ -52,6 +52,13 @@
 		"welcomeMessage": "Velkommen til Calypso!"
 	},
 	"dialogs": {
+		"confirm": {
+			"title": "Bekræft bruger",
+			"message": {
+				"users": "Er du sikker på du ønsker at bekræfte disse brugere:",
+				"user": "Er du sikker på du ønsker at bekræfte denne bruger?"
+			}
+		},
 		"dashboard": {
 			"title": {
 				"createUser": "Opret bruger",
@@ -147,6 +154,8 @@
 		"username": "Brugernavn"
 	},
 	"menus": {
+		"confirmUsers": "Bekræft brugere",
+		"confirmUser": "Bekræft bruger",
 		"changePassword": "Skift kodeord",
 		"copyEmails": "Kopier mail adresser",
 		"create": {
@@ -231,6 +240,10 @@
 		"users": "Brugere"
 	},
 	"snackbars": {
+		"confirmed": "Brugeren er bekræftet!",
+		"confirmedAll": "Brugerne er bekræftet",
+		"confirmedPartial": "Brugerne er delvist bekræftet",
+		"failed": "Bekræftelse fejlede!",
 		"createdFail": "Oprettelse fejlede!",
 		"createdSuccess": "Oprettet!",
 		"creating": "Opretter ...",

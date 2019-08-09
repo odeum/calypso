@@ -6,6 +6,12 @@ import { primaryColor } from "assets/jss/material-dashboard-react.js";
 // import regularCardStyle from "../material-dashboard-react/regularCardStyle";
 
 const projectStyles = theme => ({
+	img: {
+		borderRadius: "50px",
+		height: "30px",
+		width: "30px",
+		display: 'flex'
+	},
 	root: {
 		width: '100%',
 		margin: theme.spacing.unit,
@@ -51,7 +57,7 @@ const projectStyles = theme => ({
 	leftIcon: {
 		marginRight: 8
 	},
-	
+
 });
 
 export default projectStyles;

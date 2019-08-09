@@ -1,15 +1,15 @@
 import React, { Component, Fragment } from 'react'
-import { withStyles, Paper, IconButton, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from '@material-ui/core';
+import { withStyles, Paper, IconButton, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, List, ListItem, ListItemText, ListItemAvatar, Divider } from '@material-ui/core';
 import projectStyles from 'assets/jss/views/projects';
 import UserTable from 'components/User/UserTable';
 import CircularLoader from 'components/Loader/CircularLoader';
 import GridContainer from 'components/Grid/GridContainer';
-import { deleteUser } from 'variables/dataUsers';
-import { People, Business, Add, Delete, PictureAsPdf, Edit, Star, StarBorder, Mail } from 'variables/icons';
+import { deleteUser, manualConfirm } from 'variables/dataUsers';
+import { People, Business, Add, Delete, PersonAdd, Edit, Star, StarBorder, Mail } from 'variables/icons';
 import { handleRequestSort, copyToClipboard } from 'variables/functions';
 import TableToolbar from 'components/Table/TableToolbar';
-import { Info } from 'components';
 import { customFilterItems } from 'variables/Filters';
+import Gravatar from 'react-gravatar'
 
 class Users extends Component {
 	constructor(props) {
@@ -18,6 +18,7 @@ class Users extends Component {
 		this.state = {
 			selected: [],
 			openDelete: false,
+			openConfirm: false,
 			users: [],
 			userHeader: [],
 			anchorElMenu: null,
@@ -112,7 +113,8 @@ class Users extends Component {
 			{ label: t('menus.edit'), func: this.handleEdit, single: true, icon: Edit },
 			{ label: isFavorite ? t('menus.favorites.remove') : t('menus.favorites.add'), icon: isFavorite ? Star : StarBorder, func: isFavorite ? () => this.removeFromFav(favObj) : () => this.addToFav(favObj) },
 			{ label: t('menus.copyEmails'), icon: Mail, func: this.handleCopyEmailsSelected },
-			{ label: t('menus.exportPDF'), func: () => { }, icon: PictureAsPdf },
+			{ label: t('menus.confirmUsers'), icon: PersonAdd, func: this.handleOpenConfirmDialog },
+			// { label: t('menus.exportPDF'), func: () => { }, icon: PictureAsPdf },
 			{ label: t('menus.delete'), func: this.handleOpenDeleteDialog, icon: Delete }
 		]
 	}
@@ -195,6 +197,15 @@ class Users extends Component {
 			case 2:
 				s('snackbars.exported')
 				break
+			case 3:
+				s('snackbars.confirmedAll')
+				break
+			case 4:
+				s('snackbars.confirmedPartial')
+				break
+			case 5:
+				s('snackbars.failed')
+				break
 			default:
 				break;
 		}
@@ -202,6 +213,22 @@ class Users extends Component {
 	reload = async () => {
 		this.setState({ loading: true })
 		await this.props.reload()
+	}
+	confirmUsers = async () => {
+		const { users } = this.props
+		const { selected } = this.state
+		Promise.all(selected.map(u => {
+			let user = users[users.findIndex(s => s.id === u)]
+			return manualConfirm(user)
+		})).then(rs => {
+			if (rs.filter(f => f === true).length === rs.length)
+				return this.snackBarMessages(3)
+			if (rs.filter(f => f === false).length === rs.length)
+				return this.snackBarMessages(5)
+			if (rs.filter(f => f === false).length > 0)
+				return this.snackBarMessages(4)
+		})
+		await this.reload()
 	}
 	deleteUsers = async () => {
 		const { selected } = this.state
@@ -241,6 +268,14 @@ class Users extends Component {
 		}
 		this.setState({ selected: [] })
 	}
+	handleConfirmUsers = async () => {
+		await this.confirmUsers()
+		this.setState({
+			selected: [],
+			anchorElMenu: null,
+			openConfirm: false
+		})
+	}
 	handleDeleteUsers = async () => {
 		await this.deleteUsers()
 		this.setState({
@@ -253,14 +288,54 @@ class Users extends Component {
 	handleOpenDeleteDialog = () => {
 		this.setState({ openDelete: true, anchorElMenu: null })
 	}
-
+	handleOpenConfirmDialog = () => {
+		this.setState({ openConfirm: true, anchorElMenu: null })
+	}
 	handleCloseDeleteDialog = () => {
 		this.setState({ openDelete: false })
 	}
+	handleCloseConfirmDialog = () => {
+		this.setState({ openConfirm: false })
+	}
 
+	renderConfirmUser = () => {
+		const { openConfirm, selected } = this.state
+		const { users, t, classes } = this.props
+		return <Dialog
+			open={openConfirm}
+			onClose={this.handleCloseConfirmDialog}>
+			<DialogTitle>{t('dialogs.confirm.title')}</DialogTitle>
+			<DialogContent>
+				<DialogContentText>
+					{t('dialogs.confirm.message.users')}
+				</DialogContentText>
+				<List dense={'dense'}>
+					<Divider />
+					{selected.map(s => {
+						let u = users[users.findIndex(d => d.id === s)]
+						return u ? <ListItem divider>
+							<ListItemAvatar>
+								<Gravatar default='mp' email={u.email} className={classes.img} />
+							</ListItemAvatar>
+							<ListItemText key={s} primary={u.firstName + ' ' + u.lastName} />
+						</ListItem> : null
+					})
+					}
+				</List>
+			</DialogContent>
+			<DialogActions>
+				<Button onClick={this.handleCloseConfirmDialog} color='primary'>
+					{t('actions.no')}
+				</Button>
+				<Button onClick={this.handleConfirmUsers} color='primary'>
+					{t('actions.yes')}
+				</Button>
+			</DialogActions>
+		</Dialog>
+	}
 	renderConfirmDelete = () => {
 		const { openDelete, selected } = this.state
-		const { users, t } = this.props
+		const { users, t, classes } = this.props
 
 		return <Dialog
 			open={openDelete}
@@ -273,13 +348,19 @@ class Users extends Component {
 				<DialogContentText id='alert-dialog-description'>
 					{t('dialogs.delete.message.users')}
 				</DialogContentText>
-				<div>
+				<List dense={'dense'}>
+					<Divider />
 					{selected.map(s => {
 						let u = users[users.findIndex(d => d.id === s)]
-						return u ? <Info key={s}>&bull;{u.firstName + ' ' + u.lastName}</Info> : null
+						return u ? <ListItem divider>
+							<ListItemAvatar>
+								<Gravatar default='mp' email={u.email} className={classes.img} />
+							</ListItemAvatar>
+							<ListItemText key={s} primary={u.firstName + ' ' + u.lastName} />
+						</ListItem> : null
 					})
 					}
-				</div>
+				</List>
 			</DialogContent>
 			<DialogActions>
 				<Button onClick={this.handleCloseDeleteDialog} color='primary'>
@@ -298,6 +379,7 @@ class Users extends Component {
 		return <GridContainer justify={'center'}>
 			{loading ? <CircularLoader /> : <Paper className={classes.root}>
 				{this.renderConfirmDelete()}
+				{this.renderConfirmUser()}
 				<TableToolbar
 					ft={this.ftUsers()}
 					reduxKey={'users'}
