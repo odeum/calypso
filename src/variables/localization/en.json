@@ -184,6 +184,7 @@
 		"create": "Create",
 		"createOrg": "Create organisation",
 		"fields": {
+			"owner": "Organisation owner",
 			"id": "Organisation ID",
 			"CVR": "Tax Registration Number",
 			"EAN": "EAN Number",

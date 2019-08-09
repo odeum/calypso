@@ -30,6 +30,7 @@ class User extends Component {
 			openDelete: false,
 			openChangePassword: false,
 			openResendConfirm: false,
+			openConfirm: false,
 			pw: {
 				current: '',
 				newP: '',

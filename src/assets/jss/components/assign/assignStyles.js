@@ -1,9 +1,9 @@
-import { headerColor, primaryColor, hoverColor } from 'assets/jss/material-dashboard-react';
+import { primaryColor, hoverColor } from 'assets/jss/material-dashboard-react';
 
 const assignStyles = {
 	appBar: {
 		position: 'sticky',
-		backgroundColor: headerColor,
+		// backgroundColor: headerColor,
 		boxShadow: "none",
 		borderBottom: "0",
 		marginBottom: "0",

@@ -7,6 +7,8 @@ import { connect } from 'react-redux'
 import createprojectStyles from 'assets/jss/components/projects/createprojectStyles'
 import EditOrgAutoSuggest from './EditOrgAutoSuggest';
 import { createOrg, getAllOrgs } from 'variables/dataOrgs';
+import AssignUser from 'components/Dialogs/AssignUser';
+import { getAllUsers } from 'variables/dataUsers';
 var countries = require('i18n-iso-countries');
 
 class CreateOrg extends Component {
@@ -33,10 +35,12 @@ class CreateOrg extends Component {
 				id: '',
 				label: ''
 			},
+			users: [],
 			creating: false,
 			created: false,
 			loading: true,
 			openSnackBar: false,
+			openOwner: false,
 		}
 	}
 	componentDidMount = async () => {
@@ -44,11 +48,13 @@ class CreateOrg extends Component {
 		const { t, accessLevel, setHeader, location } = this.props
 		let prevURL = location.prevURL ? location.prevURL : `/management/orgs`
 		setHeader('orgs.createOrg', true, prevURL, 'users')
-		await getAllOrgs().then(rs => {
+		await getAllOrgs().then(async rs => {
 			if (this._isMounted) {
+				let users = await getAllUsers()
+
 				if (accessLevel.apisuperuser)
 					rs.unshift({ id: -1, name: t('orgs.fields.topLevelOrg') })
-				this.setState({ orgs: rs, loading: false })
+				this.setState({ orgs: rs, users: users, loading: false })
 			}
 		})
 	}
@@ -77,7 +83,7 @@ class CreateOrg extends Component {
 			errorCode.push(5)
 		}
 		this.setState({
-			errorMessage: errorCode.map(c => <Danger key={ c }>{ this.errorMessages(c) }</Danger>),
+			errorMessage: errorCode.map(c => <Danger key={c}>{this.errorMessages(c)}</Danger>),
 		})
 		if (errorCode.length === 0)
 			return true
@@ -127,7 +133,7 @@ class CreateOrg extends Component {
 				...this.state.org,
 				aux: {
 					...this.state.org.aux,
-					[ id ]: e.target.value
+					[id]: e.target.value
 				}
 			}
 		})
@@ -139,7 +145,7 @@ class CreateOrg extends Component {
 				error: false,
 				org: {
 					...this.state.org,
-					[ id ]: e.target.value
+					[id]: e.target.value
 				}
 			})
 		}
@@ -149,7 +155,7 @@ class CreateOrg extends Component {
 		this.props.s('snackbars.orgCreated', { org: this.state.org.name })
 		this.props.history.push(`/management/org/${this.state.org.id}`)
 	}
-	handleCreateOrg = () => {		
+	handleCreateOrg = () => {
 		if (this.handleValidation()) {
 			let newOrg = {
 				...this.state.org,
@@ -157,7 +163,7 @@ class CreateOrg extends Component {
 					id: this.state.selectedOrg
 				}
 			}
-			return createOrg(newOrg).then(rs => 
+			return createOrg(newOrg).then(rs =>
 				rs ?
 					this.close(rs) :
 					this.setState({ created: false, creating: false, error: true, errorMessage: this.props.t('orgs.validation.networkError') })
@@ -182,123 +188,177 @@ class CreateOrg extends Component {
 			selectedOrg: e.target.value
 		})
 	}
-	
+
 	renderOrgs = () => {
 		const { classes, t } = this.props
 		const { orgs, selectedOrg, error } = this.state
 
 		return <FormControl>
-			<InputLabel error={ error } FormLabelClasses={ { root: classes.label } } color={ 'primary' } htmlFor='select-multiple-chip'>
-				{ t('orgs.fields.parentOrg') }
+			<InputLabel error={error} FormLabelClasses={{ root: classes.label }} color={'primary'} htmlFor='select-multiple-chip'>
+				{t('orgs.fields.parentOrg')}
 			</InputLabel>
 			<Select
-				error={ error }
-				fullWidth={ false }
-				color={ 'primary' }
-				value={ selectedOrg }
-				onChange={ this.handleOrgChange }
+				error={error}
+				fullWidth={false}
+				color={'primary'}
+				value={selectedOrg}
+				onChange={this.handleOrgChange}
 			>
-				{ orgs ? orgs.map(org => (
+				{orgs ? orgs.map(org => (
 					<MenuItem
-						key={ org.id }
-						value={ org.id }
+						key={org.id}
+						value={org.id}
 					>
-						{ org.name }
+						{org.name}
 					</MenuItem>
-				)) : null }
+				)) : null}
 			</Select>
 		</FormControl>
 
 	}
-	render () {
+	handleOrgOwnerChange = user => {
+		this.setState({
+			error: false,
+			org: {
+				...this.state.org,
+				aux: {
+					...this.state.org.aux,
+					ownerID: user.id
+				}
+			}
+		})
+	}
+	handleOpenOwner = () => {
+		this.setState({
+			openOwner: true
+		})
+	}
+	handleCloseOwner = () => {
+		this.setState({
+			openOwner: false
+		})
+	}
+	renderSelectUser = () => {
+		const { org, error, users, openOwner } = this.state
+		const { classes, t } = this.props
+		let user = org.aux.ownerID ? users[users.findIndex(f => f.id === org.aux.ownerID)] : null
+		return <Fragment>
+			<AssignUser
+				t={t}
+				users={users}
+				open={openOwner}
+				handleClose={this.handleCloseOwner}
+				callBack={user => {
+					this.handleOrgOwnerChange(user)
+					this.handleCloseOwner()
+				}}
+			/>
+			<TextF
+				id={'user'}
+				label={t('orgs.fields.owner')}
+				value={user ? `${user.firstName} ${user.lastName}` : ''}
+				className={classes.textField}
+				readOnly
+				handleClick={this.handleOpenOwner}
+				handleChange={() => { }}
+				InputProps={{
+					onChange: this.handleOpenOwner,
+					readOnly: true
+				}}
+				margin='normal'
+				error={error}
+			/>
+		</Fragment>
+	}
+	render() {
 		const { classes, t } = this.props
 		const { created, error, loading, org } = this.state
 		const buttonClassname = classNames({
-			[ classes.buttonSuccess ]: created,
+			[classes.buttonSuccess]: created,
 		})
 
 		return (
 			!loading ?
-				<GridContainer justify={ 'center' }>
-					<Paper className={ classes.paper }>
-						<form className={ classes.form }>
-							<ItemGrid xs={ 12 }>
-								<Collapse in={ this.state.error }>
+				<GridContainer justify={'center'}>
+					<Paper className={classes.paper}>
+						<form className={classes.form}>
+							<ItemGrid xs={12}>
+								<Collapse in={this.state.error}>
 									<Warning>
 										<Danger>
-											{ this.state.errorMessage }
+											{this.state.errorMessage}
 										</Danger>
 									</Warning>
 								</Collapse>
 							</ItemGrid>
-							<ItemGrid container xs={ 12 } md={ 6 }>
+							<ItemGrid container xs={12} md={6}>
 								<TextF
 									autoFocus
-									id={ 'name' }
-									label={ t('orgs.fields.name') }
-									value={ org.name }
-									className={ classes.textField }
-									handleChange={ this.handleChange('name') }
+									id={'name'}
+									label={t('orgs.fields.name')}
+									value={org.name}
+									className={classes.textField}
+									handleChange={this.handleChange('name')}
 									margin='normal'
-									error={ error }
+									error={error}
 								/>
 							</ItemGrid>
-							<ItemGrid container xs={ 12 } md={ 6 }>
+							<ItemGrid container xs={12} md={6}>
 								<TextF
 
-									id={ 'address' }
-									label={ t('orgs.fields.address') }
-									value={ org.address }
-									className={ classes.textField }
-									handleChange={ this.handleChange('address') }
+									id={'address'}
+									label={t('orgs.fields.address')}
+									value={org.address}
+									className={classes.textField}
+									handleChange={this.handleChange('address')}
 									margin='normal'
-									
-									error={ error }
+
+									error={error}
 								/>
 							</ItemGrid>
-							<ItemGrid container xs={ 12 } md={ 6 }>
+							<ItemGrid container xs={12} md={6}>
 								<TextF
 
-									id={ 'zip' }
-									label={ t('orgs.fields.zip') }
-									value={ org.zip }
-									className={ classes.textField }
-									handleChange={ this.handleChange('zip') }
+									id={'zip'}
+									label={t('orgs.fields.zip')}
+									value={org.zip}
+									className={classes.textField}
+									handleChange={this.handleChange('zip')}
 									margin='normal'
-									
-									error={ error }
-									type={ 'number' }
+
+									error={error}
+									type={'number'}
 									pattern='[0-9]*'
 								/>
 							</ItemGrid>
-							<ItemGrid container xs={ 12 } md={ 6 }>
+							<ItemGrid container xs={12} md={6}>
 								<TextF
 
-									id={ 'city' }
-									label={ t('orgs.fields.city') }
-									value={ org.city }
-									className={ classes.textField }
-									handleChange={ this.handleChange('city') }
+									id={'city'}
+									label={t('orgs.fields.city')}
+									value={org.city}
+									className={classes.textField}
+									handleChange={this.handleChange('city')}
 									margin='normal'
-									
-									error={ error }
+
+									error={error}
 								/>
 							</ItemGrid>
 
-							<ItemGrid container xs={ 12 } md={ 6 }>
+							<ItemGrid container xs={12} md={6}>
 								<TextF
 
-									id={ 'region' }
-									label={ t('orgs.fields.region') }
-									value={ org.region }
-									className={ classes.textField }
-									handleChange={ this.handleChange('region') }
+									id={'region'}
+									label={t('orgs.fields.region')}
+									value={org.region}
+									className={classes.textField}
+									handleChange={this.handleChange('region')}
 									margin='normal'
-									
-									error={ error }
+
+									error={error}
 								/>
 							</ItemGrid>
-							<ItemGrid container xs={ 12 }>
+							<ItemGrid container xs={12}>
 								<EditOrgAutoSuggest
 									error={error}
 									country={this.state.country.label ? this.state.country.label : this.state.country.id}
@@ -309,65 +369,68 @@ class CreateOrg extends Component {
 											country => ({ value: country[1], label: country[1] }))
 									} />
 							</ItemGrid>
-							<ItemGrid container xs={ 12 } md={ 6 }>
+							<ItemGrid container xs={12} md={6}>
 								<TextF
 
-									id={ 'url' }
-									label={ t('orgs.fields.url') }
-									value={ org.url }
-									className={ classes.textField }
-									handleChange={ this.handleChange('url') }
+									id={'url'}
+									label={t('orgs.fields.url')}
+									value={org.url}
+									className={classes.textField}
+									handleChange={this.handleChange('url')}
 									margin='normal'
-									
-									error={ error }
+
+									error={error}
 								/>
 							</ItemGrid>
-							<ItemGrid container xs={ 12 } md={ 6 }>
-								{ this.renderOrgs() }
+							<ItemGrid container xs={12} md={6}>
+								{this.renderSelectUser()}
 							</ItemGrid>
-							<ItemGrid container xs={ 12 } md={ 6 }>
+							<ItemGrid container xs={12} md={6}>
+								{this.renderOrgs()}
+							</ItemGrid>
+							<ItemGrid container xs={12} md={6}>
 								<TextF
-									id={ 'cvr' }
-									label={ t('orgs.fields.CVR') }
-									value={ org.aux.cvr }
-									className={ classes.textField }
-									handleChange={ this.handleAuxChange('cvr') }
+									id={'cvr'}
+									label={t('orgs.fields.CVR')}
+									value={org.aux.cvr}
+									className={classes.textField}
+									handleChange={this.handleAuxChange('cvr')}
 									margin='normal'
-									
-									error={ error }
+
+									error={error}
 								/>
 							</ItemGrid>
-							<ItemGrid container xs={ 12 } md={ 6 }>
+							<ItemGrid container xs={12} md={6}>
 								<TextF
-									id={ 'ean' }
-									label={ t('orgs.fields.EAN') }
-									value={ org.aux.ean }
-									className={ classes.textField }
-									handleChange={ this.handleAuxChange('ean') }
+									id={'ean'}
+									label={t('orgs.fields.EAN')}
+									value={org.aux.ean}
+									className={classes.textField}
+									handleChange={this.handleAuxChange('ean')}
 									margin='normal'
-									
-									error={ error }
+
+									error={error}
 								/>
 							</ItemGrid>
 						</form>
 
-						<ItemGrid xs={ 12 } container justify={ 'center' }>
-							<Collapse in={ this.state.creating } timeout='auto' unmountOnExit>
+						<ItemGrid xs={12} container justify={'center'}>
+							<Collapse in={this.state.creating} timeout='auto' unmountOnExit>
 								<CircularLoader notCentered />
 							</Collapse>
 						</ItemGrid>
-						<Grid container justify={ 'center' }>
-							<div className={ classes.wrapper }>
+						<Grid container justify={'center'}>
+							<div className={classes.wrapper}>
 								<Button
 									variant='contained'
 									color='primary'
 									style={{ color: '#fff' }}
-									className={ buttonClassname }
-									disabled={ this.state.creating || this.state.created }
-									onClick={ this.state.created ? this.goToOrg : this.handleCreateOrg }>
-									{ this.state.created ?
-										<Fragment>{t('snackbars.redirect') }</Fragment>
-										: <Fragment><Save className={ classes.leftIcon } />{ t('orgs.createOrg') }</Fragment> }
+									className={buttonClassname}
+									disabled={this.state.creating || this.state.created}
+									onClick={this.state.created ? this.goToOrg : this.handleCreateOrg}>
+									{this.state.created ?
+										<Fragment>{t('snackbars.redirect')}</Fragment>
+										: <Fragment><Save className={classes.leftIcon} />{t('orgs.createOrg')}</Fragment>}
 								</Button>
 							</div>
 						</Grid>

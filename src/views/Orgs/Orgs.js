@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { withStyles, Paper, Button, DialogActions, ListItemText, ListItem, List, DialogContentText, DialogContent, DialogTitle, Dialog, ListItemIcon, IconButton } from '@material-ui/core';
+import { withStyles, Paper, Button, DialogActions, ListItemText, ListItem, List, DialogContentText, DialogContent, DialogTitle, Dialog, IconButton, Divider } from '@material-ui/core';
 import projectStyles from 'assets/jss/views/projects';
 import CircularLoader from 'components/Loader/CircularLoader';
 import GridContainer from 'components/Grid/GridContainer';
@@ -38,8 +38,7 @@ class Orgs extends Component {
 		let org = orgs[orgs.findIndex(d => d.id === selected[0])]
 		let favObj
 		let isFavorite = false
-		if (org)
-		{
+		if (org) {
 			favObj = {
 				id: org.id,
 				name: org.name,
@@ -227,7 +226,7 @@ class Orgs extends Component {
 	}
 	renderConfirmDelete = () => {
 		const { openDelete, selected } = this.state
-		const { orgs, t, classes } = this.props
+		const { orgs, t } = this.props
 		return <Dialog
 			open={openDelete}
 			onClose={this.handleCloseDeleteDialog}
@@ -239,13 +238,15 @@ class Orgs extends Component {
 				<DialogContentText id='alert-dialog-description'>
 					{t('dialogs.delete.message.orgs')}:
 				</DialogContentText>
-				<List>
-					{selected.map(s => { 
+				<List dense={true}>
+					<Divider />
+					{selected.map(s => {
 						let org = orgs[orgs.findIndex(d => d.id === s)]
-						return org ? <ListItem classes={{ root: classes.deleteListItem }} key={s}>
-							<ListItemIcon><div>&bull;</div></ListItemIcon>
+						return org ? <ListItem divider key={s}>
+							{/* <ListItemIcon><div>&bull;</div></ListItemIcon> */}
 							<ListItemText primary={org.name} />
-						</ListItem> : null})
+						</ListItem> : null
+					})
 					}
 				</List>
 			</DialogContent>

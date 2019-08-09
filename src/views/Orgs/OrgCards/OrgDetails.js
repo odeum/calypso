@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { InfoCard, ItemGrid, Caption, Info, Dropdown } from 'components';
 import { Grid } from '@material-ui/core';
 import { Business, Edit, Delete, StarBorder, Star } from 'variables/icons'
+import { Link } from 'react-router-dom'
 var countries = require('i18n-iso-countries')
 
 class OrgDetails extends Component {
@@ -23,7 +24,7 @@ class OrgDetails extends Component {
 		this.handleCloseActionsDetails()
 		this.props.deleteOrg()
 	}
-	handleEdit = () => this.props.history.push({ pathname: `${this.props.match.url}/edit`, prevURL: `/management/org/${this.props.org.id}`  })
+	handleEdit = () => this.props.history.push({ pathname: `${this.props.match.url}/edit`, prevURL: `/management/org/${this.props.org.id}` })
 
 	options = () => {
 		const { t, accessLevel, classes, isFav, addToFav, removeFromFav } = this.props
@@ -43,7 +44,8 @@ class OrgDetails extends Component {
 
 	render() {
 		// const { } = this.state
-		const { t, org } = this.props
+		const { t, org, users } = this.props
+		let owner = users ? org.aux.ownerID ? users[users.findIndex(f => f.id === org.aux.ownerID)] : null : null
 		return (
 			<InfoCard title={org.name}
 				avatar={<Business />}
@@ -107,17 +109,16 @@ class OrgDetails extends Component {
 								</a>
 							</Info>
 						</ItemGrid>
-						{/* {org.org.id > 0 ?
-    						<ItemGrid xs={12}>
-    							<Caption>
-    								{t('orgs.fields.parentOrg')}
-    							</Caption>
-    							<Info>
-    								<Link to={`/org/${org.org.id}`}>
-    									{org.org.name}
-    								</Link>
-    							</Info>
-    						</ItemGrid> : null} */}
+						{owner ? <ItemGrid>
+							<Caption>
+								{t('orgs.fields.owner')}
+							</Caption>
+							<Info>
+								<Link to={`/management/user/${org.aux.ownerID}`}>
+									{`${owner.firstName} ${owner.lastName}`}
+								</Link>
+							</Info>
+						</ItemGrid> : null}
 						<ItemGrid>
 							<Caption>
 								{t('orgs.fields.CVR')}

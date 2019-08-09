@@ -17,6 +17,7 @@ import { connect } from 'react-redux'
 import { deleteOrg } from 'variables/dataOrgs';
 import OrgUsers from 'views/Orgs/OrgCards/OrgUsers';
 import { finishedSaving, addToFav, isFav, removeFromFav } from 'redux/favorites';
+import { getAllUsers } from 'variables/dataUsers';
 class Org extends Component {
 	constructor(props) {
 		super(props)
@@ -59,8 +60,9 @@ class Org extends Component {
 						this.setState({ org: rs, loading: false })
 					}
 				})
+				let allUsers = await getAllUsers()
 				await getOrgUsers(this.props.match.params.id).then(rs => {
-					this.setState({ users: rs, loadingUsers: false })
+					this.setState({ users: rs, allUsers: allUsers, loadingUsers: false })
 				})
 			}
 	}
@@ -70,7 +72,8 @@ class Org extends Component {
 			id: org.id,
 			name: org.name,
 			type: 'org',
-			path: this.props.match.url }
+			path: this.props.match.url
+		}
 		this.props.addToFav(favObj)
 	}
 	removeFromFav = () => {
@@ -79,7 +82,8 @@ class Org extends Component {
 			id: org.id,
 			name: org.name,
 			type: 'org',
-			path: this.props.match.url }
+			path: this.props.match.url
+		}
 		this.props.removeFromFav(favObj)
 	}
 	close = () => {
@@ -156,6 +160,7 @@ class Org extends Component {
 							history={history}
 							classes={classes}
 							t={t}
+							users={this.state.allUsers}
 							org={org}
 							language={language}
 							accessLevel={this.props.accessLevel} />

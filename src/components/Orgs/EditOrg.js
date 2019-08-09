@@ -8,6 +8,8 @@ import { connect } from 'react-redux'
 import createprojectStyles from 'assets/jss/components/projects/createprojectStyles'
 import EditOrgAutoSuggest from './EditOrgAutoSuggest'
 import { updateFav, isFav } from 'redux/favorites';
+import { getAllUsers } from 'variables/dataUsers';
+import AssignUser from 'components/Dialogs/AssignUser';
 
 var countries = require('i18n-iso-countries');
 
@@ -23,10 +25,12 @@ class EditOrg extends Component {
 					cvr: ""
 				}
 			},
+			users: [],
 			country: {},
 			creating: false,
 			created: false,
 			loading: true,
+			openOwner: false,
 		}
 	}
 	handleValidation = () => {
@@ -78,9 +82,11 @@ class EditOrg extends Component {
 		this._isMounted = 1
 		let id = this.props.match.params.id
 		const { accessLevel, t, location } = this.props
-		await getOrg(id).then(rs => {
+		await getOrg(id).then(async rs => {
 			if (rs && this._isMounted) {
+				let users = await getAllUsers()
 				this.setState({
+					users: users,
 					country: {
 						id: rs.country.length > 2 ? countries.getAlpha2Code(rs.country, 'en') ? countries.getAlpha2Code(rs.country, 'en') : countries.getAlpha2Code(rs.country, 'da')
 							: rs.country, label: countries.getName(rs.country, this.props.language) ? countries.getName(rs.country, this.props.language) : ''
@@ -118,9 +124,19 @@ class EditOrg extends Component {
 
 	componentWillUnmount = () => {
 		this._isMounted = 0
-		clearTimeout(this.timer)
 	}
-
+	handleOrgOwnerChange = user => {
+		this.setState({
+			error: false,
+			org: {
+				...this.state.org,
+				aux: {
+					...this.state.org.aux,
+					ownerID: user.id
+				}
+			}
+		})
+	}
 	handleCountryChange = value => {
 		this.setState({
 			error: false,
@@ -174,7 +190,6 @@ class EditOrg extends Component {
 	}
 
 	handleUpdateOrg = () => {
-		clearTimeout(this.timer)
 		if (this.handleValidation()) {
 			return updateOrg(this.state.org).then(rs => {
 				return rs ?
@@ -203,6 +218,48 @@ class EditOrg extends Component {
 				org: e.target.value
 			}
 		})
+	}
+	handleOpenOwner = () => {
+		this.setState({
+			openOwner: true
+		})
+	}
+	handleCloseOwner = () => {
+		this.setState({
+			openOwner: false
+		})
+	}
+	renderSelectUser = () => {
+		const { org, error, users, openOwner } = this.state
+		const { classes, t } = this.props
+		let user = org.aux.ownerID ? users[users.findIndex(f => f.id === org.aux.ownerID)] : null
+		return <Fragment>
+			<AssignUser
+				t={t}
+				users={users}
+				open={openOwner}
+				handleClose={this.handleCloseOwner}
+				callBack={user => {
+					this.handleOrgOwnerChange(user)
+					this.handleCloseOwner()
+				}}
+			/>
+			<TextF
+				id={'user'}
+				label={t('orgs.fields.owner')}
+				value={user ? `${user.firstName} ${user.lastName}` : ''}
+				className={classes.textField}
+				readOnly
+				handleClick={this.handleOpenOwner}
+				handleChange={() => { }}
+				InputProps={{
+					onChange: this.handleOpenOwner,
+					readOnly: true
+				}}
+				margin='normal'
+				error={error}
+			/>
+		</Fragment>
 	}
 	renderOrgs = () => {
 		const { classes, t } = this.props
@@ -342,6 +399,9 @@ class EditOrg extends Component {
 
 									error={error}
 								/>
+							</ItemGrid>
+							<ItemGrid container xs={12} md={6}>
+								{this.renderSelectUser()}
 							</ItemGrid>
 							<ItemGrid container xs={12} md={6}>
 								{this.props.userOrg.id === org.id ? null : this.renderOrgs()}

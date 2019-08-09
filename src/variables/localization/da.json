@@ -184,6 +184,7 @@
 		"create": "Opret",
 		"createOrg": "Opret organisation",
 		"fields": {
+			"owner": "Organisationsejer",
 			"id": "Organisation ID",
 			"CVR": "CVR nummer",
 			"EAN": "EAN nummer",

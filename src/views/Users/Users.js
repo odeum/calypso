@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { withStyles, Paper, IconButton, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, List, ListItem, ListItemText, ListItemAvatar, Divider } from '@material-ui/core';
+import { withStyles, Paper, IconButton, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, List, ListItem, ListItemText, ListItemAvatar, Divider, Avatar } from '@material-ui/core';
 import projectStyles from 'assets/jss/views/projects';
 import UserTable from 'components/User/UserTable';
 import CircularLoader from 'components/Loader/CircularLoader';
@@ -309,13 +309,15 @@ class Users extends Component {
 				<DialogContentText>
 					{t('dialogs.confirm.message.users')}
 				</DialogContentText>
-				<List dense={'dense'}>
+				<List dense={true}>
 					<Divider />
 					{selected.map(s => {
 						let u = users[users.findIndex(d => d.id === s)]
-						return u ? <ListItem divider>
+						return u ? <ListItem divider key={u.id}>
 							<ListItemAvatar>
-								<Gravatar default='mp' email={u.email} className={classes.img} />
+								<Avatar>
+									<Gravatar default='mp' email={u.email} className={classes.img} />
+								</Avatar>
 							</ListItemAvatar>
 							<ListItemText key={s} primary={u.firstName + ' ' + u.lastName} />
 						</ListItem> : null
@@ -348,15 +350,17 @@ class Users extends Component {
 				<DialogContentText id='alert-dialog-description'>
 					{t('dialogs.delete.message.users')}
 				</DialogContentText>
-				<List dense={'dense'}>
+				<List dense={true}>
 					<Divider />
 					{selected.map(s => {
 						let u = users[users.findIndex(d => d.id === s)]
-						return u ? <ListItem divider>
+						return u ? <ListItem divider key={u.id}>
 							<ListItemAvatar>
-								<Gravatar default='mp' email={u.email} className={classes.img} />
+								<Avatar>
+									<Gravatar default='mp' email={u.email} className={classes.img} />
+								</Avatar>
 							</ListItemAvatar>
-							<ListItemText key={s} primary={u.firstName + ' ' + u.lastName} />
+							<ListItemText primary={u.firstName + ' ' + u.lastName} />
 						</ListItem> : null
 					})
 					}
