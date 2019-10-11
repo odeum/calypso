@@ -238,7 +238,8 @@
 		"dashboard": "Dashboard",
 		"favorites": "Favorites",
 		"settings": "Settings",
-		"users": "Users"
+		"users": "Users",
+		"orgs": "Organisations"
 	},
 	"snackbars": {
 		"confirmed": "User confirmed",
@@ -304,7 +305,8 @@
 			"profileImage": "Profile image",
 			"tags": "Tags",
 			"userName": "Username",
-			"status": "Status"
+			"status": "Status",
+			"license": "License"
 		},
 		"statuses": {
 			"active": "Active",
@@ -322,7 +324,13 @@
 		},
 		"headers": {
 			"contact": "Contact",
-			"system": "System log"
+			"system": "System log",
+			"name": "Name",
+			"phone": "Phone number",
+			"email": "E-mail",
+			"permissions": "Rights",
+			"license": "License",
+			"latestlogin": "Latest login"
 		},
 		"messages": {},
 		"pageTitle": "Users",

@@ -8,12 +8,12 @@ import indexRoutes from 'routes/index.js'
 import 'assets/css/material-dashboard-react.css'
 import TProvider from 'components/Localization/TProvider'
 
-import 'core-js/fn/set'; 
-import 'core-js/es6/map';
-import 'core-js/es6/set';
-import 'core-js/fn/array/find';
-import 'core-js/fn/array/includes';
-import 'core-js/fn/number/is-nan';
+import 'core-js/features/set'; 
+import 'core-js/es/map';
+import 'core-js/es/set';
+import 'core-js/features/array/find';
+import 'core-js/features/array/includes';
+import 'core-js/features/number/is-nan';
 import { MuiThemeProvider } from '@material-ui/core';
 import { lightTheme } from 'variables/themes';
 

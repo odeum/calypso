@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { InfoCard, ItemGrid, Info, Caption } from 'components'
-import { Table, TableBody, TableRow, Hidden, withStyles } from '@material-ui/core'
+import { Table, TableHead, TableBody, TableRow, TableCell, Hidden, withStyles } from '@material-ui/core'
 import { People } from '@material-ui/icons'
 import TC from 'components/Table/TC'
 import devicetableStyles from 'assets/jss/components/devices/devicetableStyles'
@@ -9,6 +9,48 @@ import { pF, dateFormat } from 'variables/functions'
 import moment from 'moment'
 
 class OrgUsers extends Component {
+	groups = () => {
+		const { t } = this.props
+
+		return [
+			{
+				id: '137180100000026',
+				name: t('users.groups.accountManager'),
+			},
+			{
+				id: '137180100000023',
+				name: t('users.groups.superUser'),
+
+			},
+			{
+				id: '137180100000025',
+				name: t('users.groups.user'),
+			}
+		]
+	}
+
+	getGroupName = (userGroups) => {
+		userGroups = Object.keys(userGroups);
+		return this.groups().map((n, i) => {
+			if (userGroups.includes(n.id)) {
+		 		return n.name
+		 	} else {
+				 return ''
+			 }
+		})
+	}
+
+	getLicenseType = (userLicenseType) => {
+		const licenses = [{ id: 'free', name: 'Free' }, { id: 'premium', name: 'Premium' }]
+		return licenses.map((n, i) => {
+			if (n.id === userLicenseType) {
+				return n.name
+			} else {
+				return ''
+			}
+		})
+	}
+
 	render() {
 		const { users, classes, t } = this.props
 		return (
@@ -19,6 +61,17 @@ class OrgUsers extends Component {
 				noPadding
 				content={
 					<Table>
+						<TableHead>
+							<TableRow>
+								<TableCell></TableCell>
+								<TableCell>{t('users.headers.name')}</TableCell>
+								<TableCell>{t('users.headers.phone')}</TableCell>
+								<TableCell>{t('users.headers.email')}</TableCell>
+								<TableCell>{t('users.headers.permissions')}</TableCell>
+								<TableCell>{t('users.headers.license')}</TableCell>
+								<TableCell>{t('users.headers.latestlogin')}</TableCell>
+							</TableRow>
+						</TableHead>
 						<TableBody style={{ padding: "0 24px" }}>
 							{users ? users.map((n, i) => {
 								const lastLoggedIn = moment(n.lastLoggedIn).isValid() ? dateFormat(n.lastLoggedIn) : t('users.fields.neverLoggedIn')
@@ -59,6 +112,8 @@ class OrgUsers extends Component {
 											<TC FirstC label={`${n.firstName} ${n.lastName}`} />
 											<TC label={<a onClick={e => e.stopPropagation()} href={`tel:${n.phone}`}>{n.phone ? pF(n.phone) : n.phone}</a>} />
 											<TC label={<a onClick={e => e.stopPropagation()} href={`mailto:${n.email}`}>{n.email}</a>} />
+											<TC label={this.getGroupName(n.groups)} />
+											<TC label={n.aux.calypso && n.aux.calypso.license ? this.getLicenseType(n.aux.calypso.license) : ''} />
 											<TC label={lastLoggedIn} />
 										</Hidden>
 									</TableRow>

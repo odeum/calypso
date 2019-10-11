@@ -22,6 +22,22 @@ class UserContact extends Component {
 		if (user.groups[137180100000025])
 			return t('users.groups.137180100000025')
 	}
+	renderLicense = () => {
+		const { user } = this.props
+		const licenses = [{ id: 'free', name: 'Free' }, { id: 'premium', name: 'Premium' }]
+
+		if (user.aux.calypso && user.aux.calypso.license) {
+			return licenses.map((n, i) => {
+				if (n.id === user.aux.calypso.license) {
+					return n.name
+				} else {
+					return ''
+				}
+			})
+		} else {
+			return ''
+		}
+	}
 	renderTopActionPriv = () => {
 		const { loggedUser, user } = this.props
 		const { apiorg } = loggedUser.privileges
@@ -110,6 +126,10 @@ class UserContact extends Component {
 							<ItemG>
 								<Caption>{t('users.fields.accessLevel')}</Caption>
 								<Info>{this.renderUserGroup()}</Info>
+							</ItemG>
+							<ItemG>
+								<Caption>{t('users.headers.license')}</Caption>
+								<Info>{this.renderLicense()}</Info>
 							</ItemG>
 						</ItemG>
 						<Hidden mdDown>

@@ -31,6 +31,7 @@ class EditOrg extends Component {
 			created: false,
 			loading: true,
 			openOwner: false,
+			licenses: [],
 		}
 	}
 	handleValidation = () => {
@@ -286,8 +287,8 @@ class EditOrg extends Component {
 				)) : null}
 			</Select>
 		</FormControl>
-
 	}
+
 	render() {
 		const { classes, t } = this.props
 		const { created, error, loading, org } = this.state

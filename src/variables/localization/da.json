@@ -238,7 +238,8 @@
 		"dashboard": "Dashboard",
 		"favorites": "Favoritter",
 		"settings": "Indstillinger",
-		"users": "Brugere"
+		"users": "Brugere",
+		"orgs": "Organisationer"
 	},
 	"snackbars": {
 		"confirmed": "Brugeren er bekræftet!",
@@ -304,7 +305,8 @@
 			"profileImage": "Profilbillede",
 			"tags": "Tags",
 			"userName": "Brugernavn",
-			"status": "Status"
+			"status": "Status",
+			"license": "Licens"
 		},
 		"statuses": {
 			"active": "Aktiv",
@@ -322,7 +324,13 @@
 		},
 		"headers": {
 			"contact": "Kontakt",
-			"system": "Systemlog"
+			"system": "Systemlog",
+			"name": "Navn",
+			"phone": "Telefonnummer",
+			"email": "E-mail",
+			"permissions": "Rettighed",
+			"license": "Licens",
+			"latestlogin": "Senest logget ind"
 		},
 		"messages": {},
 		"pageTitle": "Brugere",

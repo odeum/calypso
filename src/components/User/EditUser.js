@@ -42,7 +42,8 @@ class EditUser extends Component {
 						language: 'da'
 					},
 					calypso: {
-
+						mail: '',
+						license: '',
 					}
 				},
 				sysLang: 2,
@@ -62,6 +63,7 @@ class EditUser extends Component {
 			created: false,
 			loading: true,
 			selectedGroup: '',
+			selectedLicense: ''
 		}
 	}
 	componentDidMount = async () => {
@@ -72,6 +74,9 @@ class EditUser extends Component {
 		if (this._isMounted) {
 			await this.getUser()
 			await this.getOrgs()
+
+			const licenses = [{ id: 'free', name: 'Free' }, { id: 'premium', name: 'Premium' }]
+			this.setState({ licenses: licenses })
 		}
 	}
 	getUser = async () => {
@@ -101,7 +106,8 @@ class EditUser extends Component {
 					...user,
 					groups: Object.keys(user.groups).map(g => ({ id: g, name: user.groups[g].name, appId: user.groups[g].appId }))
 				},
-				mail: user.aux.calypso.mail,
+				mail: user.aux.calypso ? user.aux.calypso.mail : false,
+				selectedLicense: user.aux.calypso && user.aux.calypso.license ? user.aux.calypso.license : '',
 				extended: user.aux.calypso ? user.aux.calypso.extendedProfile ? 
 					user.aux.calypso.extendedProfile : this.state.extended : this.state.extended
 			
@@ -253,6 +259,21 @@ class EditUser extends Component {
 			}
 		})
 	}
+	handleLicenseChange = e => {
+		this.setState({
+			selectedLicense: e.target.value,
+			user: {
+				...this.state.user,
+				aux: {
+					...this.state.user.aux,
+					calypso: {
+						...this.state.user.aux.calypso,
+						license: e.target.value
+					}
+				}
+			}
+		})
+	}
 	renderOrgs = () => {
 		const { classes, t, accessLevel } = this.props
 		const { orgs, user, error } = this.state
@@ -354,6 +375,32 @@ class EditUser extends Component {
 						{g.name}
 					</MenuItem>
 				) : null)}
+			</Select>
+		</FormControl> : null
+	}
+	renderLicenceSelect = () => {
+		const { classes, t, accessLevel } = this.props
+		const { error, licenses, selectedLicense } = this.state
+
+		return accessLevel.apisuperuser ? <FormControl className={classes.formControl}>
+			<InputLabel FormLabelClasses={{ root: classes.label }} color={'primary'} htmlFor='select-multiple-chip'>
+				{t('users.fields.license')}
+			</InputLabel>
+			<Select
+				error={error}
+				fullWidth={false}
+				color={'primary'}
+				value={selectedLicense}
+				onChange={this.handleLicenseChange}
+			>
+				{licenses ? licenses.map(license => (
+					<MenuItem
+						key={license.id}
+						value={license.id}
+					>
+						{license.name}
+					</MenuItem>
+				)) : null}
 			</Select>
 		</FormControl> : null
 	}
@@ -556,6 +603,9 @@ class EditUser extends Component {
 						<ItemGrid container xs={12} md={6}>
 							{this.renderAccess()}
 						</ItemGrid>
+						<ItemGrid container xs={12} md={6}>
+							{this.renderLicenceSelect()}
+						</ItemGrid>						
 						<ItemGrid container xs={12} md={6}>
 							<FormControlLabel
 								control={

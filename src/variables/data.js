@@ -1,18 +1,8 @@
 import { create } from 'apisauce'
 import cookie from 'react-cookies'
-// https://betabackend.senti.cloud/
-// https://senti.cloud
-let backendHost;
 
-const hostname = window && window.location && window.location.hostname;
+let backendHost = "https://backend.calypso.watsonc.dk/rest/";
 
-if (hostname === 'calypso.watsonc.dk') {
-	backendHost = 'https://calypso.watsonc.dk/rest/';
-} else if (hostname === 'calypso.odeum.com') {
-	backendHost = 'https://calypso.watsonc.dk/rest/';
-} else {
-	backendHost = 'https://calypso.watsonc.dk/rest/';
-}
 export const loginApi = create({
 	baseURL: backendHost,
 	timout: 30000,

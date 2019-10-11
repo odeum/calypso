@@ -299,7 +299,7 @@ class Management extends Component {
 					<Route path={`${this.props.match.url}/orgs/new`} component={(rp) => <CreateOrg {...rest} />} />
 					<Route path={`${this.props.match.url}/orgs`} render={(rp) => <Orgs filters={filtersOrgs} {...rest} reload={this.reload} orgs={this.filterItems(orgs)} />} />
 					<Route path={`${this.props.match.url}/favorites`} render={() => this.renderFavorites()} />
-					<Redirect from={'/management'} to={'/management/users'} />
+					<Redirect from={'/management'} to={'/management/orgs'} />
 				</Switch>
 			</Fragment > : <CircularLoader />
 

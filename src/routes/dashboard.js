@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom'
 import DashboardPage from 'views/Dashboard/Dashboard';
-import { Dashboard, SettingsRounded, People, Star } from 'variables/icons';
+import { Dashboard, SettingsRounded, People, Star, Business } from 'variables/icons';
 import NotFound from 'layouts/404/NotFound';
 import Loadable from 'react-loadable';
 import AsyncLoader from 'components/Loader/AsyncLoader';
@@ -32,6 +32,7 @@ const dashboardRoutes = [
 		sidebarName: 'sidebar.dashboard',
 		navbarName: 'Senti Dashboard',
 		icon: Dashboard,
+		hideFromSideBar: true,
 		component: DashboardPage,
 		menuRoute: 'dashboard'
 	},
@@ -39,6 +40,7 @@ const dashboardRoutes = [
 		path: '/favorites',
 		sidebarName: 'sidebar.favorites',
 		icon: Star,
+		hideFromSideBar: true,
 		component: AsyncFavorites,
 		menuRoute: 'favorites'
 	},
@@ -56,8 +58,16 @@ const dashboardRoutes = [
 	},
 	{
 		path: '/management',
+		sidebarName: 'sidebar.orgs',
+		icon: Business,
+		component: AsyncManagement,
+		menuRoute: 'orgs',
+	},
+	{
+		path: '/management',
 		sidebarName: 'sidebar.users',
 		icon: People,
+		hideFromSideBar: true,
 		component: AsyncManagement,
 		menuRoute: 'users',
 	},

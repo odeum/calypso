@@ -10,6 +10,7 @@ import {
 	DialogActions,
 	Button,
 } from '@material-ui/core';
+import { getUser } from 'variables/dataUsers'
 import { getOrg, getOrgUsers } from 'variables/dataOrgs';
 import OrgDetails from './OrgCards/OrgDetails';
 // var moment = require('moment')
@@ -18,6 +19,8 @@ import { deleteOrg } from 'variables/dataOrgs';
 import OrgUsers from 'views/Orgs/OrgCards/OrgUsers';
 import { finishedSaving, addToFav, isFav, removeFromFav } from 'redux/favorites';
 import { getAllUsers } from 'variables/dataUsers';
+import cookie from 'react-cookies';
+
 class Org extends Component {
 	constructor(props) {
 		super(props)
@@ -31,40 +34,53 @@ class Org extends Component {
 		}
 	}
 	componentDidUpdate = (prevProps, prevState) => {
-		if (prevProps.match.params.id !== this.props.match.params.id) {
-			this.componentDidMount()
-		}
-		if (this.props.saved === true) {
-			const { org } = this.state
-			if (this.props.isFav({ id: org.id, type: 'org' })) {
-				this.props.s('snackbars.favorite.saved', { name: org.name, type: this.props.t('favorites.types.org') })
-				this.props.finishedSaving()
-			}
-			if (!this.props.isFav({ id: org.id, type: 'org' })) {
-				this.props.s('snackbars.favorite.removed', { name: org.name, type: this.props.t('favorites.types.org') })
-				this.props.finishedSaving()
-			}
-		}
+		// if (prevProps.match.params.id !== this.props.match.params.id) {
+		// 	this.componentDidMount()
+		// }
+		// if (this.props.saved === true) {
+		// 	const { org } = this.state
+		// 	if (this.props.isFav({ id: org.id, type: 'org' })) {
+		// 		this.props.s('snackbars.favorite.saved', { name: org.name, type: this.props.t('favorites.types.org') })
+		// 		this.props.finishedSaving()
+		// 	}
+		// 	if (!this.props.isFav({ id: org.id, type: 'org' })) {
+		// 		this.props.s('snackbars.favorite.removed', { name: org.name, type: this.props.t('favorites.types.org') })
+		// 		this.props.finishedSaving()
+		// 	}
+		// }
 	}
 
 	componentDidMount = async () => {
 		const { match, setHeader, location, history } = this.props
-		if (match)
+
+		let orgId = null;
+
+		if (match) {
 			if (match.params.id) {
-				await getOrg(match.params.id).then(async rs => {
-					if (rs === null)
-						history.push('/404')
-					else {
-						let prevURL = location.prevURL ? location.prevURL : '/management/orgs'
-						setHeader('orgs.organisation', true, prevURL, 'users')
-						this.setState({ org: rs, loading: false })
-					}
-				})
-				let allUsers = await getAllUsers()
-				await getOrgUsers(this.props.match.params.id).then(rs => {
-					this.setState({ users: rs, allUsers: allUsers, loadingUsers: false })
-				})
+				orgId = match.params.id
 			}
+		}
+
+		if (!orgId) {
+			let userId = cookie.load('SESSION') ? cookie.load('SESSION').userID : 0
+			let user = userId !== 0 ? await getUser(userId) : null
+			orgId = user ? user.org.id : -1
+		}
+
+		await getOrg(orgId).then(async rs => {
+			if (rs === null)
+				history.push('/404')
+			else {
+				let prevURL = location.prevURL ? location.prevURL : '/management/orgs'
+				setHeader('orgs.organisation', true, prevURL, 'users')
+				this.setState({ org: rs, loading: false })
+			}
+		})
+		let allUsers = await getAllUsers()
+		await getOrgUsers(orgId).then(rs => {
+			this.setState({ users: rs, allUsers: allUsers, loadingUsers: false })
+		})
+
 	}
 	addToFav = () => {
 		const { org } = this.state

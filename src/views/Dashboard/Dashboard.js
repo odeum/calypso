@@ -1,15 +1,16 @@
 import { Button, withStyles } from '@material-ui/core';
 import dashboardStyle from 'assets/jss/material-dashboard-react/dashboardStyle';
-import imgs from 'assets/img/Squared'
-import { Caption, ItemG } from 'components';
-import GridContainer from 'components/Grid/GridContainer';
+// import imgs from 'assets/img/Squared'
+// import { Caption, ItemG } from 'components';
+// import GridContainer from 'components/Grid/GridContainer';
 import withLocalization from 'components/Localization/T';
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import pj from '../../../package.json';
-import MediaCard from 'components/Cards/MediaCard.js';
+// import pj from '../../../package.json';
+// import MediaCard from 'components/Cards/MediaCard.js';
+import Org from 'views/Orgs/Org';
 // const Skycons = require('skycons')(window)
 
 class Dashboard extends React.Component {
@@ -42,50 +43,11 @@ class Dashboard extends React.Component {
 	}
 
 	render() {
-		const { t } = this.props
+		const { t, location, history, setHeader, match } = this.props
+
 		return (
 			<Fragment>
-				<GridContainer>
-					<ItemG container justify={'center'} xs={12} sm={6} md={3}>
-						<MediaCard
-							img={imgs.users}
-							header={t('dialogs.dashboard.title.createUser')}
-							content={t('dialogs.dashboard.message.createUser')}
-							// leftAction={this.renderAction('actions.learnMore', '/')}
-							rightAction={this.renderAction('actions.createUser', '/management/users/new', true)}
-						/>
-					</ItemG>
-					<ItemG container justify={'center'} xs={12} sm={6} md={3}>
-						<MediaCard
-							img={imgs.hosting}
-							header={t('dialogs.dashboard.title.createOrg')}
-							content={t('dialogs.dashboard.message.createOrg')}
-							rightAction={this.renderAction('actions.createOrg', 'management/orgs/new', true)}
-						/>
-					</ItemG>
-					<ItemG container justify={'center'} xs={12} sm={6} md={3}>
-						<MediaCard
-							img={imgs.users}
-							header={t('dialogs.dashboard.title.manageUsers')}
-							content={t('dialogs.dashboard.message.manageUsers')}
-							rightAction={this.renderAction('actions.manage', '/management/users', true)}
-						/>
-					</ItemG>
-					<ItemG container justify={'center'} xs={12} sm={6} md={3}>
-						<MediaCard
-							img={imgs.hosting}
-							header={t('dialogs.dashboard.title.manageOrgs')}
-							content={t('dialogs.dashboard.message.manageOrgs')}
-							rightAction={this.renderAction('actions.manage', '/management/orgs', true)}
-						/>
-					</ItemG>
-					
-				</GridContainer>
-				<ItemG styles={{ flex: 1 }} container justify={'center'} xs={12}>
-					<Caption>
-						Calypso User Management {pj.version}
-					</Caption>
-				</ItemG>
+				<Org t={t} location={location} history={history} setHeader={setHeader} match={match} />
 			</Fragment>
 		)
 	}
