@@ -306,7 +306,11 @@
 			"tags": "Tags",
 			"userName": "Brugernavn",
 			"status": "Status",
-			"license": "Licens"
+			"license": "Licens",
+			"passwordRequirements1": "Kodeord skal indeholde:",
+			"passwordRequirements2": "Mindst 8 tegn",
+			"passwordRequirements3": "1 stort bogstav",
+			"passwordRequirements4": "1 tal"
 		},
 		"statuses": {
 			"active": "Aktiv",

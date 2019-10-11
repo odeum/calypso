@@ -306,7 +306,11 @@
 			"tags": "Tags",
 			"userName": "Username",
 			"status": "Status",
-			"license": "License"
+			"license": "License",
+			"passwordRequirements1": "Password must be:",
+			"passwordRequirements2": "Minimum 8 chars",
+			"passwordRequirements3": "1 capital letter",
+			"passwordRequirements4": "1 number"
 		},
 		"statuses": {
 			"active": "Active",

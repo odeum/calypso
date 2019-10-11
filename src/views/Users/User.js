@@ -208,6 +208,10 @@ class User extends Component {
 		>
 			<DialogTitle id='alert-dialog-title'>{t('menus.changePassword')}</DialogTitle>
 			<DialogContent>
+				{t('users.fields.passwordRequirements1')}<br />
+				{t('users.fields.passwordRequirements2')}<br />
+				{t('users.fields.passwordRequirements3')}<br />
+				{t('users.fields.passwordRequirements4')}<br />
 				<Danger> {this.state.errorMessage} </Danger>
 				{accessLevel.apiorg.editusers ? null : <ItemG>
 					<TextF
