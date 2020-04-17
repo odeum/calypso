@@ -104,7 +104,7 @@ class OrgDetails extends Component {
 								{t('orgs.fields.url')}
 							</Caption>
 							<Info>
-								<a href={org.url} target={'_blank'}>
+								<a href={org.url} target={'_blank'} rel="noopener noreferrer">
 									{org.url}
 								</a>
 							</Info>
