@@ -55,4 +55,39 @@ export const deleteUser = async (user) => {
 	return data
 }
 
+export const getLicenseTypes = async () => {
+	let data = await api.get('calypso/subscriptions').then(rs => rs.data);
+	return data;
+}
+
+export const getCurrentLicense = async (userId) => {
+	let data = await api.get('calypso/subscription/' + userId).then(rs => rs.data);
+	return data;
+}
+
+export const postSubscriptionChange = async (userId, newLicenseType) => {
+	let status = await api.post('calypso/subscription/' + userId, { type: newLicenseType }).then(rs => rs.status);
+	return status;
+}
+
+export const getNextPayDate = async (userId) => {
+	let data = await api.get('calypso/subscription/' + userId + '/collection/pending').then(rs => rs.data);
+	return data;
+}
+
+export const getSubscriptions = async (userId) => {
+	let data = await api.get('calypso/subscription/' + userId + '/collection').then(rs => rs.data);
+	return data;
+}
+
+export const getInvoiceData = async (userId) => {
+	let data = await api.get('calypso/subscription/' + userId + '/invoice').then(rs => rs.data);
+	return data;
+}
+
+export const saveInvoiceData = async (userId, invoiceData) => {
+	let status = await api.post('calypso/subscription/' + userId + '/invoice', invoiceData).then(rs => rs.status);
+	return status;
+}
+
 //#endregion

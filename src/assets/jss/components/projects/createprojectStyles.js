@@ -95,6 +95,13 @@ const createprojectStyles = theme => ({
 		overflow: 'hidden',
 		borderRadius: '3px'
 	},
+	subscriptionpaper: {
+		width: '100%',
+		overflow: 'hidden',
+		borderRadius: '3px',
+		backgroundColor: '#f7f8fa',
+		paddingTop: 30
+	},
 	label: {
 		'&$focused': {
 			color: teal[500],
@@ -108,6 +115,18 @@ const createprojectStyles = theme => ({
 	},
 	button: {
 		margin: theme.spacing.unit * 2
+	},
+	cursubinfobox: {
+		width: 300,
+		padding: 20,
+		backgroundColor: '#f7f8fa',
+	},
+	listPrice: {
+		color: '#4ab7a4',
+		fontSize: 22,
+		fontWeight: 'bold',
+		marginRight: 30
+
 	}
 })
 

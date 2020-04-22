@@ -15,6 +15,7 @@
 		"apply": "Apply",
 		"back": "Previous",
 		"cancel": "Cancel",
+		"cancel2": "Cancel",		
 		"changePassword": "Change password",
 		"decline": "Decline",
 		"finish": "Finish",
@@ -197,7 +198,8 @@
 			"region": "Region",
 			"topLevelOrg": "No Parent Organisation",
 			"url": "Website",
-			"zip": "ZIP Code"
+			"zip": "ZIP Code",
+			"att": "Att:"
 		},
 		"organisation": "Organisation",
 		"pageTitle": "Organisations",
@@ -275,6 +277,25 @@
 	},
 	"users": {
 		"editUser": "Edit user",
+		"subscription": {
+			"header": "Subscription",
+			"newsubscription": "New subscription",
+			"newsubscriptiondesc": "Tak for du ønsker at opgradere din Calypso Free licens til et Calypso Premium abonnement. Du skal opdatere dine faktureringsoplysninger for at vi kan opgradere dit abonnement.",
+			"updateinvoiceinfo": "Opdater faktureringsoplysninger",
+			"cursubtext": "Your currect subscription",
+			"nextpaymentdate": "Næste betalingsdato",
+			"changesubscription": "Change subscription",
+			"invoiceinfo": "Faktureringsoplysninger",
+			"premium": "Premium",
+			"free": "Free",
+			"orderref": "Ordrereference",
+			"invoicemethod": "Receive invoices by:",
+			"enterean": "Enter EAN number",
+			"enteremail": "Enter E-mail",
+			"cancel": "Cancel Subscription",
+			"cancelaccept": "Jeg accepterer, at jeg skifter til et Calypso Free abonnement med begrænsninger",
+			"cancelwhen": "Ændringen træder i kraft ved slutningen af den igangværende abonnementsperiode"
+		},
 		"fields": {
 			"bio": "Bio",
 			"newsletter": "Newsletter",
