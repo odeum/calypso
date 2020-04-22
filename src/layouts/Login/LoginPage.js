@@ -50,7 +50,12 @@ class LoginPage extends React.Component {
 		var loginData = cookie.load('SESSION')
 		if (loginData) {
 			if (setToken()) {
-				this.props.history.push('/dashboard')
+				const getParams = new URLSearchParams(window.location.search);
+				if (getParams.get('new') === '1') {
+					this.props.history.push('/management/user/' + loginData.userID + '/subscription?new=1')
+				} else {
+					this.props.history.push('/dashboard')
+				}
 			}
 		}
 		if (this.inputRef.current) { this.inputRef.current.focus() }
@@ -77,13 +82,21 @@ class LoginPage extends React.Component {
 			async function () {
 				await loginUser(this.state.user, this.state.pass).then(async rs => {
 					if (rs) {
+						console.log(rs);
 						let exp = moment().add('1', 'day')
 						cookie.save('SESSION', rs, { path: '/', expires: exp.toDate() })
 						if (rs.isLoggedIn) {
 							if (setToken()) {
 								await this.props.getSettings()
+								
 								var prevURL = this.props.location.state ? this.props.location.state.prevURL : null
-								this.props.history.push(prevURL ? prevURL : '/dashboard')
+
+								const getParams = new URLSearchParams(window.location.search);
+								if (getParams.get('new') === '1') {
+									this.props.history.push('/management/user/' + rs.userID + '/subscription?new=1')
+								} else {
+									this.props.history.push(prevURL ? prevURL : '/dashboard')
+								}
 							}
 						}
 					}
