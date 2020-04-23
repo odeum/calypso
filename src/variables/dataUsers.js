@@ -76,7 +76,7 @@ export const getNextPayDate = async (userId) => {
 }
 
 export const getSubscriptions = async (userId) => {
-	let data = await api.get('calypso/subscription/' + userId + '/collection').then(rs => rs.data);
+	let data = await api.get('calypso/subscription/' + userId + '/collection/collected').then(rs => rs.data);
 	return data;
 }
 

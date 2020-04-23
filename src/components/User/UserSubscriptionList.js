@@ -46,10 +46,11 @@ class UserSubscriptionList extends Component {
 								<ListItem>
 									<ListItemText
 										className={classes.listPrice}
-										primary={<Typography variant="h5">{subscription.label.charAt(0).toUpperCase() + subscription.label.slice(1)}</Typography>}
+										primary={<Typography variant="h5">{subscription.type.charAt(0).toUpperCase() + subscription.type.slice(1)}</Typography>}
 										secondary={
 											<Typography variant="body1" style={{ fontSize: 16, color: '#666c74' }}>
-												{subscription.state === 1 ? moment(subscription.deadline).format('DD. MMM YYYY') : moment(subscription.created).format('DD. MMM YYYY') + ' til ' + moment(subscription.deadline).format('DD. MMM YYYY') }
+												{subscription.type === 'premium' ? subscription.state === 1 ? moment(subscription.deadline).format('DD. MMM YYYY') : moment(subscription.created).format('DD. MMM YYYY') + ' til ' + moment(subscription.deadline).format('DD. MMM YYYY') : "" }
+												{subscription.type === 'free' ? moment(subscription.created).format('DD. MMM YYYY') : ""}
 											</Typography>
 										}
 									/>

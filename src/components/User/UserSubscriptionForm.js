@@ -198,7 +198,7 @@ class UserSubscriptionForm extends Component {
 							<ListItem>
 								<ListItemText primary={t('users.fields.organisation')} style={{ color: '#58606a' }} />
 								<ListItemSecondaryAction style={{ color: '#58606a', fontWeight: 'normal', marginRight: 15 }}>
-									{this.state.isEditing ? <TextField id="organisation" value={''} onChange={this.handleFieldChange} /> : ""}
+									{this.state.isEditing ? <TextField id="organization" value={invoiceData.organization} onChange={this.handleFieldChange} /> : invoiceData.organization}
 								</ListItemSecondaryAction>
 							</ListItem>
 							<Divider style={{ marginLeft: 15, marginRight: 15 }} />
@@ -244,7 +244,7 @@ class UserSubscriptionForm extends Component {
 							<ListItem>
 								<ListItemText primary={t('users.subscription.invoicemethod')} secondary={
 									!this.state.isEditing ?
-										(invoiceData.invoiceBy === 'ean') ? <span style={{ color: '#58606a' }}>{t('orgs.fields.EAN')}</span> : <p style={{ color: '#58606a' }}>{t('users.fields.email')}</p>
+										(invoiceData.invoiceBy === 'ean') ? <span style={{ color: '#58606a' }}>{t('orgs.fields.EAN')}</span> : <span style={{ color: '#58606a' }}>{t('users.fields.email')}</span>
 										: ""}
 								style={{ color: '#58606a' }}
 								/>

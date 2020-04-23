@@ -51,7 +51,7 @@ class UserSubscription extends Component {
 	handleChange = (event) => {
 		this.setState({ 'newsubscription': event.target.value });
 
-		if (event.target.value !== this.state.currentLicense.label) {
+		if (event.target.value !== this.state.currentLicense.type) {
 			if (event.target.value === 'premium') {
 				this.setState({ 'newSubscriptionDialogOpen': true });
 			} else if (event.target.value === 'free') {
@@ -119,7 +119,7 @@ class UserSubscription extends Component {
 										{t('users.subscription.cursubtext')}
 									</Typography>
 									<Typography variant="h5">
-										{this.state.currentLicense.label.charAt(0).toUpperCase() + this.state.currentLicense.label.slice(1)}
+										{this.state.currentLicense.type.charAt(0).toUpperCase() + this.state.currentLicense.type.slice(1)}
 									</Typography>
 									<FormControl variant="outlined" className={classes.formControl}>
 										<InputLabel id="demo-simple-select-outlined-label">{t('users.subscription.changesubscription')}</InputLabel>
@@ -130,14 +130,14 @@ class UserSubscription extends Component {
 											label={t('users.subscription.changesubscription')}
 										>
 											{this.state.licenseTypes.map(type => {
-												return <MenuItem key={type.label} value={type.label}>{type.label.charAt(0).toUpperCase() + type.label.slice(1)}</MenuItem>
+												return <MenuItem key={type.type} value={type.type}>{type.type.charAt(0).toUpperCase() + type.type.slice(1)}</MenuItem>
 											})}
 										</Select>
 									</FormControl>
 								</Card>
 							</ItemGrid>
 							<ItemGrid container xs={2}>
-								{this.state.nextPayment && this.state.currentLicense.label !== 'free' ?
+								{this.state.nextPayment && this.state.currentLicense.type !== 'free' ?
 									<Card className={classes.cursubinfobox}>
 										<Typography variant="body1" style={{ fontSize: 16, marginBottom: 20 }}>
 											{t('users.subscription.nextpaymentdate')}
