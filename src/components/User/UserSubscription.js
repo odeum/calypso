@@ -44,7 +44,7 @@ class UserSubscription extends Component {
 
 		const getParams = new URLSearchParams(window.location.search); 
 		if (getParams.get('new') === '1') {
-			this.setState({ 'newSubscriptionDialogOpen': true });
+			this.setState({ 'newSubscriptionDialogOpen': true, newsubscription: 'premium' });
 		}
 	}
 
