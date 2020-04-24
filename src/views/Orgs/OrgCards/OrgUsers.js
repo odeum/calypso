@@ -140,7 +140,7 @@ class OrgUsers extends Component {
 											<TC label={<a onClick={e => e.stopPropagation()} href={`tel:${n.phone}`}>{n.phone ? pF(n.phone) : n.phone}</a>} />
 											<TC label={<a onClick={e => e.stopPropagation()} href={`mailto:${n.email}`}>{n.email}</a>} />
 											<TC label={this.getGroupName(n.groups)} />
-											<TC label={n.aux.calypso && n.aux.calypso.license ? this.getLicenseType(n.id) : ''} />
+											<TC label={this.getLicenseType(n.id)} />
 											<TC label={lastLoggedIn} />
 										</Hidden>
 									</TableRow>
