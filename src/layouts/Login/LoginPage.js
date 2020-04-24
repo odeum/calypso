@@ -82,7 +82,6 @@ class LoginPage extends React.Component {
 			async function () {
 				await loginUser(this.state.user, this.state.pass).then(async rs => {
 					if (rs) {
-						console.log(rs);
 						let exp = moment().add('1', 'day')
 						cookie.save('SESSION', rs, { path: '/', expires: exp.toDate() })
 						if (rs.isLoggedIn) {
