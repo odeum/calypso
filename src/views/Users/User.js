@@ -16,6 +16,7 @@ import { connect } from 'react-redux'
 import { setPassword } from 'variables/dataLogin';
 import { userStyles } from 'assets/jss/components/users/userStyles';
 import { finishedSaving, addToFav, isFav, removeFromFav } from 'redux/favorites';
+import { getCurrentLicense } from 'variables/dataUsers';
 
 // var moment = require('moment')
 
@@ -37,7 +38,8 @@ class User extends Component {
 				confirm: ''
 			},
 			changePasswordError: false,
-			errorMessage: ''
+			errorMessage: '',
+			licenseType: ''
 		}
 	}
 	componentDidUpdate = (prevProps, prevState) => {
@@ -89,7 +91,13 @@ class User extends Component {
 					else {
 						let prevURL = location.prevURL ? location.prevURL : '/management/users'
 						setHeader("users.user", true, prevURL, 'users')
-						this.setState({ user: rs, loading: false })
+
+						let license = await getCurrentLicense(rs.id);
+						if (license) {
+							this.setState({ licenseType: license.type });	
+						}
+
+						this.setState({ user: rs, loading: false });
 					}
 				})
 			}
@@ -355,7 +363,7 @@ class User extends Component {
 
 	render() {
 		const { classes, t } = this.props
-		const { user, loading } = this.state
+		const { user, loading, licenseType } = this.state
 		const rp = { history: this.props.history, match: this.props.match }
 		return (
 			loading ? <CircularLoader /> : <Fragment>
@@ -372,6 +380,7 @@ class User extends Component {
 							changePass={this.handleOpenChangePassword}
 							resendConfirmEmail={this.handleOpenResend}
 							confirmUser={this.handleOpenConfirmDialog}
+							licenseType={licenseType}
 							{...rp} />
 					</ItemGrid>
 					<ItemGrid xs={12} noMargin>

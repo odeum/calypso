@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { InfoCard, ItemGrid, Info, Caption } from 'components'
+import { InfoCard, ItemGrid, Info, Caption, CircularLoader } from 'components'
 import { Table, TableHead, TableBody, TableRow, TableCell, Hidden, withStyles } from '@material-ui/core'
 import { People } from '@material-ui/icons'
 import TC from 'components/Table/TC'
@@ -8,7 +8,34 @@ import Gravatar from 'react-gravatar'
 import { pF, dateFormat } from 'variables/functions'
 import moment from 'moment'
 
+import { getCurrentLicense } from 'variables/dataUsers';
+
 class OrgUsers extends Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			loading: true,
+			licenseTypes: {}
+		}
+	}
+
+	componentDidMount = async () => {
+		if (this.props.users) {
+			let types = {};
+			await Promise.all(
+				this.props.users.map(async (n, i) => {
+					let license = await getCurrentLicense(n.id);
+					if (license) {
+						types[n.id] = license.type;
+					}
+				})
+			);
+
+			this.setState({ licenseTypes: types, loading: false });
+		}
+	}
+
 	groups = () => {
 		const { t } = this.props
 
@@ -40,20 +67,20 @@ class OrgUsers extends Component {
 		})
 	}
 
-	getLicenseType = (userLicenseType) => {
-		const licenses = [{ id: 'free', name: 'Free' }, { id: 'premium', name: 'Premium' }]
-		return licenses.map((n, i) => {
-			if (n.id === userLicenseType) {
-				return n.name
-			} else {
-				return ''
-			}
-		})
+	getLicenseType = (userId) => {
+		if (this.state.licenseTypes[userId]) {
+			let type = this.state.licenseTypes[userId];
+			return type.charAt(0).toUpperCase() + type.slice(1);
+		} else {
+			return '';
+		}
 	}
 
 	render() {
+		const { loading } = this.state;
 		const { users, classes, t } = this.props
-		return (
+
+		return !loading ?
 			<InfoCard
 				title={'Users'}
 				avatar={<People />}
@@ -113,7 +140,7 @@ class OrgUsers extends Component {
 											<TC label={<a onClick={e => e.stopPropagation()} href={`tel:${n.phone}`}>{n.phone ? pF(n.phone) : n.phone}</a>} />
 											<TC label={<a onClick={e => e.stopPropagation()} href={`mailto:${n.email}`}>{n.email}</a>} />
 											<TC label={this.getGroupName(n.groups)} />
-											<TC label={n.aux.calypso && n.aux.calypso.license ? this.getLicenseType(n.aux.calypso.license) : ''} />
+											<TC label={n.aux.calypso && n.aux.calypso.license ? this.getLicenseType(n.id) : ''} />
 											<TC label={lastLoggedIn} />
 										</Hidden>
 									</TableRow>
@@ -123,7 +150,7 @@ class OrgUsers extends Component {
 						</TableBody>
 					</Table>
 				}/>
-		)
+			: <CircularLoader />;
 	}
 }
 

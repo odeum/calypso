@@ -23,17 +23,10 @@ class UserContact extends Component {
 			return t('users.groups.137180100000025')
 	}
 	renderLicense = () => {
-		const { user } = this.props
-		const licenses = [{ id: 'free', name: 'Free' }, { id: 'premium', name: 'Premium' }]
+		const { licenseType } = this.props
 
-		if (user.aux.calypso && user.aux.calypso.license) {
-			return licenses.map((n, i) => {
-				if (n.id === user.aux.calypso.license) {
-					return n.name
-				} else {
-					return ''
-				}
-			})
+		if (licenseType && licenseType.length) {
+			return licenseType.charAt(0).toUpperCase() + licenseType.slice(1);
 		} else {
 			return ''
 		}
