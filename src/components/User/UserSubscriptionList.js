@@ -38,7 +38,7 @@ class UserSubscriptionList extends Component {
 		const { loading, subscriptions } = this.state;
 
 		return !loading ?
-			<Paper className={classes.subscriptionpaper}>
+			<Paper className={classes.subscriptionpaper} style={{ maxWidth: 800 }}>
 				<List>
 					{subscriptions.map((subscription, index) => {
 						return (
@@ -49,13 +49,12 @@ class UserSubscriptionList extends Component {
 										primary={<Typography variant="h5">{subscription.type.charAt(0).toUpperCase() + subscription.type.slice(1)}</Typography>}
 										secondary={
 											<Typography variant="body1" style={{ fontSize: 16, color: '#666c74' }}>
-												{subscription.type === 'premium' ? subscription.state === 1 ? moment(subscription.deadline).format('DD. MMM YYYY') : moment(subscription.created).format('DD. MMM YYYY') + ' til ' + moment(subscription.deadline).format('DD. MMM YYYY') : "" }
-												{subscription.type === 'free' ? moment(subscription.created).format('DD. MMM YYYY') : ""}
+												{moment(subscription.from).format('DD. MMM YYYY') + ' til ' + moment(subscription.to).format('DD. MMM YYYY')}
 											</Typography>
 										}
 									/>
 									<ListItemSecondaryAction className={classes.listPrice}>
-										<NumberFormat value={subscription.price} displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} prefix={'DKK '} suffix={',00'} />
+										<NumberFormat value={subscription.price} displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} prefix={'DKK '} suffix={',-'} />
 									</ListItemSecondaryAction>
 								</ListItem>
 								<Divider style={{ marginLeft: 15, marginRight: 15 }} />

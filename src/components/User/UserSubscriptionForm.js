@@ -19,6 +19,7 @@ import moment from 'moment';
 
 import createprojectStyles from 'assets/jss/components/projects/createprojectStyles';
 import { getUser, getInvoiceData, saveInvoiceData, postSubscriptionChange } from 'variables/dataUsers';
+import { getOrg } from 'variables/dataOrgs';
 import { CircularLoader } from 'components';
 
 class UserSubscriptionForm extends Component {
@@ -82,6 +83,23 @@ class UserSubscriptionForm extends Component {
 
 		if (invoice) {
 			this.setState({ invoiceData: invoice });
+		}
+
+		if (this.props.createSubscription && this.state.user.org && this.state.user.org.id !== '-1') {
+			let orgData = await getOrg(this.state.user.org.id);
+
+			if (orgData) {
+				let newData = { ...this.state.invoiceData };
+				newData.address = orgData.address;
+				newData.city = orgData.city;
+				newData.ean = orgData.aux.ean;
+				newData.cvr = orgData.aux.cvr;
+				newData.email = this.state.user.email;
+				newData.organization = orgData.name;
+				newData.postCode = orgData.zip;
+
+				this.setState({ invoiceData: newData });
+			}
 		}
 
 		this.setState({ loading: false });
@@ -161,26 +179,33 @@ class UserSubscriptionForm extends Component {
 
 		return !loading ? 
 			<>
-				<Typography variant="h5" style={{ marginBottom: 30 }}>{t('users.groups.user')}</Typography>
-				<Paper className={classes.subscriptionpaper} style={{ marginBottom: 30 }}>
-					<List>
-						<ListItem>
-							<ListItemText primary={t('users.fields.name')} style={{ color: '#58606a' }} />
-							<ListItemSecondaryAction style={{ color: '#58606a', fontWeight: 'normal', marginRight: 15 }}>{user.firstName} {user.lastName}</ListItemSecondaryAction>
-						</ListItem>
-						<Divider style={{ marginLeft: 15, marginRight: 15 }} />
-						<ListItem>
-							<ListItemText primary={t('users.fields.email')} style={{ color: '#58606a' }} />
-							<ListItemSecondaryAction style={{ color: '#58606a', fontWeight: 'normal', marginRight: 15 }}>{user.email}</ListItemSecondaryAction>
-						</ListItem>
-						<Divider style={{ marginLeft: 15, marginRight: 15 }} />
-						<ListItem>
-							<ListItemText primary={t('users.fields.organisation')} style={{ color: '#58606a' }} />
-							<ListItemSecondaryAction style={{ color: '#58606a', fontWeight: 'normal', marginRight: 15 }}>{user.org.name}</ListItemSecondaryAction>
-						</ListItem>
-					</List>
-				</Paper>
 				<Grid container>
+					<Grid item xs={12}>
+						<Typography variant="h5" style={{ marginBottom: 30 }}>{t('users.groups.user')}</Typography>
+					</Grid>			
+					<Grid item xs={12}>
+						<Paper className={classes.subscriptionpaper} style={{ marginBottom: 30, maxWidth: 800 }}>
+							<List>
+								<ListItem>
+									<ListItemText primary={t('users.fields.name')} style={{ color: '#58606a' }} />
+									<ListItemSecondaryAction style={{ color: '#58606a', fontWeight: 'normal', marginRight: 15 }}>{user.firstName} {user.lastName}</ListItemSecondaryAction>
+								</ListItem>
+								<Divider style={{ marginLeft: 15, marginRight: 15 }} />
+								<ListItem>
+									<ListItemText primary={t('users.fields.email')} style={{ color: '#58606a' }} />
+									<ListItemSecondaryAction style={{ color: '#58606a', fontWeight: 'normal', marginRight: 15 }}>{user.email}</ListItemSecondaryAction>
+								</ListItem>
+								<Divider style={{ marginLeft: 15, marginRight: 15 }} />
+								<ListItem>
+									<ListItemText primary={t('users.fields.organisation')} style={{ color: '#58606a' }} />
+									<ListItemSecondaryAction style={{ color: '#58606a', fontWeight: 'normal', marginRight: 15 }}>{user.org.name}</ListItemSecondaryAction>
+								</ListItem>
+							</List>
+						</Paper>
+					</Grid>
+				</Grid>
+
+				<Grid container style={{ maxWidth: 800 }}>
 					<Grid item xs={11}>
 						<Typography variant="h5" style={{ marginBottom: 30 }}>{t('users.subscription.invoiceinfo')}</Typography>
 					</Grid>
@@ -191,122 +216,129 @@ class UserSubscriptionForm extends Component {
 							</IconButton>
 							: ""}
 					</Grid>
-				</Grid>
-				<Paper className={classes.subscriptionpaper}>
-					<form noValidate autoComplete="off">
-						<List>
-							<ListItem>
-								<ListItemText primary={t('users.fields.organisation')} style={{ color: '#58606a' }} />
-								<ListItemSecondaryAction style={{ color: '#58606a', fontWeight: 'normal', marginRight: 15 }}>
-									{this.state.isEditing ? <TextField id="organization" value={invoiceData.organization} onChange={this.handleFieldChange} /> : invoiceData.organization}
-								</ListItemSecondaryAction>
-							</ListItem>
-							<Divider style={{ marginLeft: 15, marginRight: 15 }} />
-							<ListItem>
-								<ListItemText primary={t('orgs.fields.address')} style={{ color: '#58606a' }} />
-								<ListItemSecondaryAction style={{ color: '#58606a', fontWeight: 'normal', marginRight: 15 }}>
-									{this.state.isEditing ? <TextField id="address" value={invoiceData.address} onChange={this.handleFieldChange} /> : invoiceData.address}
-								</ListItemSecondaryAction>
-							</ListItem>
-							<Divider style={{ marginLeft: 15, marginRight: 15 }} />
+					<Grid item xs={12}>
+						<Paper className={classes.subscriptionpaper} style={{ maxWidth: 800 }}>
+							<form noValidate autoComplete="off">
+								<List>
+									<ListItem>
+										<ListItemText primary={t('users.fields.organisation')} style={{ color: '#58606a' }} />
+										<ListItemSecondaryAction style={{ color: '#58606a', fontWeight: 'normal', marginRight: 15 }}>
+											{this.state.isEditing ? <TextField id="organization" value={invoiceData.organization} onChange={this.handleFieldChange} /> : invoiceData.organization}
+										</ListItemSecondaryAction>
+									</ListItem>
+									<Divider style={{ marginLeft: 15, marginRight: 15 }} />
+									<ListItem>
+										<ListItemText primary={t('orgs.fields.CVR')} style={{ color: '#58606a' }} />
+										<ListItemSecondaryAction style={{ color: '#58606a', fontWeight: 'normal', marginRight: 15 }}>
+											{this.state.isEditing ? <TextField id="cvr" value={invoiceData.cvr} onChange={this.handleFieldChange} /> : invoiceData.cvr}
+										</ListItemSecondaryAction>
+									</ListItem>
+									<Divider style={{ marginLeft: 15, marginRight: 15 }} />
+									<ListItem>
+										<ListItemText primary={t('orgs.fields.address')} style={{ color: '#58606a' }} />
+										<ListItemSecondaryAction style={{ color: '#58606a', fontWeight: 'normal', marginRight: 15 }}>
+											{this.state.isEditing ? <TextField id="address" value={invoiceData.address} onChange={this.handleFieldChange} /> : invoiceData.address}
+										</ListItemSecondaryAction>
+									</ListItem>
+									<Divider style={{ marginLeft: 15, marginRight: 15 }} />
 
-							<ListItem>
-								<ListItemText primary={t('orgs.fields.zip')} style={{ color: '#58606a' }} />
-								<ListItemSecondaryAction style={{ color: '#58606a', fontWeight: 'normal', marginRight: 15 }}>
-									{this.state.isEditing ? <TextField id="postCode" value={invoiceData.postCode} onChange={this.handleFieldChange} /> : invoiceData.postCode}
-								</ListItemSecondaryAction>
-							</ListItem>
-							<Divider style={{ marginLeft: 15, marginRight: 15 }} />
+									<ListItem>
+										<ListItemText primary={t('orgs.fields.zip')} style={{ color: '#58606a' }} />
+										<ListItemSecondaryAction style={{ color: '#58606a', fontWeight: 'normal', marginRight: 15 }}>
+											{this.state.isEditing ? <TextField id="postCode" value={invoiceData.postCode} onChange={this.handleFieldChange} /> : invoiceData.postCode}
+										</ListItemSecondaryAction>
+									</ListItem>
+									<Divider style={{ marginLeft: 15, marginRight: 15 }} />
 
-							<ListItem>
-								<ListItemText primary={t('orgs.fields.city')} style={{ color: '#58606a' }} />
-								<ListItemSecondaryAction style={{ color: '#58606a', fontWeight: 'normal', marginRight: 15 }}>
-									{this.state.isEditing ? <TextField id="city" value={invoiceData.city} onChange={this.handleFieldChange} /> : invoiceData.city}
-								</ListItemSecondaryAction>
-							</ListItem>
-							<Divider style={{ marginLeft: 15, marginRight: 15 }} />
+									<ListItem>
+										<ListItemText primary={t('orgs.fields.city')} style={{ color: '#58606a' }} />
+										<ListItemSecondaryAction style={{ color: '#58606a', fontWeight: 'normal', marginRight: 15 }}>
+											{this.state.isEditing ? <TextField id="city" value={invoiceData.city} onChange={this.handleFieldChange} /> : invoiceData.city}
+										</ListItemSecondaryAction>
+									</ListItem>
+									<Divider style={{ marginLeft: 15, marginRight: 15 }} />
 
-							<ListItem>
-								<ListItemText primary={t('orgs.fields.att')} style={{ color: '#58606a' }} />
-								<ListItemSecondaryAction style={{ color: '#58606a', fontWeight: 'normal', marginRight: 15 }}>
-									{this.state.isEditing ? <TextField id="attention" value={invoiceData.attention} onChange={this.handleFieldChange} /> : invoiceData.attention}
-								</ListItemSecondaryAction>
-							</ListItem>
-							<Divider style={{ marginLeft: 15, marginRight: 15 }} />
+									<ListItem>
+										<ListItemText primary={t('orgs.fields.att')} style={{ color: '#58606a' }} />
+										<ListItemSecondaryAction style={{ color: '#58606a', fontWeight: 'normal', marginRight: 15 }}>
+											{this.state.isEditing ? <TextField id="attention" value={invoiceData.attention} onChange={this.handleFieldChange} /> : invoiceData.attention}
+										</ListItemSecondaryAction>
+									</ListItem>
+									<Divider style={{ marginLeft: 15, marginRight: 15 }} />
 
-							<ListItem>
-								<ListItemText primary={t('users.subscription.orderref')} style={{ color: '#58606a' }} />
-								<ListItemSecondaryAction style={{ color: '#58606a', fontWeight: 'normal', marginRight: 15 }}>
-									{this.state.isEditing ? <TextField id="orderRef" value={invoiceData.orderRef} onChange={this.handleFieldChange} /> : invoiceData.orderRef}
-								</ListItemSecondaryAction>
-							</ListItem>
-							<Divider style={{ marginLeft: 15, marginRight: 15 }} />
-							<ListItem>
-								<ListItemText primary={t('users.subscription.invoicemethod')} secondary={
-									!this.state.isEditing ?
-										(invoiceData.invoiceBy === 'ean') ? <span style={{ color: '#58606a' }}>{t('orgs.fields.EAN')}</span> : <span style={{ color: '#58606a' }}>{t('users.fields.email')}</span>
-										: ""}
-								style={{ color: '#58606a' }}
-								/>
-							</ListItem>
-							<ListItem>
-								{this.state.isEditing ?
-									<ListItemIcon>
-										<FormGroup row>
-											<FormControlLabel
-												control={<Radio
-													id="email"
-													edge="start"
-													checked={invoiceData.invoiceBy === 'email' ? true : false}
-													onChange={this.handleRadioChange}
-													value="email"
-												/>}
-												label={<Typography variant="body1" style={{ color: '#58606a' }}>
-													{t('users.fields.email')}
-												</Typography>}
-											/>
-										</FormGroup>
-									</ListItemIcon>
-									: "" }
-								<ListItemSecondaryAction style={{ color: '#58606a', fontWeight: 'normal', marginRight: 15 }}>
-									{this.state.isEditing ? <TextField id="email" label={t('users.subscription.enteremail')} value={invoiceData.email} onChange={this.handleFieldChange} /> : "" }
-								</ListItemSecondaryAction>
-							</ListItem>
-							<ListItem>
-								{this.state.isEditing ?
-									<ListItemIcon>
-										<FormGroup row>
-											<FormControlLabel
-												control={<Radio
-													id="ean"
-													edge="start"
-													checked={invoiceData.invoiceBy === 'ean' ? true : false}
-													onChange={this.handleRadioChange}
-													value="ean"
-												/>}
-												label={<Typography variant="body1" style={{ color: '#58606a' }}>
-													{t('orgs.fields.EAN')}
-												</Typography>}
-											/>
-										</FormGroup>
-									</ListItemIcon>
-									: "" }
-								<ListItemSecondaryAction style={{ color: '#58606a', fontWeight: 'normal', marginRight: 15 }}>
-									{this.state.isEditing ? <TextField id="ean" label={t('users.subscription.enterean')} value={invoiceData.ean} onChange={this.handleFieldChange} /> : "" }
-								</ListItemSecondaryAction>
-							</ListItem>
-						</List>
-					</form>
-				</Paper>
-
-				{this.state.isEditing ?
-					<Grid container style={{ marginTop: 30 }}>
-						<Grid item xs={12} align="right">
-							<Button variant="contained" style={{ color: '#000', marginRight: 20 }} onClick={this.toggleEditMode}>{t('actions.cancel')}</Button>
-							<Button variant="contained" color="primary" style={{ color: '#fff' }} onClick={this.saveFormData}>{t('actions.save')}</Button>
-						</Grid>
+									<ListItem>
+										<ListItemText primary={t('users.subscription.orderref')} style={{ color: '#58606a' }} />
+										<ListItemSecondaryAction style={{ color: '#58606a', fontWeight: 'normal', marginRight: 15 }}>
+											{this.state.isEditing ? <TextField id="orderRef" value={invoiceData.orderRef} onChange={this.handleFieldChange} /> : invoiceData.orderRef}
+										</ListItemSecondaryAction>
+									</ListItem>
+									<Divider style={{ marginLeft: 15, marginRight: 15 }} />
+									<ListItem>
+										<ListItemText primary={t('users.subscription.invoicemethod')} secondary={
+											!this.state.isEditing ?
+												(invoiceData.invoiceBy === 'ean') ? <span style={{ color: '#58606a' }}>{t('orgs.fields.EAN')}</span> : <span style={{ color: '#58606a' }}>{t('users.fields.email')}</span>
+												: ""}
+										style={{ color: '#58606a' }}
+										/>
+									</ListItem>
+									<ListItem>
+										{this.state.isEditing ?
+											<ListItemIcon>
+												<FormGroup row>
+													<FormControlLabel
+														control={<Radio
+															id="email"
+															edge="start"
+															checked={invoiceData.invoiceBy === 'email' ? true : false}
+															onChange={this.handleRadioChange}
+															value="email"
+														/>}
+														label={<Typography variant="body1" style={{ color: '#58606a' }}>
+															{t('users.fields.email')}
+														</Typography>}
+													/>
+												</FormGroup>
+											</ListItemIcon>
+											: "" }
+										<ListItemSecondaryAction style={{ color: '#58606a', fontWeight: 'normal', marginRight: 15 }}>
+											{this.state.isEditing ? <TextField id="email" label={t('users.subscription.enteremail')} value={invoiceData.email} onChange={this.handleFieldChange} /> : "" }
+										</ListItemSecondaryAction>
+									</ListItem>
+									<ListItem>
+										{this.state.isEditing ?
+											<ListItemIcon>
+												<FormGroup row>
+													<FormControlLabel
+														control={<Radio
+															id="ean"
+															edge="start"
+															checked={invoiceData.invoiceBy === 'ean' ? true : false}
+															onChange={this.handleRadioChange}
+															value="ean"
+														/>}
+														label={<Typography variant="body1" style={{ color: '#58606a' }}>
+															{t('orgs.fields.EAN')}
+														</Typography>}
+													/>
+												</FormGroup>
+											</ListItemIcon>
+											: "" }
+										<ListItemSecondaryAction style={{ color: '#58606a', fontWeight: 'normal', marginRight: 15 }}>
+											{this.state.isEditing ? <TextField id="ean" label={t('users.subscription.enterean')} value={invoiceData.ean} onChange={this.handleFieldChange} /> : "" }
+										</ListItemSecondaryAction>
+									</ListItem>
+								</List>
+							</form>
+						</Paper>
 					</Grid>
-					: ""}
+
+					{this.state.isEditing ?
+						<Grid item xs={12} align="right">
+							<Button variant="contained" style={{ color: '#000', marginRight: 20, marginTop: 30 }} onClick={this.toggleEditMode}>{t('actions.cancel')}</Button>
+							<Button variant="contained" color="primary" style={{ color: '#fff', marginTop: 30 }} onClick={this.saveFormData}>{t('actions.save')}</Button>
+						</Grid>
+						: ""}
+				</Grid>
 			</>
 			: <CircularLoader />
 	}

@@ -61,7 +61,7 @@ export const getLicenseTypes = async () => {
 }
 
 export const getCurrentLicense = async (userId) => {
-	let data = await api.get('calypso/subscription/' + userId).then(rs => rs.data);
+	let data = await api.get('calypso/subscription/' + userId + '/collection/valid').then(rs => rs.data);
 	return data;
 }
 

@@ -280,7 +280,7 @@
 		"subscription": {
 			"header": "Abonnement",
 			"newsubscription": "Nyt abonnement",
-			"newsubscriptiondesc": "Tak for du ønsker at opgradere din Calypso Free licens til et Calypso Premium abonnement. Du skal opdatere dine faktureringsoplysninger for at vi kan opgradere dit abonnement.",
+			"newsubscriptiondesc": "Tak for du ønsker at opgradere din Calypso Free licens til et Calypso Premium abonnement. Licensen koster DKK 2400,- +moms årligt og betales forud gældende for d.d. Du skal opdatere dine faktureringsoplysninger for at vi kan opgradere dit abonnement.",
 			"updateinvoiceinfo": "Opdater faktureringsoplysninger",
 			"cursubtext": "Dit nuværende abonnement",
 			"nextpaymentdate": "Næste betalingsdato",
@@ -288,7 +288,7 @@
 			"invoiceinfo": "Faktureringsoplysninger",
 			"premium": "Premium",
 			"free": "Free",
-			"orderref": "Ordrereference",
+			"orderref": "Evt. ordrereference",
 			"invoicemethod": "Modtag faktura via:",
 			"enterean": "Indtast EAN nummer",
 			"enteremail": "Indtast E-mail",

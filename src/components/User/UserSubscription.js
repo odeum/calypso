@@ -9,6 +9,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import Button from '@material-ui/core/Button';
 import moment from 'moment';
+import NumberFormat from 'react-number-format';
 
 import { GridContainer, ItemGrid, CircularLoader } from 'components';
 import createprojectStyles from 'assets/jss/components/projects/createprojectStyles';
@@ -89,8 +90,8 @@ class UserSubscription extends Component {
 
 		let currentLicenseData = await getCurrentLicense(this.state.userId);
 
-		if (currentLicenseData) {
-			this.setState({ 'currentLicense': currentLicenseData });
+		if (currentLicenseData && currentLicenseData.length) {
+			this.setState({ 'currentLicense': currentLicenseData[0] });
 		}
 
 		let nextPayData = await getNextPayDate(this.state.userId);
@@ -105,7 +106,7 @@ class UserSubscription extends Component {
 	}
 
 	render() {
-		const { loading } = this.state;
+		const { loading, currentLicense } = this.state;
 		const { classes, t } = this.props;
 
 		return !loading ?
@@ -119,7 +120,9 @@ class UserSubscription extends Component {
 										{t('users.subscription.cursubtext')}
 									</Typography>
 									<Typography variant="h5">
-										{this.state.currentLicense.type.charAt(0).toUpperCase() + this.state.currentLicense.type.slice(1)}
+										{currentLicense.type.charAt(0).toUpperCase() + currentLicense.type.slice(1)}
+										<br />
+										<NumberFormat value={currentLicense.price} displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} prefix={'DKK '} suffix={',-'} /> {currentLicense.type === 'premium' ? 'årligt' : ''}
 									</Typography>
 									<FormControl variant="outlined" className={classes.formControl}>
 										<InputLabel id="demo-simple-select-outlined-label">{t('users.subscription.changesubscription')}</InputLabel>
