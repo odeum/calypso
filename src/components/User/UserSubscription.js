@@ -140,7 +140,7 @@ class UserSubscription extends Component {
 								</Card>
 							</ItemGrid>
 							<ItemGrid container xs={2}>
-								{this.state.nextPayment && this.state.currentLicense.type !== 'free' ?
+								{this.state.nextPayment && this.state.nextPayment.type !== 'free' ?
 									<Card className={classes.cursubinfobox}>
 										<Typography variant="body1" style={{ fontSize: 16, marginBottom: 20 }}>
 											{t('users.subscription.nextpaymentdate')}
