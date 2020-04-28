@@ -93,8 +93,9 @@ class User extends Component {
 						setHeader("users.user", true, prevURL, 'users')
 
 						let license = await getCurrentLicense(rs.id);
-						if (license) {
-							this.setState({ licenseType: license.type });	
+
+						if (license && license.length) {
+							this.setState({ licenseType: license[0].type });	
 						}
 
 						this.setState({ user: rs, loading: false });

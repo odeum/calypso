@@ -26,8 +26,8 @@ class OrgUsers extends Component {
 			await Promise.all(
 				this.props.users.map(async (n, i) => {
 					let license = await getCurrentLicense(n.id);
-					if (license) {
-						types[n.id] = license.type;
+					if (license && license.length) {
+						types[n.id] = license[0].type;
 					}
 				})
 			);
