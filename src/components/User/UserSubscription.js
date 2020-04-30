@@ -8,7 +8,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import Button from '@material-ui/core/Button';
-import moment from 'moment';
 import NumberFormat from 'react-number-format';
 
 import { GridContainer, ItemGrid, CircularLoader } from 'components';
