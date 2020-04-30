@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Paper, withStyles, Typography } from '@material-ui/core';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -19,7 +21,8 @@ class UserSubscriptionCancel extends Component {
 			cancelChecked: false,
 			userId: this.props.match.params.id,
 			loading: true,
-			nextPayment: null
+			nextPayment: null,
+			cancelConfirmDialogOpen: false
 		}
 	}
 
@@ -49,12 +52,17 @@ class UserSubscriptionCancel extends Component {
 		this.setState({ 'loading': true });
 
 		let status = await postSubscriptionChange(this.state.userId, 'free');
-
+		
 		if (status === 200) {
-			this.props.history.goBack();
+			this.setState({ 'loading': false });
+			this.setState({ cancelConfirmDialogOpen: true });
 		} else {
 			this.setState({ 'loading': false });
 		}
+	}
+
+	handleDialogClose = () => {
+		this.props.history.goBack();
 	}
 
 	render() {
@@ -97,6 +105,14 @@ class UserSubscriptionCancel extends Component {
 
 					</GridContainer>
 				</Paper>
+
+				<Dialog onClose={this.handleDialogClose} aria-labelledby="simple-dialog-title" open={this.state.cancelConfirmDialogOpen}>
+					<DialogContent>
+						<Typography variant="body1" style={{ fontSize: 16 }}>{t('users.subscription.cancelmsg')}</Typography>
+
+						<Button variant="contained" color="primary" style={{ color: '#fff', marginTop: 30, float: 'right' }} onClick={this.handleDialogClose}>OK</Button>
+					</DialogContent>
+				</Dialog>
 			</GridContainer>
 			: <CircularLoader />;
 	}

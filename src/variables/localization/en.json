@@ -16,6 +16,7 @@
 		"back": "Previous",
 		"cancel": "Cancel",
 		"cancel2": "Cancel",		
+		"cancel3": "Cancel",
 		"changePassword": "Change password",
 		"decline": "Decline",
 		"finish": "Finish",
@@ -294,7 +295,8 @@
 			"enteremail": "Enter E-mail",
 			"cancel": "Cancel Subscription",
 			"cancelaccept": "Jeg accepterer, at jeg skifter til et Calypso Free abonnement med begrænsninger",
-			"cancelwhen": "Ændringen træder i kraft ved slutningen af den igangværende abonnementsperiode"
+			"cancelwhen": "Ændringen træder i kraft ved slutningen af den igangværende abonnementsperiode",
+			"cancelmsg": "Vi har nu sendt dig en mail som bekræftelse på din ordre. Modtager du ikke denne, bedes du kontakte os på mail@watsonc.dk eller på 28430710"
 		},
 		"fields": {
 			"bio": "Bio",

@@ -79,6 +79,12 @@ class UserSubscription extends Component {
 		this.setState({ 'tabValue': 1, createSubscription: true });
 	}
 
+	cancelUpdateInvoiceInfo = () => {
+		this.handleDialogClose();
+
+		this.props.history.push(`/management/user/${this.props.match.params.id}/subscription`);
+	}
+
 	loadData = async () => {
 		this.setState({ 'loading': true });
 
@@ -133,7 +139,7 @@ class UserSubscription extends Component {
 											label={t('users.subscription.changesubscription')}
 										>
 											{this.state.licenseTypes.map(type => {
-												return <MenuItem key={type.type} value={type.type}>{type.type.charAt(0).toUpperCase() + type.type.slice(1)}</MenuItem>
+												return <MenuItem key={type.type} value={type.type}>{type.type.charAt(0).toUpperCase() + type.type.slice(1)}&nbsp;DKK&nbsp;<NumberFormat value={type.price} displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} suffix={',-'} />&nbsp;{type.type === 'premium' ? 'årligt' : ''}</MenuItem>
 											})}
 										</Select>
 									</FormControl>
@@ -173,7 +179,9 @@ class UserSubscription extends Component {
 					<DialogContent>
 						<Typography variant="subtitle1">{t('users.subscription.newsubscriptiondesc')}</Typography>
 
-						<Button variant="contained" color="primary" style={{ color: '#fff', marginTop: 30 }} onClick={this.updateInvoiceInfo}>{t('users.subscription.updateinvoiceinfo')}</Button>
+						<Button variant="contained" color="primary" style={{ color: '#fff', marginTop: 30 }} onClick={this.cancelUpdateInvoiceInfo}>{t('actions.cancel3')}</Button>
+
+						<Button variant="contained" color="primary" style={{ color: '#fff', marginTop: 30, float: 'right' }} onClick={this.updateInvoiceInfo}>{t('users.subscription.updateinvoiceinfo')}</Button>
 					</DialogContent>
 				</Dialog>
 			</>
