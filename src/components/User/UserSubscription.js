@@ -145,19 +145,7 @@ class UserSubscription extends Component {
 									</FormControl>
 								</Card>
 							</ItemGrid>
-							<ItemGrid container xs={2}>
-								{this.state.nextPayment && this.state.nextPayment.type !== 'free' ?
-									<Card className={classes.cursubinfobox}>
-										<Typography variant="body1" style={{ fontSize: 16, marginBottom: 20 }}>
-											{t('users.subscription.nextpaymentdate')}
-										</Typography>
-										<Typography variant="h5">
-											{moment(this.state.nextPayment.deadline).format('DD. MMMM YYYY')}
-										</Typography>
-									</Card>
-									: ""}
-							</ItemGrid>
-							<ItemGrid container xs={8}>
+							<ItemGrid container xs={10}>
 							</ItemGrid>
 						</GridContainer>
 						<GridContainer>
