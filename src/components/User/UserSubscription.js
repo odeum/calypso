@@ -51,7 +51,7 @@ class UserSubscription extends Component {
 	handleChange = (event) => {
 		this.setState({ 'newsubscription': event.target.value });
 
-		if (event.target.value !== this.state.currentLicense.type) {
+		if (event.target.value !== this.state.nextPayment.type) {
 			if (event.target.value === 'premium') {
 				this.setState({ 'newSubscriptionDialogOpen': true });
 			} else if (event.target.value === 'free') {
