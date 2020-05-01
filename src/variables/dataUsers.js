@@ -70,13 +70,14 @@ export const postSubscriptionChange = async (userId, newLicenseType) => {
 	return status;
 }
 
+
 export const getNextPayDate = async (userId) => {
 	let data = await api.get('calypso/subscription/' + userId + '/collection/pending').then(rs => rs.data);
 	return data;
 }
 
 export const getSubscriptions = async (userId) => {
-	let data = await api.get('calypso/subscription/' + userId + '/collection/collected').then(rs => rs.data);
+	let data = await api.get('calypso/subscription/' + userId + '/collectionView').then(rs => rs.data);
 	return data;
 }
 

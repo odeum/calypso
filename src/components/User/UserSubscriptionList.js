@@ -49,7 +49,7 @@ class UserSubscriptionList extends Component {
 										primary={<Typography variant="h5">{subscription.type.charAt(0).toUpperCase() + subscription.type.slice(1)}</Typography>}
 										secondary={
 											<Typography variant="body1" style={{ fontSize: 16, color: '#666c74' }}>
-												{moment(subscription.from).format('DD. MMM YYYY') + ' til ' + moment(subscription.to).format('DD. MMM YYYY')}
+												{moment(subscription.from).format('DD. MMM YYYY') + ' til ' + (subscription.to.length ? moment(subscription.to).format('DD. MMM YYYY') : '-')}
 											</Typography>
 										}
 									/>
