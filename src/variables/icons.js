@@ -10,6 +10,7 @@
 // import Snow from 'assets/weather/snow.svg'
 // import Wind from 'assets/weather/wind.svg'
 //#endregion
+import CreditCard from '@material-ui/icons/CreditCard'
 import PersonAdd from '@material-ui/icons/PersonAdd'
 import Star from '@material-ui/icons/Star'
 import StarBorder from '@material-ui/icons/StarBorder'
@@ -78,6 +79,7 @@ import Dashboard from '@material-ui/icons/Dashboard'
 import History from '@material-ui/icons/History'
 import Mail from '@material-ui/icons/Mail'
 export {
+	CreditCard,
 	PersonAdd,
 	Mail,
 	//Weather Icons

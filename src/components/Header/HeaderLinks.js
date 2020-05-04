@@ -1,5 +1,5 @@
 import { Grid, IconButton, Menu, MenuItem, withStyles } from '@material-ui/core';
-import { AccountBox, Business, Lock, SettingsRounded } from 'variables/icons';
+import { AccountBox, Business, Lock, SettingsRounded, CreditCard } from 'variables/icons';
 import headerLinksStyle from 'assets/jss/material-dashboard-react/headerLinksStyle';
 import React from 'react';
 import cookie from 'react-cookies';
@@ -47,6 +47,12 @@ class HeaderLinks extends React.Component {
 		if (this.props.user)
 			this.props.history.push(`/settings`)
 	}
+	handleSubscriptionOpen = () => {
+		this.handleProfileClose()
+		if (this.props.user)
+			this.props.history.push(`/management/user/${this.props.user.id}/subscription`)
+	}
+
 	render() {
 		const { classes, t, user } = this.props;
 		const { anchorProfile } = this.state;
@@ -91,6 +97,9 @@ class HeaderLinks extends React.Component {
 					</MenuItem> : null : null}
 					<MenuItem onClick={this.handleSettingsOpen}>
 						<SettingsRounded className={classes.leftIcon} />{t('sidebar.settings')}
+					</MenuItem>
+					<MenuItem onClick={this.handleSubscriptionOpen}>
+						<CreditCard className={classes.leftIcon} />{t('sidebar.subscription')}
 					</MenuItem>
 					<MenuItem onClick={this.logOut} className={classes.menuItem}>
 						<Lock className={classes.leftIcon} />{t('menus.user.signout')}
