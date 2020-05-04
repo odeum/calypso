@@ -117,9 +117,9 @@ const createprojectStyles = theme => ({
 		margin: theme.spacing.unit * 2
 	},
 	cursubinfobox: {
-		width: 300,
+		width: 230,
 		padding: 20,
-		backgroundColor: '#f7f8fa',
+		backgroundColor: '#f7f8fa'
 	},
 	listPrice: {
 		color: '#4ab7a4',

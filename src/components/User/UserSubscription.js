@@ -119,7 +119,7 @@ class UserSubscription extends Component {
 				<GridContainer>
 					<Paper className={classes.paper}>
 						<GridContainer>
-							<ItemGrid container xs={2}>
+							<ItemGrid container xs={12}>
 								<Card className={classes.cursubinfobox}>
 									<Typography variant="body1" style={{ fontSize: 16, marginBottom: 20 }}>
 										{t('users.subscription.cursubtext')}
@@ -143,8 +143,6 @@ class UserSubscription extends Component {
 										</Select>
 									</FormControl>
 								</Card>
-							</ItemGrid>
-							<ItemGrid container xs={10}>
 							</ItemGrid>
 						</GridContainer>
 						<GridContainer>
