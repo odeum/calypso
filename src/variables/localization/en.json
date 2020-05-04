@@ -180,7 +180,8 @@
 			"profile": "My profile",
 			"signout": "Sign out"
 		},
-		"userResendEmail": "Resend Confirm Email"
+		"userResendEmail": "Resend Confirm Email",
+		"subscription": "Subscription"
 	},
 	"orgs": {
 		"create": "Create",

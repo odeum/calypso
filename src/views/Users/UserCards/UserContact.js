@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { InfoCard, ItemG, Caption, Info } from 'components';
 import { Hidden } from '@material-ui/core';
 import { pF, dateFormatter } from 'variables/functions';
-import { Person, Edit, Delete, LockOpen, Email, Star, StarBorder, PersonAdd } from 'variables/icons'
+import { Person, Edit, Delete, LockOpen, Email, Star, StarBorder, PersonAdd, CreditCard } from 'variables/icons'
 import { Link } from 'react-router-dom'
 import Gravatar from 'react-gravatar'
 import { connect } from 'react-redux'
@@ -53,14 +53,42 @@ class UserContact extends Component {
 			dontShow = true
 		return dontShow
 	}
+	hasSubscriptionPrivs = () => {
+		const { accessLevel, user } = this.props;
+		let hasNoPrivs = true;
+		if ((accessLevel.apisuperuser) || (accessLevel.apiorg.editusers && !user.privileges.apisuperuser)) {
+			hasNoPrivs = false;
+		}
+		return hasNoPrivs;
+	}
+	hasConfirmPrivs = () => {
+		const { accessLevel, user } = this.props;
+		let hasNoPrivs = true;
+		if ((accessLevel.apisuperuser) || (accessLevel.apiorg.editusers && !user.privileges.apisuperuser)) {
+			hasNoPrivs = false;
+		}
+		return hasNoPrivs;
+	}
 	renderTopAction = () => {
 		const { t, classes, user, history, isFav, addToFav, removeFromFav } = this.props
 		return <Dropdown menuItems={
 			[
 				{ label: t('menus.edit'), icon: <Edit className={classes.leftIcon} />, func: () => history.push({ pathname: `${this.props.match.url}/edit`, prevURL: `/management/user/${user.id}` }) },
+				{
+					label: t('menus.subscription'),
+					icon: <CreditCard className={classes.leftIcon} />,
+					func: () => history.push({ pathname: `${this.props.match.url}/subscription`, prevURL: `/management/user/${user.id}` }),
+					dontShow: this.hasSubscriptionPrivs()
+				},
 				{ label: t('menus.changePassword'), icon: <LockOpen className={classes.leftIcon} />, func: this.props.changePass },
 				{ label: t('menus.userResendEmail'), icon: <Email className={classes.leftIcon} />, func: this.props.resendConfirmEmail, dontShow: user.suspended !== 2 },
-				{ label: t('menus.confirmUser'), icon: <PersonAdd className={classes.leftIcon} />, func: this.props.confirmUser, /* dontShow: user.suspended !== 3*/ },
+				{
+					label: t('menus.confirmUser'),
+					icon: <PersonAdd className={classes.leftIcon} />,
+					func: this.props.confirmUser,
+					dontShow: this.hasConfirmPrivs()
+					/* dontShow: user.suspended !== 3*/
+				},
 				{ label: isFav ? t('menus.favorites.remove') : t('menus.favorites.add'), icon: isFav ? <Star className={classes.leftIcon} /> : <StarBorder className={classes.leftIcon} />, func: isFav ? removeFromFav : addToFav },
 				{
 					label: t('menus.delete'),

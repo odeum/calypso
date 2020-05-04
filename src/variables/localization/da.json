@@ -180,7 +180,8 @@
 			"profile": "Min profil",
 			"signout": "Log ud"
 		},
-		"userResendEmail": "Send bekræft e-mail igen"
+		"userResendEmail": "Send bekræft e-mail igen",
+		"subscription": "Abonnement"
 	},
 	"orgs": {
 		"create": "Opret",
