@@ -15,6 +15,8 @@ import Gravatar from 'react-gravatar'
 import TP from 'components/Table/TP';
 import { isFav, addToFav, removeFromFav, finishedSaving } from 'redux/favorites';
 import withSnackbar from 'components/Localization/S';
+import { getUser } from 'variables/dataUsers';
+import cookie from 'react-cookies';
 var moment = require('moment')
 
 class UserTable extends React.Component {
@@ -24,7 +26,32 @@ class UserTable extends React.Component {
 		this.state = {
 			data: [],
 			page: 0,
-			openDelete: false
+			openDelete: false,
+			doRender: false
+		}
+	}
+
+	componentWillMount = async () => {
+		let session = cookie.load('SESSION');
+
+		let user = await getUser(session.userID).then(rs => {
+			if (rs === null)
+				this.props.history.push({
+					pathname: '/404',
+					prevURL: window.location.pathname
+				});
+			return rs;
+		});
+
+		if (user && user.org && user.org.id === 137180100000113) {
+			this.props.history.push({
+				pathname: '/management/user/' + session.userID,
+				prevURL: window.location.pathname
+			});
+		} else {
+			this.props.setHeader('orgs.pageTitle', false, '', 'users')
+
+			this.setState({ doRender: true });
 		}
 	}
 
@@ -58,95 +85,99 @@ class UserTable extends React.Component {
 
 	render() {
 		const { selected, rowsPerPage, order, orderBy, data, classes, t } = this.props
-		const { page } = this.state
+		const { page, doRender } = this.state
 		let emptyRows;
 		if (data)
 			emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage)
 		return (
 			<Fragment>
-				<div className={classes.tableWrapper}>
-					<Table className={classes.table} aria-labelledby='tableTitle'>
-						<TableHeader
-							numSelected={selected.length}
-							order={order}
-							orderBy={orderBy}
-							onSelectAllClick={this.props.handleSelectAllClick}
-							onRequestSort={this.handleRequestSort}
-							rowCount={data ? data.length : 0}
-							columnData={this.props.tableHead}
-							t={t}
+				{doRender ?
+					<>
+						<div className={classes.tableWrapper}>
+							<Table className={classes.table} aria-labelledby='tableTitle'>
+								<TableHeader
+									numSelected={selected.length}
+									order={order}
+									orderBy={orderBy}
+									onSelectAllClick={this.props.handleSelectAllClick}
+									onRequestSort={this.handleRequestSort}
+									rowCount={data ? data.length : 0}
+									columnData={this.props.tableHead}
+									t={t}
+									classes={classes}
+									customColumn={[{
+										id: 'avatar', label: <div style={{ width: 40 }} />
+									}, {
+										id: 'firstName', label: <Typography paragraph classes={{ root: classes.paragraphCell + ' ' + classes.headerCell }}>Users</Typography>
+									}]}
+								/>
+								<TableBody>
+									{data ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(n => {
+										const isSelected = this.isSelected(n.id);
+										const lastLoggedIn = moment(n.lastLoggedIn).isValid() ? dateFormat(n.lastLoggedIn) : t('users.fields.neverLoggedIn')
+										return (
+											<TableRow
+												hover
+												onClick={e => { e.stopPropagation(); this.props.history.push('/management/user/' + n.id) }}
+												role='checkbox'
+												aria-checked={isSelected}
+												tabIndex={-1}
+												key={n.id}
+												selected={isSelected}
+												style={{ cursor: 'pointer' }}
+											>
+												<Hidden lgUp>
+													<TC checkbox content={<Checkbox checked={isSelected} onClick={e => this.props.handleCheckboxClick(e, n.id)} />} />
+													<TC checkbox content={n.img ? <img src={n.img} alt='brken' className={classes.img} /> : <Gravatar default='mp' email={n.email} className={classes.img} />} />
+
+													<TC content={
+														<ItemGrid container zeroMargin noPadding alignItems={'center'}>
+															<ItemGrid zeroMargin noPadding zeroMinWidth xs={12}>
+																<Info noWrap paragraphCell={classes.noMargin}>
+																	{`${n.firstName} ${n.lastName}`}
+																</Info>
+															</ItemGrid>
+															<ItemGrid zeroMargin noPadding zeroMinWidth xs={12}>
+																<Caption noWrap className={classes.noMargin}>
+																	{`${n.org ? n.org.name : t('users.fields.noOrg')} - ${n.email}`}
+																</Caption>
+															</ItemGrid>
+														</ItemGrid>
+													} />
+												</Hidden>
+												<Hidden mdDown>
+													<TC checkbox content={<Checkbox checked={isSelected} onClick={e => this.props.handleCheckboxClick(e, n.id)} />} />
+													<TC checkbox content={n.img ? <img src={n.img} alt='brken' className={classes.img} /> : <Gravatar default='mp' email={n.email} className={classes.img} />} />
+													<TC FirstC label={`${n.firstName} ${n.lastName}`} />
+													<TC label={<a onClick={e => e.stopPropagation()} href={`tel:${n.phone}`}>{n.phone ? pF(n.phone, this.props.language) : n.phone}</a>} />
+													<TC label={<a onClick={e => e.stopPropagation()} href={`mailto:${n.email}`}>{n.email}</a>} />
+													<TC label={n.org ? n.org.name : t('users.noOrg')} />
+													<TC label={n.group} />
+													<TC label={n.suspendedS} />
+													<TC label={lastLoggedIn} />
+												</Hidden>
+											</TableRow>
+
+										)
+									}) : null}
+									{emptyRows > 0 && (
+										<TableRow style={{ height: 49 }}>
+											<TableCell colSpan={9} />
+										</TableRow>
+									)}
+								</TableBody>
+							</Table>
+						</div>
+						<TP
+							count={data ? data.length : 0}
 							classes={classes}
-							customColumn={[{
-								id: 'avatar', label: <div style={{ width: 40 }} />
-							}, {
-								id: 'firstName', label: <Typography paragraph classes={{ root: classes.paragraphCell + ' ' + classes.headerCell }}>Users</Typography>
-							}]}
+							rowsPerPage={rowsPerPage}
+							page={page}
+							t={t}
+							handleChangePage={this.handleChangePage}
 						/>
-						<TableBody>
-							{data ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(n => {
-								const isSelected = this.isSelected(n.id);
-								const lastLoggedIn = moment(n.lastLoggedIn).isValid() ? dateFormat(n.lastLoggedIn) : t('users.fields.neverLoggedIn')
-								return (
-									<TableRow
-										hover
-										onClick={e => { e.stopPropagation(); this.props.history.push('/management/user/' + n.id) }}
-										role='checkbox'
-										aria-checked={isSelected}
-										tabIndex={-1}
-										key={n.id}
-										selected={isSelected}
-										style={{ cursor: 'pointer' }}
-									>
-										<Hidden lgUp>
-											<TC checkbox content={<Checkbox checked={isSelected} onClick={e => this.props.handleCheckboxClick(e, n.id)} />} />
-											<TC checkbox content={n.img ? <img src={n.img} alt='brken' className={classes.img} /> : <Gravatar default='mp' email={n.email} className={classes.img} />} />
-
-											<TC content={
-												<ItemGrid container zeroMargin noPadding alignItems={'center'}>
-													<ItemGrid zeroMargin noPadding zeroMinWidth xs={12}>
-														<Info noWrap paragraphCell={classes.noMargin}>
-															{`${n.firstName} ${n.lastName}`}
-														</Info>
-													</ItemGrid>
-													<ItemGrid zeroMargin noPadding zeroMinWidth xs={12}>
-														<Caption noWrap className={classes.noMargin}>
-															{`${n.org ? n.org.name : t('users.fields.noOrg')} - ${n.email}`}
-														</Caption>
-													</ItemGrid>
-												</ItemGrid>
-											} />
-										</Hidden>
-										<Hidden mdDown>
-											<TC checkbox content={<Checkbox checked={isSelected} onClick={e => this.props.handleCheckboxClick(e, n.id)} />} />
-											<TC checkbox content={n.img ? <img src={n.img} alt='brken' className={classes.img} /> : <Gravatar default='mp' email={n.email} className={classes.img} />} />
-											<TC FirstC label={`${n.firstName} ${n.lastName}`} />
-											<TC label={<a onClick={e => e.stopPropagation()} href={`tel:${n.phone}`}>{n.phone ? pF(n.phone, this.props.language) : n.phone}</a>} />
-											<TC label={<a onClick={e => e.stopPropagation()} href={`mailto:${n.email}`}>{n.email}</a>} />
-											<TC label={n.org ? n.org.name : t('users.noOrg')} />
-											<TC label={n.group} />
-											<TC label={n.suspendedS} />
-											<TC label={lastLoggedIn} />
-										</Hidden>
-									</TableRow>
-
-								)
-							}) : null}
-							{emptyRows > 0 && (
-								<TableRow style={{ height: 49 }}>
-									<TableCell colSpan={9} />
-								</TableRow>
-							)}
-						</TableBody>
-					</Table>
-				</div>
-				<TP
-					count={data ? data.length : 0}
-					classes={classes}
-					rowsPerPage={rowsPerPage}
-					page={page}
-					t={t}
-					handleChangePage={this.handleChangePage}
-				/>
+					</>
+				: "" }
 			</Fragment>
 		)
 	}

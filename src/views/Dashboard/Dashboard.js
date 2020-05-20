@@ -12,6 +12,8 @@ import { Link } from 'react-router-dom';
 // import MediaCard from 'components/Cards/MediaCard.js';
 import Org from 'views/Orgs/Org';
 // const Skycons = require('skycons')(window)
+import { getUser } from 'variables/dataUsers';
+import cookie from 'react-cookies';
 
 class Dashboard extends React.Component {
 	constructor(props) {
@@ -20,9 +22,32 @@ class Dashboard extends React.Component {
 		this.state = {
 			value: 0,
 			projects: [],
-			devices: 0
+			devices: 0,
+			doRender: false
 		}
 		props.setHeader('Calypso', false, '', 'dashboard')
+	}
+
+	componentWillMount = async () => {
+		let session = cookie.load('SESSION');
+
+		let user = await getUser(session.userID).then(rs => {
+			if (rs === null)
+				this.props.history.push({
+					pathname: '/404',
+					prevURL: window.location.pathname
+				});
+			return rs;
+		});
+
+		if (user && user.org && user.org.id === 137180100000113) {
+			this.props.history.push({
+				pathname: '/management/user/' + session.userID,
+				prevURL: window.location.pathname
+			});
+		} else {
+			this.setState({ doRender: true });
+		}
 	}
 
 	componentWillUnmount = () => {
@@ -47,7 +72,9 @@ class Dashboard extends React.Component {
 
 		return (
 			<Fragment>
-				<Org t={t} location={location} history={history} setHeader={setHeader} match={match} />
+				{this.state.doRender ?
+					<Org t={t} location={location} history={history} setHeader={setHeader} match={match} />
+					: ""}
 			</Fragment>
 		)
 	}

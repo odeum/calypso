@@ -9,12 +9,15 @@ import { handleRequestSort } from 'variables/functions'
 import { deleteOrg } from 'variables/dataOrgs';
 import TableToolbar from 'components/Table/TableToolbar';
 import { customFilterItems } from 'variables/Filters';
+import { getUser } from 'variables/dataUsers';
+import cookie from 'react-cookies';
 
 class Orgs extends Component {
 	constructor(props) {
 		super(props)
 
 		this.state = {
+			doRender: false,
 			orgs: [],
 			selected: [],
 			openDelete: false,
@@ -26,8 +29,33 @@ class Orgs extends Component {
 				keyword: '',
 			}
 		}
-		props.setHeader('orgs.pageTitle', false, '', 'users')
 	}
+
+
+	componentWillMount = async () => {
+		let session = cookie.load('SESSION');
+
+		let user = await getUser(session.userID).then(rs => {
+			if (rs === null)
+				this.props.history.push({
+					pathname: '/404',
+					prevURL: window.location.pathname
+				});
+			return rs;
+		});
+
+		if (user && user.org && user.org.id === 137180100000113) {
+			this.props.history.push({
+				pathname: '/management/user/' + session.userID,
+				prevURL: window.location.pathname
+			});
+		} else {
+			this.props.setHeader('orgs.pageTitle', false, '', 'users')
+
+			this.setState({ doRender: true });
+		}
+	}
+
 	reload = async () => {
 		this.setState({ loading: true })
 		await this.props.reload()
@@ -306,7 +334,7 @@ class Orgs extends Component {
 	render() {
 		return (
 			<Fragment>
-				{this.renderOrgs()}
+				{this.state.doRender ? this.renderOrgs() : ""}
 			</Fragment>
 		)
 	}

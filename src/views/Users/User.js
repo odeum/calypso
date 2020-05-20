@@ -90,7 +90,8 @@ class User extends Component {
 						history.push('/404')
 					else {
 						let prevURL = location.prevURL ? location.prevURL : '/management/users'
-						setHeader("users.user", true, prevURL, 'users')
+						let showBackButton = (rs.org && rs.org.id === 137180100000113) ? false : true;
+						setHeader("users.user", showBackButton, prevURL, 'users')
 
 						let license = await getCurrentLicense(rs.id);
 
