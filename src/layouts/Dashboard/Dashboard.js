@@ -76,14 +76,17 @@ class App extends React.Component {
 		}
 
 		let session = cookie.load('SESSION');
-		let user = await getUser(session.userID).then(rs => {
-			if (rs === null)
-				this.props.history.push({
-					pathname: '/404',
-					prevURL: window.location.pathname
-				});
-			return rs;
-		});
+		let user = null;
+		if (session && typeof session !== 'undefined') {
+			user = await getUser(session.userID).then(rs => {
+				if (rs === null)
+					this.props.history.push({
+						pathname: '/404',
+						prevURL: window.location.pathname
+					});
+				return rs;
+			});
+		}
 
 		if (user && user.org && user.org.id === 137180100000113) {
 			// this.props.history.push({
