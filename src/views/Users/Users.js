@@ -378,7 +378,7 @@ class Users extends Component {
 	}
 
 	renderUsers = () => {
-		const { t, classes } = this.props
+		const { t, classes, setHeader } = this.props
 		const { loading, selected, order, orderBy, filters, users } = this.state
 		return <GridContainer justify={'center'}>
 			{loading ? <CircularLoader /> : <Paper className={classes.root}>
@@ -399,6 +399,7 @@ class Users extends Component {
 					data={this.filterItems(users)}
 					selected={selected}
 					tableHead={this.userHeader()}
+					setHeader={setHeader}
 					handleSelectAllClick={this.handleSelectAllClick}
 					handleRequestSort={this.handleRequestSort}
 					handleDeleteUsers={this.handleDeleteUsers}
