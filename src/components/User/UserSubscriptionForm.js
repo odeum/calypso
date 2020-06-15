@@ -145,10 +145,10 @@ class UserSubscriptionForm extends Component {
 		let status = 0;
 
 		if (this.props.createSubscription) {
-			status = await postSubscriptionChange(this.props.userId, 'premium');
+			status = await saveInvoiceData(this.props.userId, this.state.invoiceData);
 
 			if (status === 200) {
-				status = await saveInvoiceData(this.props.userId, this.state.invoiceData);
+				status = await postSubscriptionChange(this.props.userId, 'premium');
 			}
 		} else {
 			status = await saveInvoiceData(this.props.userId, this.state.invoiceData);
